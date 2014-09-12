@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-"""The second iteration of a ARSC determining python script. This will be applied to test subset of 
-genbank files from NCBI. It will determine the average ARSC for N, S, C, O and write it a text file.
+"""The second iteration of a ARSC determining python script. It will determine the average ARSC for N, S, C, O 
+and write it a text file.
 This text file will be used going to foward to avoid calculating the same values multiple times
 Further it will determine the ARSC for each protein in each genome, allowing for a future link
 wherey a single point on the average ARSC - GC plot can be selected and each protein can be 
