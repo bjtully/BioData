@@ -38,3 +38,30 @@ As such, a precalculated_avgARSC.txt and individual_protein_ARSC.txt has been pr
 python multiGenomeARSC_V2.py
 ```
 
+##Visualizing the Results
+visualizing_genomeavg.py will display a scatterplot of Avg ARSC plotted against %GC and corresponding linear regression for each element
+
+The input is the precalculated_avgARSC.txt file and the output is an HTML file with several functions, such as zooming and panning AND most importantly the ability to hover over single point and see the %GC values, Avg. ARSC values, the species name, and the NCBI Accession number.
+
+###Dependencies
+
+* [Bokeh](http://bokeh.pydata.org/docs/installation.html)
+
+* [Pandas, numpy, and pylab](http://www.scipy.org/install.html) through the SciPy package
+
+* [sklearn](http://scikit-learn.org/stable/install.html)
+
+* [patsy](https://patsy.readthedocs.org/en/latest/overview.html#installation)
+
+###Usage
+```
+python visualizing_genomeavg.py <FILE NAME | precalculated_avgARSC.txt> <Element of choice: nitrogen, carbon, sulfur, oxygen>
+```
+
+#Ongoing Project
+Things I would like to expand this project to include:
+* Is the correlation seen for carbon and oxygen meaningful?
+* Archaeal genomes
+* Bacterial and Archaeal draft genomes
+* The ability to take a single genome and transition to a visualization of the proteome of that genome
+* Use machine learning to determine outliers of interest within the proteome
