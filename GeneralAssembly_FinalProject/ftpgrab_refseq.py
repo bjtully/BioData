@@ -60,10 +60,10 @@ for name in genomic_fna_list:
 		download_list.append(name)
 
 #Connect to FTP
-from ftplib import FTP
-ftp = FTP('ftp.ncbi.nih.gov')
-ftp.login('anonymous', '%s' % str(sys.argv[1]))
-ftp.cwd("/refseq/release/%s" % str(sys.argv[2]).lower())
+#from ftplib import FTP
+#ftp = FTP('ftp.ncbi.nih.gov')
+#ftp.login('anonymous', '%s' % str(sys.argv[1]))
+#ftp.cwd("/refseq/release/%s" % str(sys.argv[2]).lower())
 
 #Download target files.
 for file_id in download_list:
