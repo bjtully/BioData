@@ -29,8 +29,9 @@ As such, a precalculated_avgARSC.txt and individual_protein_ARSC.txt has been pr
 
 ###Dependencies
 
-*[Biopython](http://biopython.org/wiki/Download)
-*[pylab](http://www.scipy.org/install.html) through the SciPy package
+* [Biopython](http://biopython.org/wiki/Download)
+
+* [pylab](http://www.scipy.org/install.html) through the SciPy package
 
 ###Usage
 ```
