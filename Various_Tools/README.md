@@ -1,7 +1,8 @@
 Various Bioinformatic Tools
 ===========================
 
-Tools that I have created to process bioinformatic data with potentially many purposes, not for a single project. If you are a member of the C-DEBI community, I can work with you to create generic scripts that process your data. 
+Tools that I have created to process bioinformatic data with uses beyond a single project. 
+If you are a member of the C-DEBI community, I can work with you to create generic scripts that process your data. 
 
 ##Full Genbank to Multiple FASTA
 
@@ -11,7 +12,7 @@ Generally, this is the type of file output by IMG when multiple genomes are in t
 
 The purpose of this script is to generate a FASTA file of the proteins for each genome in the GBK file.
 
-example.gbk contains a plasmid sequence in this format
+example.gbk contains an example sequence in this Genbank format.
 
 CAUTION: The protein features MUST CONTAIN either a locus tag or accession number
 
