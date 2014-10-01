@@ -18,7 +18,8 @@ By determining a core set of functions/genes for a group of related organisms, i
 1. Gather protein FASTA files of the desired group of related organisms - for simplicity, you may want to use only organisms with a single genomic scaffold or be sure to combine multiple scaffolds into a single file. Remove non-chromosomal scaffolds
 	a. One possible way to create appropriate protein FASTA file would be to use FullGenbank_to_MultipleFASTA.py provided in this git
 2. Run each protein FASTA against the TIGRFAM 14.0 database using HMMER3
-```hmmscan -o <name>.out --cpu <#> --noali -E 0.00001 --tblout <name>.tbl /location/of/TIGRFAMs_14.0_HMM.LIB <input PROTEIN FAA>
+```
+hmmscan -o <name>.out --cpu <#> --noali -E 0.00001 --tblout <name>.tbl /location/of/TIGRFAMs_14.0_HMM.LIB <input PROTEIN FAA>
 ```
 3. HMM_tbl_parse.py will parse through the TBL output format of a HMMER3 comparison between TIGRFAM and proteome of multiple genomes. The output will be a list of TIGRFAMs that represent the 'core' genome of the group and their representative counts.
 	a. Be sure to execute HMM_tbl_parse.py in a directory with TBL output(s)
