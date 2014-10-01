@@ -22,7 +22,7 @@ a. One possible way to create appropriate protein FASTA file would be to use Ful
 hmmscan -o <name>.out --cpu <#> --noali -E 0.00001 --tblout <name>.tbl /location/of/TIGRFAMs_14.0_HMM.LIB <input PROTEIN FAA>
 ```
 * HMM_tbl_parse.py will parse through the TBL output format of a HMMER3 comparison between TIGRFAM and proteome of multiple genomes. The output will be a list of TIGRFAMs that represent the 'core' genome of the group and their representative counts.
-a. Be sure to execute HMM_tbl_parse.py in a directory with TBL output(s)
+	* Be sure to execute HMM_tbl_parse.py in a directory with TBL output(s)
 ```
 python HMM_tbl_parse.py
 ```
@@ -32,15 +32,15 @@ python HMM_tbl_parse.py
 python HMM_percent_complete.py coregenome_tigrfam.txt <target>.tbl
 ```
 * ConservedSingleCopyGenes.py will take a set of protein FASTA files and perform iterative BLASTP searches to determine the conserved single copy genes of a group.
-a. The % amino acid cutoff is user determined, but the % sequence alignment is fixed at 80%
-b. This must be executed in a folder with the target protein FASTA files in the format *.protein.faa
-c. A single FASTA file will be produced called singlecopygenes.faa
-d. It is recommended to determine which genome represent the "most central" genome of the group of interest. This can be be done by creating a phylogenetic tree using a marker gene from each genome.
+	* The % amino acid cutoff is user determined, but the % sequence alignment is fixed at 80%
+	* This must be executed in a folder with the target protein FASTA files in the format *.protein.faa
+	* A single FASTA file will be produced called singlecopygenes.faa
+	* It is recommended to determine which genome represent the "most central" genome of the group of interest. This can be be done by creating a phylogenetic tree using a marker gene from each genome.
 ```
 python ConservedSingleCopyGenes.py <phylogenetically central genome>.faa <percent AAID cutoff>
 ```
 * Estimate_Percent_Duplication.py uses singlecopygenes.faa generated using ConservedSingleCopyGenes.py to determine the % duplication of a new genome.
-a. Especially if the duplication is low, manual inspection will likely reveal that some or
+	* Especially if the duplication is low, manual inspection will likely reveal that some or
 all of the duplicate genes can be explained as the result of assembly errors/duplications.
 ```
 python Estimate_Percent_Duplication.py <CSCGs | singlecopygenes.faa> <target genome>.faa
