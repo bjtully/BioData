@@ -10,7 +10,7 @@ By determining a core set of functions/genes for a group of related organisms, i
 
 * [HMMER3](http://hmmer.janelia.org/)
 
-* [TIGRFAM](ftp://ftp.jcvi.org/pub/data/TIGRFAMs/) database - Version 14.0
+* TIGRFAM database - Version 14.0 ftp://ftp.jcvi.org/pub/data/TIGRFAMs/
 
 * [BLAST+](http://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download)
 
