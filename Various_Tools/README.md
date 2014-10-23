@@ -50,5 +50,5 @@ CAUTION: All of the sequences are read into memory, so for large datasets plan a
 ###Usage
 ```
 python FASTA_subsample.py <input FASTA> <list of increasing desired subsample cutoffs>
-EX. python FASTA_subsample.py test.fasta 100 200 400 800 
+EX. python FASTA_subsample.py test.fasta 100 200 400 800
 ```
