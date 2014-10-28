@@ -114,7 +114,7 @@ if os.path.isfile("singlecopygenes.faa") == False:
 #once singlecopygenes.faa is created
 if os.path.isfile("singlecopygenes.faa") == True:
 	#process through each genome in the genome list
-	for x in range(1,len(proteome_list)):
+	for x in range(0,len(proteome_list)):
 		current_genome = proteome_list[x]
 		#current number of the genome is the current index+1
 		current_number = x+1
