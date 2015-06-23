@@ -23,6 +23,8 @@ data_dict = {}
 for record in SeqIO.parse(in_genbank, "genbank"):
 	#Organism descript must be in the format ORGANISM NAME: ACCESSION NUMBER
 	descp = record.description.split(":")[0]
+	if "plasmid" in descp:
+		continue
 	seq_id = record.id
 	#initial the dictionary. each k = organism accession number, v = a list with organism name at [0], and multiple dictionaries
 	#of the putative CDS data at [1] to len(data_dict[seq_id])
@@ -32,7 +34,10 @@ for record in SeqIO.parse(in_genbank, "genbank"):
 		if feature.type == "CDS":
 			protein_dict = {}
 			product_name = feature.qualifiers['product'][0]
-			protein_seq = feature.qualifiers['translation'][0]
+			try:
+				protein_seq = feature.qualifiers['translation'][0]
+			except KeyError:
+				continue
 			#check to see if the genbank entry contains the protein accession ID
 			if 'protein_id' in feature.qualifiers.keys():
 				protein_id = feature.qualifiers['protein_id'][0]
@@ -45,7 +50,7 @@ for record in SeqIO.parse(in_genbank, "genbank"):
 				protein_dict[locus_tag] = [product_name, protein_seq]
 				#adds the entire putative CDS to the position in the list stored for each organism in data_dict
 				data_dict[seq_id].append(protein_dict)
-			
+file_names = []			
 #parse through each accession number in data_dict
 for k in data_dict:
 	#list contain the data for each genome
@@ -54,8 +59,17 @@ for k in data_dict:
 	source_name = genome[0]
 	#removes spaces in the organism name to create a filehandle name
 	file_title = source_name.replace(" ", "")
+	file_title = file_title.replace(",", "")
+	file_title = file_title.replace(".", "")
 	#creates a file for the organism using the name stored in description without spaces
-	output = open("%s.protein.faa" % file_title, "w")
+	if file_title in file_names:
+		output = open("%s.protein.faa" % file_title, "a")
+	else:
+		try:
+			output = open("%s.protein.faa" % file_title, "w")
+			file_names.append(file_title)	
+		except IOError:
+			continue
 	#skips the organism name in position [0]. genome is a list of dictionaries. at each position starting at [1] until the
 	#the length of the list
 	for x in range(1,len(genome)):
