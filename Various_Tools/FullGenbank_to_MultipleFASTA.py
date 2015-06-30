@@ -9,6 +9,7 @@ Usage: python FullGenbank_to_MultipleFASTA.py <genbank.gbk>
 """
 
 import sys
+import string
 from Bio import SeqIO
 
 try:
@@ -59,8 +60,9 @@ for k in data_dict:
 	source_name = genome[0]
 	#removes spaces in the organism name to create a filehandle name
 	file_title = source_name.replace(" ", "")
-	file_title = file_title.replace(",", "")
-	file_title = file_title.replace(".", "")
+	#Create a subset of all punctuation and use that to remove from organism names
+	exclude = set(string.punctuation)
+	file_title = ''.join(ch for ch in file_title if ch not in exclude)
 	#creates a file for the organism using the name stored in description without spaces
 	if file_title in file_names:
 		output = open("%s.protein.faa" % file_title, "a")
