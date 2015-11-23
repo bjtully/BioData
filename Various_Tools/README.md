@@ -52,3 +52,25 @@ CAUTION: All of the sequences are read into memory, so for large datasets plan a
 python FASTA_subsample.py <input FASTA> <list of increasing desired subsample cutoffs>
 EX. python FASTA_subsample.py test.fasta 100 200 400 800
 ```
+
+
+##Convert the output table of Meta-RNA to a FASTQ file of 16S Fragments
+
+Script designed to process a input FASTQ and identify and trim sequences based on the output of Meta-RNA. Produces a FASTQ file of trimmed, matching sequences.
+
+*Tested only to work with the “old” Meta-RNA scripts
+
+*Does not account for paired-end reads - if only one read is identified by Meta-RNA as a 16S fragment, it is the only sequence included
+
+###Dependencies
+
+* [Biopython](http://biopython.org/wiki/Download)
+
+###Usage
+```
+python MetaRNA_to_FastQ.py -r <output table from Meta-RNA using HMM3 libraries> -q <FASTQ file(s) searched by Meta-RNA> -o <prefix for output>
+EX. python MetaRNA_to_FastQ.py -r OUTFILE_NAME.001_predictedRNAs -q INFILE_NAME.R2.001_paired.fastq -o OUTFILE_PREFIX2.001
+-r = Meta-RNA table output
+-q = original FASTQ file searched by Meta-RNA
+-o = a prefix for the outfile, the final file will have '.metagenome16S.fastq' as the suffix
+```
