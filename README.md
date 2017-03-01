@@ -3,6 +3,11 @@ BioData
 
 All of my various bioinformatic scripts fit for public consumption (loosely defining "fit")
 
+KEGG-decoder Script
+===================
+Script used to parse KEGG KOALA outputs and generate a function heat map
+
+
 Determining Percent Completeness and Duplication for New Genomes
 ================================================================
 This method was used in “Comparative genomics of planktonic Flavobacteriaceae from the Gulf of Maine using metagenomic data” (Tully et al 2014, Microbiome).
