@@ -38,6 +38,6 @@ NORP9_2	K00371
 ```
 python KEGG-decoder.py <INPUT KOALA FILE> <OUTPUT LIST>
 ```
-* The <OUTPUT LIST> generates a text version of the heat map. The first row contains pathway/process names, subsequent rows contain submitted groups/genomes and fractional percentage of pathway/process
+* The OUTPUT LIST generates a text version of the heat map. The first row contains pathway/process names, subsequent rows contain submitted groups/genomes and fractional percentage of pathway/process
 
 * Figure is output as function_heatmap.svg. Each distinct identifier before the underscore in the FASTA file will have a row
