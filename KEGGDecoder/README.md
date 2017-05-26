@@ -1,5 +1,9 @@
 KEGG-Decoder
 ================================================================
+###Update to V0.3
+Latest version adds checks for: retinal biosynthesis, sulfite dehydrogenase (quinone), hydrazine dehydrogenase, hydrazine synthase, DMSP/DMS/DMSO cycling, cobalamin biosynthesis, competence-related DNA transport, anaplerotic reactions
+
+###Description
 Designed to parse through a blastKoala or ghostKoala output to determine the completeness of various KEGG pathways.
 
 This script was constructed using the canonical pathways described as part of KEGG Pathway Maps. There is no additional information provided — if you are interested in certain pathway and the genes are listed in KEGG it is possible to add it to file (with some Python scripting)
@@ -41,3 +45,43 @@ python KEGG-decoder.py <INPUT KOALA FILE> <OUTPUT LIST>
 * The OUTPUT LIST generates a text version of the heat map. The first row contains pathway/process names, subsequent rows contain submitted groups/genomes and fractional percentage of pathway/process
 
 * Figure is output as function_heatmap.svg. Each distinct identifier before the underscore in the FASTA file will have a row
+
+KEGG-Expander
+================================================================
+###Description
+Designed to expand on the output from KEGG-Decoder. Within KEGG there is a lack of information regarding several processes of interest. To overcome these shortcomings, a small targeted HMM database was created (and will be updated) to fill in gaps of information.
+
+HMM models are predominantly from the PFam database, but when necessary are pulled from TIGRfam and SFam.
+
+###Dependencies
+* [HMMER3] (http://www.hmmer.org/)
+
+###Additional Information
+* Details as to which HMM models and genes are in each described pathway or process can be found in the supporting document, Pfam_definitions.txt
+* In version 0.3, KEGG-Expander targets: phototrophy via proteorhodopsin, peptidases, alternative nitrogenases, ammonia transport, DMSP lyase, and DMSP synthase
+* Unfortunately, accuracy depends on the model used, using a bit score cutoff of 75 (approximately an E-value <10E-20) does not always capture the best matches. For example the rhodopsin model does not distinguish between proteorhodopsin and other light driven rhodopsins (we use a tree to determine the proteorhodopsins). Or several of the DMSP lyases at low bit scores will match metalloproteases; in this instance the script has been modified to look for a more stringent bit score (>500). Or the TIGRfam models for the Fe-only and Vanadium nitrogenases generally match the same protein. 
+
+##Prodecure
+* Using a protein FASTA file with the same gene name set-up as described above - GENOMEID_Number - run a search against the custom HMM database
+```
+hmmsearch --tblout <NAME>_expanderv0.3.tbl -T 75 /path/to/BioData/KEGGDecoder/HMM_Models/expander_dbv0.3.hmm <INPUT FASTA FILE>
+```
+* The HMM results table is used to construct the heatmap by running KEGG-expander.py
+```
+python KEGG-expander.py <NAME>_expanderv0.3.tbl <OUTNAME>_hmm.list
+```
+* The OUTPUT LIST generates a text version of the heat map. The first row contains pathway/process names, subsequent rows contain submitted groups/genomes and fractional percentage of pathway/process
+
+* Figure is output as hmm_heatmap.svg. Each distinct identifier before the underscore in the FASTA file will have a row
+
+Decoder and Expand
+================================================================
+###Description
+Combines the KEGG and HMM heatmaps in to a final heat map. 
+
+###Procedure
+* Run the script Decoder_and_Expand.py
+```
+python Decode_and_Expand.py <NAME>_ko.list <NAME>_hmm.list
+```
+* Figure is output as decode-expand_heatmap.py. Each distinct identifier before the underscore in the FASTA file will have a row

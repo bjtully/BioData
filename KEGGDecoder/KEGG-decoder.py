@@ -1,7 +1,11 @@
 #!/usr/bin/python
 
 '''
-KEGG-decoder.py V.0.2
+KEGG-decoder.py V.0.3
+V.0.3. Adds retinal biosynthesis, sulfite dehydrogenase (quinone), 
+hydrazine dehydrogenase, hydrazine synthase, DMSP/DMS/DMSO cycling, 
+cobalamin biosynthesis, competence-related DNA transport, anaplerotic 
+reactions
 Usage: python KEGG-decoder.py <KOALA INPUT> <FUNCTION LIST FORMAT>
 
 Designed to parse through a blastKoala or ghostKoala output to determine
@@ -33,7 +37,8 @@ def nitrogen(ko_match):
 	out_data = {'dissim nitrate reduction': 0, 'nitrite oxidation': 0,
 	'DNRA': 0, 'nitrite reduction': 0, 'nitric oxide reduction' : 0,
 	'nitrous-oxide reduction': 0, 'nitrogen fixation' : 0, 
-	'hydroxylamine oxidation' :0, 'ammonia oxidation': 0}
+	'hydroxylamine oxidation' :0, 'ammonia oxidation': 0,
+	'hydrazine dehydrogenase': 0, 'hydrazine synthase': 0}
 #narGH
 	if ('K00370' in ko_match and 'K00371' in ko_match):
 		out_data['dissim nitrate reduction'] = 1
@@ -82,6 +87,13 @@ def nitrogen(ko_match):
 #amoC
 		if ('K10946' in ko_match):
 			out_data['ammonia oxidation'] += 0.33
+	if ('K20935' in ko_match):
+		out_data['hydrazine dehydrogenase'] = 1
+	hydrazine_synth = ['K20932', 'K20933', 'K20934']
+	for i in hydrazine_synth:
+		if i in ko_match:
+			out_data['hydrazine synthase'] += 0.33
+
 	return out_data
 
 def glycolysis(ko_match):
@@ -416,10 +428,11 @@ def sulfur(ko_match):
 	out_data = {'sulfur assimilation':0, 'dissimilatory sulfate < > APS':0,
 		'dissimilatory sulfite < > APS':0, 'dissimilatory sulfite < > sulfide':0,
 		'thiosulfate oxidation':0, 'alt thiosulfate oxidation doxAD':0, 
-		'alt thiosulfate oxidation tsdA':0, 'sulfur reductase sreABC':0,
+		'alt thiosulfate oxidation tsdA':0, 'thiosulfate disproportionation':0, 'sulfur reductase sreABC':0,
 		'thiosulfate/polysulfide reductase':0, 'sulfhydrogenase':0,
 		'sulfur disproportionation':0, 'sulfur dioxygenase':0, 'sulfite dehydrogenase':0,
-		'sulfide oxidation':0}
+		'sulfide oxidation':0, 'sulfite dehydrogenase (quinone)':0,
+		'DMSP demethylation': 0, 'DMS dehydrogenase': 0, 'DMSO reductase': 0}
 #sir; sulfite reductase (ferredoxin) [EC:1.8.7.1] OR
 #cysJ; sulfite reductase (NADPH) flavoprotein alpha-component [EC:1.8.1.2] + cysI; sulfite reductase (NADPH) hemoprotein beta-component [EC:1.8.1.2]
 	if ('K00392' in ko_match) or ('K00380' in ko_match and 'K00381' in ko_match):
@@ -489,6 +502,27 @@ def sulfur(ko_match):
 		out_data['sulfide oxidation'] = 1
 	value = out_data['thiosulfate oxidation']
 	out_data['thiosulfate oxidation'] = float("%.2f" % (value))
+#soeABC; sulfite dehydrogenase (quinone) 
+	soeABC = ['K21307', 'K21308', 'K21309']
+	for i in soeABC:
+		if i in ko_match:
+			out_data['sulfite dehydrogenase (quinone)'] += 0.33
+#DMSP lyase
+#	if ('K16953' in ko_match):
+#		out_data['DMSP lyase, dddL'] = 1
+#dmdA; dimethylsulfoniopropionate demethylase
+	if ('K17486' in ko_match):
+		out_data['DMSP demethylation'] = 1
+#ddhABC; dimethylsulfide dehydrogenase
+	dms_dh = ['K16964', 'K16965', 'K16966']
+	for i in dms_dh:
+		if i in ko_match:
+			out_data['DMS dehydrogenase'] += 0.33
+#dmsABC; anaerobic dimethyl sulfoxide reductase
+	dmso_red = ['K07306', 'K07307', 'K07308']
+	for i in dmso_red:
+		if i in ko_match:
+			out_data['DMSO reductase'] += 0.33
 	return out_data
 
 def methanogenesis(ko_match):
@@ -700,6 +734,41 @@ def thiamin(ko_match):
 	value = float(total)/float(11)
 	return {'thiamin biosynthesis': float("%.2f" % (value))}
 
+def cobalamin(ko_match):
+	total = 0
+#pduO; cob(I)alamin adenosyltransferase
+#cobA; cob(I)alamin adenosyltransferase
+	if ('K00798' in ko_match or 'K19221' in ko_match):
+		total += 1
+#cobQ; adenosylcobyric acid synthase
+	if ('K02232' in ko_match):
+		total += 1
+#cobC; cobalamin biosynthetic protein CobC
+	if ('K02225' in ko_match):
+		total += 1
+#cobD; adenosylcobinamide-phosphate synthase
+	if ('K02227' in ko_match):
+		total += 1
+#cobU; adenosylcobinamide kinase / adenosylcobinamide-phosphate guanylyltransferase
+	if ('K02231' in ko_match):
+		total += 1
+#cobY; adenosylcobinamide-phosphate guanylyltransferase
+	if ('K19712' in ko_match and 'K02231' not in ko_match):
+		total += 1
+#cobV; adenosylcobinamide-GDP ribazoletransferase
+	if ('K02233' in ko_match):
+		total += 1
+#cobC; alpha-ribazole phosphatase
+	if ('K02226' in ko_match):
+		total += 1
+#cobT; nicotinate-nucleotide--dimethylbenzimidazole phosphoribosyltransferase
+	if ('K00768' in ko_match):
+		total += 1
+	value = float(total)/float(8)
+	return {'cobalamin biosynthesis': float("%.2f" % (value))}
+
+
+
 def oxidative_phoshorylation(ko_match):
 	out_data ={'F-type ATPase':0, 'V-type ATPase':0, 'NADH-quinone oxidoreductase':0,
 	'NAD(P)H-quinone oxidoreductase':0, 'Cytochrome c oxidase, cbb3-type':0,
@@ -770,7 +839,7 @@ def oxidative_phoshorylation(ko_match):
 
 def photosynthesis(ko_match):
 	out_data = {'Photosystem II':0, 'Photosystem I':0, 'Cytochrome b6/f complex':0, 
-	"Anoxygenic photosynthesis":0}
+	"Anoxygenic photosynthesis":0, 'Retinal biosynthesis':0}
 	psII = ['K02703', 'K02706', 'K02705', 'K02704', 'K02707', 'K02708']
 #Photosystem II core complex
 	for i in psII:
@@ -794,6 +863,11 @@ def photosynthesis(ko_match):
 		out_data['Anoxygenic photosynthesis'] += 0.5
 	if ('K08929' in ko_match):
 		out_data['Anoxygenic photosynthesis'] += 0.5	
+	retinal = ['K06443', 'K02291', 'K10027', 'K13789']
+#Retinal biosynthesis
+	for i in retinal:
+		if i in ko_match:
+			out_data['Retinal biosynthesis'] += 0.25
 	return out_data	
 
 
@@ -960,6 +1034,46 @@ def biofilm(ko_match):
 		out_data['Adhesion'] = 1
 	return out_data
 
+def competence(ko_match):
+	out_data = {'Competence-related core components': 0,
+				'Competence-related related components': 0,
+				'Competence factors': 0}
+	comp_core = ['K02237', 'K01493', 'K02238', 'K02239', 'K02240', 'K02241',
+				'K02242', 'K02243', 'K02244', 'K02245', 'K02246', 'K02247',
+				'K02248', 'K02249']
+	for i in comp_core:
+		if i in ko_match:
+			out_data['Competence-related core components'] += 0.07
+	comp_related = ['K02250', 'K02251', 'K02252', 'K02253', 'K02254']
+	for i in comp_related:
+		if i in ko_match:
+			out_data['Competence-related related components'] += 0.2
+	comp_factors = ['K12292', 'K07680', 'K12293', 'K12415', 'K12294', 
+					'K12295', 'K12296']
+	for i in comp_factors:
+		if i in ko_match:
+			out_data['Competence factors'] += 0.14
+	return out_data
+
+def anaplerotic(ko_match):
+	out_data = {'Glyoxylate shunt':0, 'Anaplerotic genes': 0}
+#isocitrate lyase + malate synthase
+	if 'K01637' in ko_match and 'K01638' in ko_match:
+		out_data['Glyoxylate shunt'] = 1
+#malate dehydrogenase (oxaloacetate-decarboxylating) (NADP+)
+	if 'K00029' in ko_match:
+		out_data['Anaplerotic genes'] += 0.25
+#phosphoenolpyruvate carboxylase
+	if 'K01595' in ko_match:
+		out_data['Anaplerotic genes'] += 0.25
+#phosphoenolpyruvate carboxykinase (ATP) or (GTP) or (diphosphate)
+	if ('K01610' in ko_match) or ('K01596' in ko_match) or ('K20370' in ko_match):
+		out_data['Anaplerotic genes'] += 0.25
+#pyruvate carboxylase
+	if ('K01958' in ko_match) or ('K01959' in ko_match and 'K01960' in ko_match):
+		out_data['Anaplerotic genes'] += 0.25	
+	return out_data
+
 genome_data = {}
 
 for line in open(str(arg_dict['Input']), "r"):
@@ -988,16 +1102,19 @@ function_order = ['glycolysis', 'gluconeogenesis', 'TCA Cycle',
 'ammonia oxidation', 'hydroxylamine oxidation', 'nitrite oxidation', 
 'dissim nitrate reduction', 'DNRA', 'nitrite reduction', 
 'nitric oxide reduction', 'nitrous-oxide reduction', 
-'nitrogen fixation', 'dissimilatory sulfate < > APS', 
+'nitrogen fixation', 'hydrazine dehydrogenase', 'hydrazine synthase',
+'dissimilatory sulfate < > APS', 
 'dissimilatory sulfite < > APS', 'dissimilatory sulfite < > sulfide', 
 'thiosulfate oxidation', 'alt thiosulfate oxidation tsdA', 
 'alt thiosulfate oxidation doxAD', 'sulfur reductase sreABC', 
 'thiosulfate/polysulfide reductase', 'sulfhydrogenase', 
 'sulfur disproportionation', 'sulfur dioxygenase', 
-'sulfite dehydrogenase', 'sulfide oxidation', 'sulfur assimilation', 
+'sulfite dehydrogenase', 'sulfite dehydrogenase (quinone)',
+'sulfide oxidation', 'sulfur assimilation',
+'DMSP demethylation', 'DMS dehydrogenase', 'DMSO reductase',
 'NiFe hydrogenase', 'ferredoxin hydrogenase', 
 'membrane-bound hydrogenase', 'hydrogen:quinone oxidoreductase', 'NAD-reducing hydrogenase', 
-'NADP-reducing hydrogenase', 'thiamin biosynthesis', 
+'NADP-reducing hydrogenase', 'cobalamin biosynthesis', 'thiamin biosynthesis', 
 'riboflavin biosynthesis' , 'transporter: vitamin B12', 
 'transporter: thiamin', 'transporter: urea', 
 'transporter: phosphonate', 'transporter: phosphate', 
@@ -1009,7 +1126,8 @@ function_order = ['glycolysis', 'gluconeogenesis', 'TCA Cycle',
 'Coenzyme B/Coenzyme M regeneration', 
 'Coenzyme M reduction to methane', 'Soluble methane monooxygenase',
 'dimethylamine/trimethylamine dehydrogenase',
-'Photosystem II', 'Photosystem I', 'Cytochrome b6/f complex', 'Anoxygenic photosynthesis',
+'Photosystem II', 'Photosystem I', 'Cytochrome b6/f complex', 
+'Anoxygenic photosynthesis', 'Retinal biosynthesis',
 'Entner-Doudoroff Pathway', 'Mixed acid: Lactate', 'Mixed acid: Formate', 
 'Mixed acid: Formate to CO2 & H2', 'Mixed acid: Acetate',
 'Mixed acid: Ethanol, Acetate to Acetylaldehyde',
@@ -1020,7 +1138,9 @@ function_order = ['glycolysis', 'gluconeogenesis', 'TCA Cycle',
 'Biofilm PGA Synthesis protein',
 'Colanic acid and Biofilm transcriptional regulator',
 'Biofilm regulator BssS', 'Colanic acid and Biofilm protein A',
-'Curli fimbriae biosynthesis', 'Adhesion']
+'Curli fimbriae biosynthesis', 'Adhesion', 'Competence-related core components',
+'Competence-related related components', 'Competence factors',
+'Glyoxylate shunt', 'Anaplerotic genes']
 
 filehandle = str(arg_dict['Output'])
 out_file = open(filehandle, "w")
@@ -1054,6 +1174,9 @@ for k in genome_data:
 	pathway_data.update(mixedacid(genome_data[k]))
 	pathway_data.update(naphthalene(genome_data[k]))
 	pathway_data.update(biofilm(genome_data[k]))
+	pathway_data.update(cobalamin(genome_data[k]))
+	pathway_data.update(competence(genome_data[k]))
+	pathway_data.update(anaplerotic(genome_data[k]))
 #	print k, pathway_data
 
 	out_string = str(k)+"\t"

@@ -1,0 +1,47 @@
+V.0.1
+
+Phototrophy
+TIGR03753	beta-carotene 15,15'-monooxygenase, Brp/Blh family
+pf01036 rhodopsin
+
+Peptidase activity
+pf01364	Peptidase family C25
+pf04151	Bacterial pre-peptidase C-terminal domain
+pf03415	Clostripain family
+pf04389	Peptidase family M28
+pf02163	Peptidase family M50
+pf01546	Di- and tripeptidases
+pf02073	Leucyl aminopeptidase (aminopeptidase T)
+pf00557	Xaa-Pro aminopeptidase
+pf03413	Peptidase propeptide and YPEB domain
+pf01432	Oligoendopeptidase F
+pf00266	Phosphoserine aminotransferase
+pf01252	Lipoprotein signal peptidase
+pf01433	Aminopeptidase N
+pf00246	Zinc carboxypeptidase
+pf00717	Peptidase S24-like
+pf10502	Peptidase S26
+pf04951	D-aminopeptidase
+pf05299	M61 glycyl aminopeptidase
+
+Alternative nitrogenase
+TIGR01860	nitrogenase vanadium-iron protein, alpha chain vnfD
+TIGR01861	nitrogenase iron-iron protein, alpha chain anfD
+TIGR02931	Fe-only nitrogenase, beta subunit anfK [also potentially pf00148, Nitrogenase component 1 type Oxidoreductase]
+TIGR02932	V-containing nitrogenase, beta subunit vnfK
+TIGR02930	V-containing nitrogenase, delta subunit vnfG
+TIGR02929	Fe-only nitrogenase, delta subunit anfG
+pf03139	Vanadium/alternative nitrogenase delta subunit, targets vnfG (V) and anfG (Fe) alternatives
+
+Ammonia transporter
+pf00909 Ammonium Transporter Family (high-affinity ammonia transporter)
+
+DMSP Lyase
+PF16867		dddQ
+14591		dddP - requires a much more strigent bit score cutoff (recommend >500)
+25993		dddD - requires a much more strigent bit score cutoff (recommend >500)
+94923		dddK
+274874		dddW
+
+DMSP Synthase
+4254		dsyB - requires a more strigent bit score cutoff (recommend >260)

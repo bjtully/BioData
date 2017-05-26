@@ -1,4 +1,5 @@
-V.0.2
+V.0.3
+V.0.3. Adds retinal biosynthesis, sulfite dehydrogenase (quinone), hydrazine dehydrogenase, hydrazine synthase, DMSP/DMS/DMSO cycling, cobalamin biosynthesis, competence-related DNA transport, anaplerotic reactions
 Nitrogen metabolism
 	Dissimilatory nitrate reduction requires narGH K00370 + K00371 AND/OR napAB K02567 + K02568
 	Nitrite oxidation requires nxrAB K00370 + K00371
@@ -9,6 +10,10 @@ Nitrogen metabolism
 	Nitrogen fixation requires the nifKDH (K02586 + K02591 + K02588)
 	Nitrification by bacteria hydroxylamine to nitrite NH2OH > NO2 requires hao K10535
 	Nitrification ammonium to hydroxylamine NH4 > N2OH for detection, amoA (K10944) is essential and amoBC (K10945 + K10946) supports functional potential
+	Anammox requires hydroxylamine oxidoreductase (K10535) and nirK or nirS (K00368 or K15864)
+		hydrazine dehydrogenase K20935
+		hydrazine synthase (K20932 + K20933 + K20934)
+
 
 glycolysis as a pathway measured as a fraction of the following KOs: 
 		phosphoglucomutase K01835
@@ -192,7 +197,19 @@ Sulfur metabolism
 	K05301 sorB; sulfite dehydrogenase
 	Sulfide oxidation
 		K17218 sqr; sulfide:quinone oxidoreductase [EC:1.8.5.4]
-		K17229 fccB; sulfide dehydrogenase [flavocytochrome c] flavoprotein chain 
+		K17229 fccB; sulfide dehydrogenase [flavocytochrome c] flavoprotein chain
+	Sulfite dehydrogenase (quinone)
+		K21307 + K21308 + K21309 soeABC
+	DMSP demethylation
+		K17486 dmdA; dimethylsulfoniopropionate demethylase
+	DMS dehydrogenase
+		K16964 ddhA; dimethylsulfide dehydrogenase subunit alpha 
+		K16965 ddhB; dimethylsulfide dehydrogenase subunit beta
+		K16966 ddhC; dimethylsulfide dehydrogenase subunit gamma
+	DMSO reductase
+		K07306 dmsA; anaerobic dimethyl sulfoxide reductase subunit A
+		K07307 dmsB; anaerobic dimethyl sulfoxide reductase subunit B (DMSO reductase iron- sulfur subunit)
+		K07308 dmsC; anaerobic dimethyl sulfoxide reductase subunit C (DMSO reductase anchor subunit)
 
 Methanogenesis
 	Methanogenesis via methanol
@@ -264,6 +281,18 @@ Riboflavin biosynthesis
 		K00861 RFK; riboflavin kinase OR K20884 FHY; riboflavin kinase / FMN hydrolase OR K11753 ribF; riboflavin kinase / FMN adenylyltransferase
 		K14656 ribL; FAD synthetase OR K00953 FLAD1; FAD synthetase
 
+Cobalamin biosynthesis
+	K00798 pduO; cob(I)alamin adenosyltransferase OR K19221 cobA; cob(I)alamin adenosyltransferase
+	K02232 cobQ; adenosylcobyric acid synthase
+	K02225 cobC; cobalamin biosynthetic protein CobC
+	K02227 cobD; adenosylcobinamide-phosphate synthase
+	K02231 cobU; adenosylcobinamide kinase / adenosylcobinamide-phosphate guanylyltransferase
+	If cobU is present, this function in the biosynthesis process has already been counted:
+		K19712 cobY; adenosylcobinamide-phosphate guanylyltransferase
+	K02233 cobV; adenosylcobinamide-GDP ribazoletransferase
+	K02226 cobC; alpha-ribazole phosphatase
+	K00768 cobT; nicotinate-nucleotide--dimethylbenzimidazole phosphoribosyltransferase
+
 Oxidative phosphorylation (Nuo, ATPases)
 	F-type ATPase
 		K02111 + K02112 + K02115 + K02113 + K02114 + K02108 + K02109 + K02110 atpFBCHGDAE
@@ -304,6 +333,11 @@ Photosynthesis
 		K02635 + K02637 + K02634 + K02636 + K02642 + K02643 + K03689 + K02640
 	Anoxygenic photosynthesis
 		K08928 + K08929
+	Retinal biosynthesis (necessary for proteorhodopsin)
+		K06443 crtY; lycopene beta-cyclase
+		K02291 crtB; 15-cis-phytoene/all-trans-phytoene synthase 
+		K10027 crtI; phytoene desaturase 
+		K13789 crtE; geranylgeranyl diphosphate synthase, type II
 
 Entner-Doudoroff Pathway (to generate pyruvate, alt to glycolysis)
 	K00036 G6PD; glucose-6-phosphate 1-dehydrogenase
@@ -361,3 +395,46 @@ Biofilm formation
 	K13650 mcbA; MqsR-controlled colanic acid and biofilm protein A
 	K04335 + K04334 + K04336 csgABC; curli fimbriae biosynthesis
 	K12687 flu; antigen 43
+
+Competence-related DNA transporter 
+	Core components
+	K02237  comEA; competence protein ComEA
+	K01493  comEB; dCMP deaminase [EC:3.5.4.12]
+	K02238  comEC; competence protein ComEC
+	K02239  comER; competence protein ComER
+	K02240  comFA; competence protein ComFA
+	K02241  comFB; competence protein ComFB
+	K02242  comFC; competence protein ComFC
+	K02243  comGA; competence protein ComGA
+	K02244  comGB; competence protein ComGB
+	K02245  comGC; competence protein ComGC
+	K02246  comGD; competence protein ComGD
+	K02247  comGE; competence protein ComGE
+	K02248  comGF; competence protein ComGF
+	K02249  comGG; competence protein ComGG
+	Related components
+	K02250  comK; competence protein ComK
+	K02251  comQ; competence protein ComQ
+	K02252  comS; competence protein ComS
+	K02253  comX; competence protein ComX
+	K02254  comZ; competence protein ComZ
+	Additional competence factors
+	K12292	comA; ATP-binding cassette, subfamily C, bacterial, competence factor transporting protein [EC:3.4.22.-]
+	K07680	comP; two-component system, NarL family, sensor histidine kinase ComP [EC:2.7.13.3]
+	K12293	comB; competence factor transport accessory protein ComB
+	K12415	comC; competence-stimulating peptide
+	K12294	comD; two-component system, AgrA family, sensor histidine kinase ComD [EC:2.7.13.3]
+	K12295	comE; two-component system, AgrA family, response regulator ComE
+	K12296	comX1_2; competence protein ComX
+
+Anaplerotic Reactions
+	Glyoxylate shunt
+	Requires the presence of both isocitrate lyase and malate synthase
+	K01637	aceA; isocitrate lyase
+	K01638	aceB; malate synthase
+	Anaplerotic enzymes
+	All reactions are reversible. Organisms can have 0-4 of the pathways
+	K00029	maeB; malate dehydrogenase (oxaloacetate-decarboxylating) (NADP+) or 'malic' enzyme
+	K01958	pyruvate carboxylase OR K01959 pycA + K01960 pycB; pyruvate carboxylase subunits A + B
+	K01595	ppc; phosphoenolpyruvate carboxylase
+	K01610	pckA; phosphoenolpyruvate carboxykinase (ATP) OR K01596 pckA; phosphoenolpyruvate carboxykinase (GTP) OR K20370 PEPCK; phosphoenolpyruvate carboxykinase (diphosphate)
