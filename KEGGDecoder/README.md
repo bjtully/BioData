@@ -16,7 +16,7 @@ This script was constructed using the canonical pathways described as part of KE
 
 * [matplotlib](http://matplotlib.org/users/installing.html)
 
-##Additional Information##
+## Additional Information ##
 * Details as to which KEGG KO ids and genes are in each described pathway or process can be found in the supporting document, KOALA_definitions.txt
 
 ## Procedure ##
