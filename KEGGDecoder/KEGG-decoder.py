@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
 '''
-KEGG-decoder.py V.0.3
+KEGG-decoder.py V.0.4
+V.0.4
+
 V.0.3. Adds retinal biosynthesis, sulfite dehydrogenase (quinone), 
 hydrazine dehydrogenase, hydrazine synthase, DMSP/DMS/DMSO cycling, 
 cobalamin biosynthesis, competence-related DNA transport, anaplerotic 
@@ -1114,8 +1116,10 @@ function_order = ['glycolysis', 'gluconeogenesis', 'TCA Cycle',
 'DMSP demethylation', 'DMS dehydrogenase', 'DMSO reductase',
 'NiFe hydrogenase', 'ferredoxin hydrogenase', 
 'membrane-bound hydrogenase', 'hydrogen:quinone oxidoreductase', 'NAD-reducing hydrogenase', 
-'NADP-reducing hydrogenase', 'cobalamin biosynthesis', 'thiamin biosynthesis', 
-'riboflavin biosynthesis' , 'transporter: vitamin B12', 
+'NADP-reducing hydrogenase', 
+'thiamin biosynthesis', 
+'riboflavin biosynthesis' ,
+'cobalamin biosynthesis', 'transporter: vitamin B12', 
 'transporter: thiamin', 'transporter: urea', 
 'transporter: phosphonate', 'transporter: phosphate', 
 'Flagellum', 'Chemotaxis', 'Methanogenesis via methanol', 
