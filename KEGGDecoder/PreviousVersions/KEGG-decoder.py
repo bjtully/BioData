@@ -3,9 +3,7 @@
 '''
 KEGG-decoder.py V.0.4
 V.0.4
-Adds sections that more accurately represents anoxygenic photosynthesis
-- type-II and type-I reaction centers, adds NiFe hydrogenase Hyd-1 hyaABC,
-corrected typo leading to missed assignment to hydrogen:quinone oxidoreductase
+
 V.0.3. Adds retinal biosynthesis, sulfite dehydrogenase (quinone), 
 hydrazine dehydrogenase, hydrazine synthase, DMSP/DMS/DMSO cycling, 
 cobalamin biosynthesis, competence-related DNA transport, anaplerotic 
@@ -607,8 +605,7 @@ def methane_ox(ko_match):
 def hydrogen(ko_match):
 	out_data = {'NiFe hydrogenase':0, 'membrane-bound hydrogenase':0,
 	'ferredoxin hydrogenase':0, 'hydrogen:quinone oxidoreductase':0,
-	'NAD-reducing hydrogenase':0, 'NADP-reducing hydrogenase':0,
-	'NiFe hydrogenase Hyd-1':0}
+	'NAD-reducing hydrogenase':0, 'NADP-reducing hydrogenase':0}
 #hydB2,hydA2; NiFe hydrogenase
 	if ('K00437' in ko_match and 'K18008' in ko_match):
 		out_data['NiFe hydrogenase'] = 1
@@ -621,7 +618,7 @@ def hydrogen(ko_match):
 		out_data['ferredoxin hydrogenase'] = 1	
 #hydA3,hydB3; hydrogen:quinone oxidoreductase
 	if ('K05922' in ko_match and 'K05927' in ko_match):
-		out_data['hydrogen:quinone oxidoreductase'] = 1
+		out_data['hydrogen:quinone hydrogenase'] = 1
 #hoxHFUY; NAD-reducing hydrogenase
 	nad_ko = ['K00436' , 'K18005' , 'K18006' , 'K18007']
 	for i in nad_ko:
@@ -632,11 +629,6 @@ def hydrogen(ko_match):
 	for i in nadp_ko:
 		if i in ko_match:
 			out_data['NADP-reducing hydrogenase'] += .25
-#hyaABC; NiFe hydrogenase Hyd-1
-	hyd_ko = ['K06282', 'K06281', 'K03620']
-	for i in hyd_ko:
-		if i in ko_match:
-			out_data['NiFe hydrogenase Hyd-1'] += 0.33
 	return out_data
 
 def transporters(ko_match):
@@ -849,8 +841,7 @@ def oxidative_phoshorylation(ko_match):
 
 def photosynthesis(ko_match):
 	out_data = {'Photosystem II':0, 'Photosystem I':0, 'Cytochrome b6/f complex':0, 
-	"anoxygenic type-II reaction center":0, "anoxygenic type-I reaction center":0,
-	'Retinal biosynthesis':0}
+	"Anoxygenic photosynthesis":0, 'Retinal biosynthesis':0}
 	psII = ['K02703', 'K02706', 'K02705', 'K02704', 'K02707', 'K02708']
 #Photosystem II core complex
 	for i in psII:
@@ -869,18 +860,13 @@ def photosynthesis(ko_match):
 	for i in cyt_b6:
 		if i in ko_match:
 			out_data['Cytochrome b6/f complex'] += 0.125
-#Anoxygenic type-II reaction center pufL & pufM
+#Anoxygenic photosynthesis pufL & pufM
 	if ('K08928' in ko_match):
-		out_data['anoxygenic type-II reaction center'] += 0.5
+		out_data['Anoxygenic photosynthesis'] += 0.5
 	if ('K08929' in ko_match):
-		out_data['anoxygenic type-II reaction center'] += 0.5	
-#Anoxygenic type-I reaction center pscABCD
-	rci = ['K08940', 'K08941', 'K08942', 'K08943']
-	for i in rci:
-		if i in ko_match:
-			out_data['anoxygenic type-I reaction center'] += 0.25
-#Retinal biosynthesis
+		out_data['Anoxygenic photosynthesis'] += 0.5	
 	retinal = ['K06443', 'K02291', 'K10027', 'K13789']
+#Retinal biosynthesis
 	for i in retinal:
 		if i in ko_match:
 			out_data['Retinal biosynthesis'] += 0.25
@@ -1130,7 +1116,7 @@ function_order = ['glycolysis', 'gluconeogenesis', 'TCA Cycle',
 'DMSP demethylation', 'DMS dehydrogenase', 'DMSO reductase',
 'NiFe hydrogenase', 'ferredoxin hydrogenase', 
 'membrane-bound hydrogenase', 'hydrogen:quinone oxidoreductase', 'NAD-reducing hydrogenase', 
-'NADP-reducing hydrogenase', 'NiFe hydrogenase Hyd-1',
+'NADP-reducing hydrogenase', 
 'thiamin biosynthesis', 
 'riboflavin biosynthesis' ,
 'cobalamin biosynthesis', 'transporter: vitamin B12', 
@@ -1145,8 +1131,7 @@ function_order = ['glycolysis', 'gluconeogenesis', 'TCA Cycle',
 'Coenzyme M reduction to methane', 'Soluble methane monooxygenase',
 'dimethylamine/trimethylamine dehydrogenase',
 'Photosystem II', 'Photosystem I', 'Cytochrome b6/f complex', 
-'anoxygenic type-II reaction center', 'anoxygenic type-I reaction center',
-'Retinal biosynthesis',
+'Anoxygenic photosynthesis', 'Retinal biosynthesis',
 'Entner-Doudoroff Pathway', 'Mixed acid: Lactate', 'Mixed acid: Formate', 
 'Mixed acid: Formate to CO2 & H2', 'Mixed acid: Acetate',
 'Mixed acid: Ethanol, Acetate to Acetylaldehyde',

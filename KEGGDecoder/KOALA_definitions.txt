@@ -323,6 +323,7 @@ Hydrogen redox
 	K05922 + K05927 hydA3,hydB3; hydrogen:quinone oxidoreductase
 	K00436 + K18005 + K18006 + K18007 hoxHFUY; NAD-reducing hydrogenase
 	K17992 + K18330 + K18331 + K18332 hndABCD; NADP-reducing hydrogenase
+	K06282 + K06281 + K03620 hyaABC; NiFe hydrogenase Hyd-1
 
 Photosynthesis
 	Photosystem II (major reaction center proteins - 21 additional proteins possible as part of structure)
@@ -332,7 +333,10 @@ Photosynthesis
 	Cytochrome b6/f complex
 		K02635 + K02637 + K02634 + K02636 + K02642 + K02643 + K03689 + K02640
 	Anoxygenic photosynthesis
-		K08928 + K08929
+		Anoxygenic reaction center II (pufML)
+		K08929 + K08928
+		Anoxygenic reaction center I (pscABCD)
+		K08940 + K08941 + K08942 + K08943
 	Retinal biosynthesis (necessary for proteorhodopsin)
 		K06443 crtY; lycopene beta-cyclase
 		K02291 crtB; 15-cis-phytoene/all-trans-phytoene synthase 
