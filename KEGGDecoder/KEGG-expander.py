@@ -1,6 +1,9 @@
 #!/usr/bin/python
 
 '''
+KEGG-expander.py V.0.4
+V.0.4 Adds amphibactin biosynthesis, ferrioxamine biosynthesis
+V.0.3.1 Added parameters to force labels to be printed.
 KEGG-expander.py V.0.3
 V.0.3. Adds DMSP lyase (dddQ, dddP, dddD, dddK, dddW), DMSP synthase (dsyB)
 Usage: python KEGG-decoder.py <HMM TBL INPUT> <FUNCTION LIST FORMAT>
@@ -61,11 +64,30 @@ for line in open(str(arg_dict['Input']), "r"):
 					genome_data[genome_id] = [info[3].split(".")[0]]
 			else:
 				continue
+#Sfams for amphibactin biosynthesis requires a more stringent bit score cutoff (>1000)
+		if info[3].split(".")[0] == "1544" or info[3].split(".")[0] == "27549":
+			if float(info[5]) > 1000:
+				try:
+					genome_data[genome_id].append(info[3].split(".")[0])
+				except KeyError:
+					genome_data[genome_id] = [info[3].split(".")[0]]
+			else:
+				continue
+#Sfams for ferrioxamine biosynthesis requires a more stringent bit score cutoff (>200)
+		if info[3].split(".")[0] == "2219" or info[3].split(".")[0] == "2732" or info[3].split(".")[0] == "9429" or info[3].split(".")[0] == "51934":
+			if float(info[5]) > 200:
+				try:
+					genome_data[genome_id].append(info[3].split(".")[0])
+				except KeyError:
+					genome_data[genome_id] = [info[3].split(".")[0]]
+			else:
+				continue
 		else:
 			try:
 				genome_data[genome_id].append(info[3].split(".")[0])
 			except KeyError:
 				genome_data[genome_id] = [info[3].split(".")[0]]
+
 
 def rhodopsin(hmm_match):
 	out_data = {'beta-carotene 15,15-monooxygenase': 0, 'rhodopsin': 0}
@@ -153,6 +175,20 @@ def dmspsynthase(hmm_match):
 		out_data['DMSP synthase (dsyB)'] = 1
 	return out_data
 
+def amphibactin(hmm_match):
+	out_data = {'amphibactin ACO2092-3homolog':0}
+	if ('1544' in hmm_match) and ('27549' in hmm_match):
+		out_data['amphibactin ACO2092-3homolog'] = 1
+	return out_data
+
+def ferrioxamine(hmm_match):
+	out_data = {'ferrioxamine biosynthesis':0}
+	ferrioxamine = ["2219", "2732", "9429", "51934"]
+	for i in ferrioxamine:
+		if i in hmm_match:
+			out_data['ferrioxamine biosynthesis'] += 0.25
+	return out_data
+
 function_order = ['beta-carotene 15,15-monooxygenase', 'rhodopsin', 'Peptidase family C25', 
 'Bacterial pre-peptidase C-terminal domain', 'Clostripain family', 
 'Peptidase family M28', 'Peptidase family M50', 'Di- and tripeptidases', 
@@ -162,7 +198,8 @@ function_order = ['beta-carotene 15,15-monooxygenase', 'rhodopsin', 'Peptidase f
 'Aminopeptidase N', 'Zinc carboxypeptidase', 'Peptidase S24-like', 'Peptidase S26', 
 'D-aminopeptidase', 'M61 glycyl aminopeptidase', 'Vanadium-only nitrogenase', 
 'Iron-only nitrogenase', 'transporter: ammonia',
-'DMSP lyase (dddLQPDKW)', 'DMSP synthase (dsyB)']
+'DMSP lyase (dddLQPDKW)', 'DMSP synthase (dsyB)', 'amphibactin ACO2092-3homolog', 
+'ferrioxamine biosynthesis']
 
 filehandle = str(arg_dict['Output'])
 out_file = open(filehandle, "w")
@@ -176,6 +213,8 @@ for k in genome_data:
 	pathway_data.update(amm_trans(genome_data[k]))
 	pathway_data.update(dmsplyase(genome_data[k]))
 	pathway_data.update(dmspsynthase(genome_data[k]))
+	pathway_data.update(amphibactin(genome_data[k]))
+	pathway_data.update(ferrioxamine(genome_data[k]))
 
 	out_string = str(k)+"\t"
 	out_list = [k]
@@ -203,7 +242,7 @@ genome = pd.read_table(file_in, index_col=0)
 import seaborn as sns
 sns.set(font_scale=1.2)
 sns.set_style({"savefig.dpi": 200})
-ax = sns.heatmap(genome, cmap=plt.cm.YlOrRd, linewidths=2, linecolor='k', square=True)
+ax = sns.heatmap(genome, cmap=plt.cm.YlOrRd, linewidths=2, linecolor='k', square=True, xticklabels=True, yticklabels=True)
 ax.xaxis.tick_top()
 #ax.set_yticklabels(ax.get_yticklabels(), rotation=90)
 plt.xticks(rotation=90)

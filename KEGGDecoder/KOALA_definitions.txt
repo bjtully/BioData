@@ -1,4 +1,5 @@
-V.0.3
+V.0.5
+V.0.5 Adds functions for sulfolipid biosynthesis (key gene sqdB) and C-P lyase
 V.0.3. Adds retinal biosynthesis, sulfite dehydrogenase (quinone), hydrazine dehydrogenase, hydrazine synthase, DMSP/DMS/DMSO cycling, cobalamin biosynthesis, competence-related DNA transport, anaplerotic reactions
 Nitrogen metabolism
 	Dissimilatory nitrate reduction requires narGH K00370 + K00371 AND/OR napAB K02567 + K02568
@@ -442,3 +443,23 @@ Anaplerotic Reactions
 	K01958	pyruvate carboxylase OR K01959 pycA + K01960 pycB; pyruvate carboxylase subunits A + B
 	K01595	ppc; phosphoenolpyruvate carboxylase
 	K01610	pckA; phosphoenolpyruvate carboxykinase (ATP) OR K01596 pckA; phosphoenolpyruvate carboxykinase (GTP) OR K20370 PEPCK; phosphoenolpyruvate carboxykinase (diphosphate)
+
+Sulfolipid biosynthesis
+	Two components SQD1/sqdB and SQD2 (SQD2 may not be present in bacteria/archaea but belongs to the CAZy GT4 family)
+	K06118	sqdB; UDP-sulfoquinovose synthase 
+	K06119	SQD2; sulfoquinovosyltransferase
+
+C-P lyase
+	There is key enzyme that performs the cleavage of methane from the C-bond PhnJ, but the entire pathway requires an operon that leads to synthesis of a ribosyl phosphonate
+	The transporter for phosphonate phnCED is represented in the transporter subcategory
+	K02043	phnF; GntR family transcriptional regulator, phosphonate transport system regulatory protein
+	K06166	phnG; alpha-D-ribose 1-methylphosphonate 5-triphosphate synthase subunit 
+	K06164	phnH; alpha-D-ribose 1-methylphosphonate 5-triphosphate synthase subunit 
+	K06164	phnI; alpha-D-ribose 1-methylphosphonate 5-triphosphate synthase subunit 
+	K06163	phnJ; alpha-D-ribose 1-methylphosphonate 5-phosphate C-P lyase
+	K05781	phnK; putative phosphonate transport system ATP-binding protein
+	K05780	phnL; alpha-D-ribose 1-methylphosphonate 5-triphosphate synthase subunit
+	K06162	phnM; alpha-D-ribose 1-methylphosphonate 5-triphosphate diphosphatase
+	k05775	phnN; ribose 1,5-bisphosphokinase
+	k09994	phnO; aminoalkylphosphonate N-acetyltransferase
+	K06167	phnP; phosphoribosyl 1,2-cyclic phosphate phosphodiesterase

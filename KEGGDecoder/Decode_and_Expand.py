@@ -4,7 +4,7 @@
 Combines the *.list format output files of KEGG-decoder.py and
 KEGG-expander.py to form a single figure of all functions
 
-
+Update Adds parameters to force labels to be printed on heatmap.
 '''
 
 import argparse
@@ -46,7 +46,7 @@ output_df = output_df[cols]
 import seaborn as sns
 sns.set(font_scale=1.2)
 sns.set_style({"savefig.dpi": 200})
-ax = sns.heatmap(output_df, cmap=plt.cm.YlOrRd, linewidths=2, linecolor='k', square=True)
+ax = sns.heatmap(output_df, cmap=plt.cm.YlOrRd, linewidths=2, linecolor='k', square=True, xticklabels=True, yticklabels=True)
 ax.xaxis.tick_top()
 #ax.set_yticklabels(ax.get_yticklabels(), rotation=90)
 plt.xticks(rotation=90)

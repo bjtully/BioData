@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
 '''
-KEGG-decoder.py V.0.4
-V.0.4
-Adds sections that more accurately represents anoxygenic photosynthesis
+KEGG-decoder.py V.0.5
+V.0.5 Adds parameters to force labels to be printed on heatmap. Includes functions
+for sulfolipid biosynthesis (key gene sqdB) and C-P lyase
+V.0.4 Adds sections that more accurately represents anoxygenic photosynthesis
 - type-II and type-I reaction centers, adds NiFe hydrogenase Hyd-1 hyaABC,
 corrected typo leading to missed assignment to hydrogen:quinone oxidoreductase
 V.0.3. Adds retinal biosynthesis, sulfite dehydrogenase (quinone), 
@@ -1090,6 +1091,31 @@ def anaplerotic(ko_match):
 		out_data['Anaplerotic genes'] += 0.25	
 	return out_data
 
+def sulfolipid(ko_match):
+	out_data = {'Sulfolipid biosynthesis':0}
+	if 'K06118' in ko_match:
+		out_data['Sulfolipid biosynthesis'] += 0.5
+	if 'K06119' in ko_match:
+		out_data['Sulfolipid biosynthesis'] += 0.5
+	return out_data
+
+def cplyase(ko_match):
+	out_data = {'C-P lyase cleavage PhnJ':0, 'CP-lyase complex':0, 'CP-lyase operon':0}
+#C-P lyase PhnJ
+	if 'K06163' in ko_match:
+		out_data['C-P lyase cleavage PhnJ'] = 1
+#Tetradimer complex PhnJ, PhnG, PhnH, PhnI 
+	complex_ = ['K06163', 'K06164', 'K06165', 'K06166']
+	for i in complex_:
+		if i in ko_match:
+			out_data['CP-lyase complex'] += 0.25
+#Full operon phnFGHIJKLMNOP - phosphonate transporter includes phnCED
+	operon = ['K06163', 'K06164', 'K06165', 'K06166', 'K05780', 'K06162', 'K06167', 'K09994', 'K05774', 'K05781', 'K02043']
+	for i in operon:
+		if i in ko_match:
+			out_data['CP-lyase operon'] += 0.09
+	return out_data
+
 genome_data = {}
 
 for line in open(str(arg_dict['Input']), "r"):
@@ -1159,7 +1185,8 @@ function_order = ['glycolysis', 'gluconeogenesis', 'TCA Cycle',
 'Biofilm regulator BssS', 'Colanic acid and Biofilm protein A',
 'Curli fimbriae biosynthesis', 'Adhesion', 'Competence-related core components',
 'Competence-related related components', 'Competence factors',
-'Glyoxylate shunt', 'Anaplerotic genes']
+'Glyoxylate shunt', 'Anaplerotic genes', 'Sulfolipid biosynthesis',
+'C-P lyase cleavage PhnJ', 'CP-lyase complex', 'CP-lyase operon']
 
 filehandle = str(arg_dict['Output'])
 out_file = open(filehandle, "w")
@@ -1196,6 +1223,8 @@ for k in genome_data:
 	pathway_data.update(cobalamin(genome_data[k]))
 	pathway_data.update(competence(genome_data[k]))
 	pathway_data.update(anaplerotic(genome_data[k]))
+	pathway_data.update(sulfolipid(genome_data[k]))
+	pathway_data.update(cplyase(genome_data[k]))
 #	print k, pathway_data
 
 	out_string = str(k)+"\t"
@@ -1224,7 +1253,7 @@ genome = pd.read_table(file_in, index_col=0)
 import seaborn as sns
 sns.set(font_scale=1.2)
 sns.set_style({"savefig.dpi": 200})
-ax = sns.heatmap(genome, cmap=plt.cm.YlOrRd, linewidths=2, linecolor='k', square=True)
+ax = sns.heatmap(genome, cmap=plt.cm.YlOrRd, linewidths=2, linecolor='k', square=True, xticklabels=True, yticklabels=True)
 ax.xaxis.tick_top()
 #ax.set_yticklabels(ax.get_yticklabels(), rotation=90)
 plt.xticks(rotation=90)

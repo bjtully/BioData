@@ -45,3 +45,20 @@ PF16867		dddQ
 
 DMSP Synthase
 4254		dsyB - requires a more strigent bit score cutoff (recommend >260)
+
+Methylphosphonate biosynthesis
+
+
+Amphibactin biosynthesis
+	Multiple SFAM models have exceptionally high bit score matches to reference sequences (>>1000). Both ABO2092 and ABO2903 have common domains and as such share the highest SFAM models
+	Recorded the best two models for all references and require both to successfully match for identification
+	1544	ABO2902/3 - requires a much more strigent bit score cutoff (recommend >1000)
+	27549	ABO2902/3 - requires a much more strigent bit score cutoff (recommend >1000)
+
+Ferrioxamine biosynthesis
+	Limited references for comparison. Known to occur as operon in Streptomyces. Each gene matched an SFAM model with at least bit score >200, 3 of 4 top hit is over 500 bit score
+	Will required a minimum of 200 bit score for all matches. Check to the presense of all 4 genes in operon
+	2219	SCO2782 DesA putative pyridoxal-dependent decarboxylase - requires a more strigent bit score cutoff (recommend >200)
+	2732	SCO2783 DesB putative monoxygenase - requires a more strigent bit score cutoff (recommend >200)
+	9429	SCO2784 DesC putative acetyltransferase - requires a more strigent bit score cutoff (recommend >200)
+	51934	SCO2785 DesD putative siderophore biosynthetic protein	- requires a more strigent bit score cutoff (recommend >200)
