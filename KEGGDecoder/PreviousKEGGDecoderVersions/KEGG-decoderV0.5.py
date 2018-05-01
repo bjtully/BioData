@@ -1,9 +1,7 @@
 #!/usr/bin/python
 
 '''
-KEGG-decoder.py V.0.6
-V.0.6 Adds Bacterial Secretion Systems as descrived by KEGG covering Type I, II, III, IV, Vabc,
-VI, Sec-SRP and Twin Arginine Targeting systems
+KEGG-decoder.py V.0.5
 V.0.5 Adds parameters to force labels to be printed on heatmap. Includes functions
 for sulfolipid biosynthesis (key gene sqdB) and C-P lyase
 V.0.4 Adds sections that more accurately represents anoxygenic photosynthesis
@@ -27,8 +25,6 @@ For extended information about KEGG assignments, genes and pathways,
 please see accompanying document "KOALA_definitions.txt"
 
 '''
-import matplotlib
-matplotlib.use('TkAgg')
 import argparse
 
 parser = argparse.ArgumentParser(description="Accepts KEGG KOALA\
@@ -1120,58 +1116,6 @@ def cplyase(ko_match):
 			out_data['CP-lyase operon'] += 0.09
 	return out_data
 
-def secretion(ko_match):
-	out_data = {'Type I Secretion':0, 'Type III Secretion':0, 'Type II Secretion':0, 'Type IV Secretion':0, 'Type VI Secretion':0,
-				'Sec-SRP':0, 'Twin Arginine Targeting':0, 'Type Vabc Secretion':0}
-#Secretion mechanisms as described by KEGG Pathway Bacterial Secretion System
-	typei = ['K12340', 'K11003', 'K11004']
-	for i in typei:
-		if i in ko_match:
-			out_data['Type I Secretion'] += 0.33
-	typeiii = ['K03221', 'K04056', 'K04057', 'K04059', 'K03219', 'K04058', 'K03222', 'K03226', 'K03227', 'K03228',
-				'K03229', 'K03230', 'K03224', 'K03225', 'K03223']
-	for i in typeiii:
-		if i in ko_match:
-			out_data['Type III Secretion'] += 0.0666
-	typeii = ['K02453', 'K02465', 'K02452', 'K02455', 'K02456', 'K02457', 'K02458', 'K02459', 'K02460', 'K02461',
-				'K02462', 'K02454', 'K02464']
-	for i in typeii:
-		if i in ko_match:
-			out_data['Type II Secretion'] += 0.0769
-	typeiv = ['K03194', 'K03197', 'K03198', 'K03200', 'K03202', 'K03204', 'K03201', 'K03203', 'K03195', 'K03199',
-				'K03196', 'K03205']
-	for i in typeiv:
-		if i in ko_match:
-			out_data['Type IV Secretion'] += 0.083
-	typevi = ['K11904', 'K11903', 'K11906', 'K11891', 'K11892', 'K11907', 'K11912', 'K11913', 'K11915']
-	for i in typevi:
-		if i in ko_match:
-			out_data['Type VI Secretion'] += 0.111
-	tat = ['K03116', 'K03117', 'K03118', 'K03425']
-	for i in tat:
-		if i in ko_match:
-			out_data['Twin Arginine Targeting'] += 0.25
-	
-	if ('K03072' in ko_match) or ('K03074' in ko_match):
-		secsrp = ['K03072', 'K03074', 'K03073', 'K03075', 'K03076', 'K03210', 'K03217', 'K03070', 'K13301', 'K03110',
-					'K03071', 'K03106']
-		for i in secsrp:
-			if i in ko_match:
-				out_data['Sec-SRP'] += 0.083
-	if ('K12257' in ko_match):
-		secsrp = ['K12257', 'K03073', 'K03075', 'K03076', 'K03210', 'K03217', 'K03070', 'K13301', 'K03110',
-					'K03071', 'K03106']
-		out_data['Sec-SRP'] = 0
-		for i in secsrp:
-			if i in ko_match:
-				out_data['Sec-SRP'] += 0.09
-	typev = ['K11028', 'K11017', 'K11016', 'K12341', 'K12342']
-	for i in typev:
-		if i in ko_match:
-			out_data['Type Vabc Secretion'] += 0.2
-	return out_data
-
-
 genome_data = {}
 
 for line in open(str(arg_dict['Input']), "r"):
@@ -1242,9 +1186,7 @@ function_order = ['glycolysis', 'gluconeogenesis', 'TCA Cycle',
 'Curli fimbriae biosynthesis', 'Adhesion', 'Competence-related core components',
 'Competence-related related components', 'Competence factors',
 'Glyoxylate shunt', 'Anaplerotic genes', 'Sulfolipid biosynthesis',
-'C-P lyase cleavage PhnJ', 'CP-lyase complex', 'CP-lyase operon', 'Type I Secretion',
-'Type III Secretion', 'Type II Secretion', 'Type IV Secretion', 'Type VI Secretion',
-'Sec-SRP', 'Twin Arginine Targeting', 'Type Vabc Secretion']
+'C-P lyase cleavage PhnJ', 'CP-lyase complex', 'CP-lyase operon']
 
 filehandle = str(arg_dict['Output'])
 out_file = open(filehandle, "w")
@@ -1283,7 +1225,6 @@ for k in genome_data:
 	pathway_data.update(anaplerotic(genome_data[k]))
 	pathway_data.update(sulfolipid(genome_data[k]))
 	pathway_data.update(cplyase(genome_data[k]))
-	pathway_data.update(secretion(genome_data[k]))
 #	print k, pathway_data
 
 	out_string = str(k)+"\t"

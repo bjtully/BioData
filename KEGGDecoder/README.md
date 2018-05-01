@@ -1,6 +1,16 @@
 KEGG-Decoder
 ================================================================
-## Update to V0.3 ##
+## V0.6 ##
+V.0.6 Adds Bacterial Secretion Systems as descrived by KEGG covering Type I, II, III, IV, Vabc, VI, Sec-SRP and Twin Arginine Targeting systems
+
+## V0.5 ##
+Adds parameters to force labels to be printed on heatmap. Includes functions
+for sulfolipid biosynthesis (key gene sqdB) and C-P lyase
+
+## V0.4 ##
+Adds sections that more accurately represents anoxygenic photosynthesis - type-II and type-I reaction centers, adds NiFe hydrogenase Hyd-1 hyaABC, corrected typo leading to missed assignment to hydrogen:quinone oxidoreductase
+
+## V0.3 ##
 Latest version adds checks for: retinal biosynthesis, sulfite dehydrogenase (quinone), hydrazine dehydrogenase, hydrazine synthase, DMSP/DMS/DMSO cycling, cobalamin biosynthesis, competence-related DNA transport, anaplerotic reactions
 
 ### Description ###
