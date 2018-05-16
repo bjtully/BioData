@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
 '''
-KEGG-decoder.py V.0.6
+KEGG-decoder.py V.0.6.1
+V.0.6.1 Corrects an issue with the Wood-Ljungdhal pathway that used the wrong
+carbon-monoxide deydrogenase subunit
 V.0.6 Adds Bacterial Secretion Systems as descrived by KEGG covering Type I, II, III, IV, Vabc,
 VI, Sec-SRP and Twin Arginine Targeting systems
 V.0.5 Adds parameters to force labels to be printed on heatmap. Includes functions
@@ -243,19 +245,18 @@ def reverse_tca(ko_match):
 
 def wood_ljungdahl(ko_match):
 	total = 0
-	CO_branch_present = 0
+	CO_methyl_present = 0
 #Carbon fixing branch
-#acetyl-CoA decarbonylase/synthase complex subunit alpha AND 
-#carbon-monoxide dehydrogenase OR carbon-monoxide dehydrogenase large subunit
-	if (('K00192' in ko_match) and (('K00198' in ko_match and 'K00196' in ko_match) or
-		'K03520' in ko_match)):
-		total+= 2
-		CO_branch_present = 1
-#CO-methylating acetyl-CoA synthase AND carbon-monoxide dehydrogenase large subunit
-	if ('K14138' in ko_match and 'K03520' in ko_match):
-		total+= 2
-		CO_branch_present = 1
-	if CO_branch_present == 1:
+#acetyl-CoA decarbonylase/synthase complex subunit alpha OR 
+#CO-methylating acetyl-CoA synthase
+	if ('K00192' in ko_match) or ('K14138' in ko_match):
+		total += 1
+		CO_methyl_present = 1
+#catalytic subunits only of CO dehydrogenase
+#anaerobic carbon-monoxide dehydrogenase OR aerobic carbon-monoxide dehydrogenase large subunit
+	if ('K00198' in ko_match) or ('K03520' in ko_match):
+		total+= 1
+	if CO_methyl_present == 1:
 #Methyl branch
 #formate dehydrogenase
 		if ('K05299' in ko_match and 'K15022' in ko_match):

@@ -1,4 +1,6 @@
-V.0.6
+V.0.6.1
+V.0.6.1 Corrects an issue with the Wood-Ljungdhal pathway that used the wrong
+carbon-monoxide deydrogenase subunit
 V.0.6 Adds Bacterial Secretion Systems as descrived by KEGG covering Type I, II, III, IV, Vabc, VI, Sec-SRP and Twin Arginine Targeting systems
 V.0.5 Adds functions for sulfolipid biosynthesis (key gene sqdB) and C-P lyase
 V.0.3. Adds retinal biosynthesis, sulfite dehydrogenase (quinone), hydrazine dehydrogenase, hydrazine synthase, DMSP/DMS/DMSO cycling, cobalamin biosynthesis, competence-related DNA transport, anaplerotic reactions
