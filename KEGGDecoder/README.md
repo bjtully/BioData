@@ -1,5 +1,9 @@
 KEGG-Decoder
 ================================================================
+## V0.7##
+Clarifies elements of methane oxidation and adds additional methanol/alcohol dehydrogenase
+to KEGG function search. Adds the serine pathway for formaldehyde assimilation
+
 ## V0.6 ##
 V.0.6 Adds Bacterial Secretion Systems as descrived by KEGG covering Type I, II, III, IV, Vabc, VI, Sec-SRP and Twin Arginine Targeting systems
 
@@ -17,6 +21,12 @@ Latest version adds checks for: retinal biosynthesis, sulfite dehydrogenase (qui
 Designed to parse through a blastKoala or ghostKoala output to determine the completeness of various KEGG pathways.
 
 This script was constructed using the canonical pathways described as part of KEGG Pathway Maps. There is no additional information provided — if you are interested in certain pathway and the genes are listed in KEGG it is possible to add it to file (with some Python scripting)
+
+### Please Cite ###
+If you find that using KEGG Decoder to process your data has been useful, please consider citing this manuscript. If you are using KEGG Decoder to make figures then definitely cite this manuscript!
+
+* [Graham ED, Heidelberg JF, Tully BJ. (2018) Potential for primary productivity in a globally-distributed bacterial phototroph. ISME J 350, 1–6](https://www.nature.com/articles/s41396-018-0091-3)  
+
 
 ### Dependencies ###
 

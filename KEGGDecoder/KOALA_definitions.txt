@@ -1,3 +1,6 @@
+V.0.7
+Clarifies elements of methane oxidation and adds additional methanol/alcohol dehydrogenase
+to KEGG function search. Adds the serine pathway for formaldehyde assimilation
 V.0.6.1
 V.0.6.1 Corrects an issue with the Wood-Ljungdhal pathway that used the wrong
 carbon-monoxide deydrogenase subunit
@@ -251,6 +254,8 @@ Methanogenesis
 
 Methane oxidation
 	K16157 + K16158 + K16159 + K16161 mmoXYZC; soluble methane monooxygenase
+	K14028 + K14029 mxaFI methanol dehydrogenase
+	K17066 MOX alcohol oxidase
 
 Transporters
 	K02040 + K02037 + K02038 + K02036 pstABCS; phosphate
@@ -550,3 +555,15 @@ Bacterial Secretion Systems
 		K11016	shlA; Type Vb
 		K12341	yadA; Type Vc
 		K12342	yadBC; Type Vc
+
+Serine pathway
+	K00600	glyA; glycine hydroxymethyltransferase
+	K00830	AGXT; alanine-glyoxylate transaminase / serine-glyoxylate transaminase / serine-pyruvate transaminase
+	K00018	hprA; glycerate dehydrogenase
+	K11529	gckA; glycerate 2-kinase	
+	K01689	eno; enolase
+	K01595	ppc; phosphoenolpyruvate carboxylase
+	K00024	mdh; malate dehydrogenase
+	K08692	mtkB; malate-CoA ligase subunit alpha
+	K14067	mtkA; malate-CoA ligase subunit beta
+	K08692	mtkB; malate-CoA ligase subunit alpha

@@ -1,7 +1,10 @@
 #!/usr/bin/python
 
 '''
-KEGG-decoder.py V.0.6.1
+KEGG-decoder.py V.0.7
+V.0.7
+Clarifies elements of methane oxidation and adds additional methanol/alcohol dehydrogenase
+to KEGG function search. Adds the serine pathway for formaldehyde assimilation
 V.0.6.1 Corrects an issue with the Wood-Ljungdhal pathway that used the wrong
 carbon-monoxide deydrogenase subunit
 V.0.6 Adds Bacterial Secretion Systems as descrived by KEGG covering Type I, II, III, IV, Vabc,
@@ -91,13 +94,13 @@ def nitrogen(ko_match):
 		out_data['hydroxylamine oxidation'] = 1
 #amoA
 	if ('K10944' in ko_match):
-		out_data['ammonia oxidation'] = 0.33
+		out_data['ammonia oxidation (amo/pmmo)'] = 0.33
 #amoB
 		if ('K10945' in ko_match):
-			out_data['ammonia oxidation'] += 0.33
+			out_data['ammonia oxidation (amo/pmmo)'] += 0.33
 #amoC
 		if ('K10946' in ko_match):
-			out_data['ammonia oxidation'] += 0.33
+			out_data['ammonia oxidation (amo/pmmo)'] += 0.33
 	if ('K20935' in ko_match):
 		out_data['hydrazine dehydrogenase'] = 1
 	hydrazine_synth = ['K20932', 'K20933', 'K20934']
@@ -602,12 +605,19 @@ def methanogenesis(ko_match):
 	return out_data
 
 def methane_ox(ko_match):
-	out_data = {'Soluble methane monooxygenase':0}
+	out_data = {'Soluble methane monooxygenase':0,'methanol dehydrogenase':0,
+	'alcohol oxidase':0}
 #mmoXYZC; soluble methane monooxygenase
 	single_ko = ['K16157', 'K16158', 'K16159', 'K16161']
 	for i in single_ko:
 		if i in ko_match:
 			out_data['Soluble methane monooxygenase'] += .25
+	methanol_dh = ['K14028', 'K14029']
+	for i in methanol_dh:
+		if i in ko_match:
+			out_data['methanol dehydrogenase'] += .5
+	if ('K17066' in ko_match):
+		out_data['alcohol oxidase'] = 1
 	return out_data
 
 def hydrogen(ko_match):
@@ -1172,6 +1182,14 @@ def secretion(ko_match):
 			out_data['Type Vabc Secretion'] += 0.2
 	return out_data
 
+def serine(ko_match):
+	out_data = {'Serine pathway/formaldehyde assimilation':0}
+	serine_pathway = ['K00600', 'K00830', 'K00018', 'K11529', 'K01689', 'K01595',
+						'K00024', 'K08692', 'K14067', 'K08692']
+	for i in serine_pathway:
+		if i in ko_match:
+			out_data['Serine pathway/formaldehyde assimilation'] += .1
+	return out_data
 
 genome_data = {}
 
@@ -1198,7 +1216,7 @@ function_order = ['glycolysis', 'gluconeogenesis', 'TCA Cycle',
 'chitinase', 'basic endochitinase B', 'bifunctional chitinase/lysozyme', 
 'beta-N-acetylhexosaminidase', 'D-galacturonate isomerase', 
 'alpha-amylase', 'beta-glucosidase', 'pullulanase', 
-'ammonia oxidation', 'hydroxylamine oxidation', 'nitrite oxidation', 
+'ammonia oxidation (amo/pmmo)', 'hydroxylamine oxidation', 'nitrite oxidation', 
 'dissim nitrate reduction', 'DNRA', 'nitrite reduction', 
 'nitric oxide reduction', 'nitrous-oxide reduction', 
 'nitrogen fixation', 'hydrazine dehydrogenase', 'hydrazine synthase',
@@ -1226,6 +1244,7 @@ function_order = ['glycolysis', 'gluconeogenesis', 'TCA Cycle',
 'Methanogenesis via dimethylamine', 'Methanogenesis via CO2', 
 'Coenzyme B/Coenzyme M regeneration', 
 'Coenzyme M reduction to methane', 'Soluble methane monooxygenase',
+'methanol dehydrogenase', 'alcohol oxidase',
 'dimethylamine/trimethylamine dehydrogenase',
 'Photosystem II', 'Photosystem I', 'Cytochrome b6/f complex', 
 'anoxygenic type-II reaction center', 'anoxygenic type-I reaction center',
@@ -1245,7 +1264,8 @@ function_order = ['glycolysis', 'gluconeogenesis', 'TCA Cycle',
 'Glyoxylate shunt', 'Anaplerotic genes', 'Sulfolipid biosynthesis',
 'C-P lyase cleavage PhnJ', 'CP-lyase complex', 'CP-lyase operon', 'Type I Secretion',
 'Type III Secretion', 'Type II Secretion', 'Type IV Secretion', 'Type VI Secretion',
-'Sec-SRP', 'Twin Arginine Targeting', 'Type Vabc Secretion']
+'Sec-SRP', 'Twin Arginine Targeting', 'Type Vabc Secretion',
+'Serine pathway/formaldehyde assimilation']
 
 filehandle = str(arg_dict['Output'])
 out_file = open(filehandle, "w")
@@ -1285,6 +1305,7 @@ for k in genome_data:
 	pathway_data.update(sulfolipid(genome_data[k]))
 	pathway_data.update(cplyase(genome_data[k]))
 	pathway_data.update(secretion(genome_data[k]))
+	pathway_data.update(serine(genome_data[k]))
 #	print k, pathway_data
 
 	out_string = str(k)+"\t"
