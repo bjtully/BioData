@@ -51,7 +51,7 @@ def nitrogen(ko_match):
 	out_data = {'dissim nitrate reduction': 0, 'nitrite oxidation': 0,
 	'DNRA': 0, 'nitrite reduction': 0, 'nitric oxide reduction' : 0,
 	'nitrous-oxide reduction': 0, 'nitrogen fixation' : 0, 
-	'hydroxylamine oxidation' :0, 'ammonia oxidation': 0,
+	'hydroxylamine oxidation' :0, 'ammonia oxidation (amo/pmmo)': 0,
 	'hydrazine dehydrogenase': 0, 'hydrazine synthase': 0}
 #narGH
 	if ('K00370' in ko_match and 'K00371' in ko_match):
