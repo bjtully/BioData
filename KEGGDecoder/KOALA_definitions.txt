@@ -557,6 +557,7 @@ Bacterial Secretion Systems
 		K12342	yadBC; Type Vc
 
 Serine pathway
+	Serine glyoxylate transaminase if an essential enzyme this pathway
 	K00600	glyA; glycine hydroxymethyltransferase
 	K00830	AGXT; alanine-glyoxylate transaminase / serine-glyoxylate transaminase / serine-pyruvate transaminase
 	K00018	hprA; glycerate dehydrogenase
