@@ -29,7 +29,7 @@ please see accompanying document "Pfam_definitions.txt"
 
 
 import matplotlib
-matplotlib.use('TkAgg')
+matplotlib.use('Agg')
 import argparse
 
 parser = argparse.ArgumentParser(description="Accepts HMM search results of expander_dbvX.hmm\
@@ -81,7 +81,7 @@ for line in open(str(arg_dict['Input']), "r"):
 			else:
 				continue
 #Sfams for ferrioxamine biosynthesis requires a more stringent bit score cutoff (>200)
-		if info[3].split(".")[0] == "2219" or info[3].split(".")[0] == "2732" or info[3].split(".")[0] == "9429" info[3].split(".")[0] == "51934":
+		if info[3].split(".")[0] == "2219" or info[3].split(".")[0] == "2732" or info[3].split(".")[0] == "9429" or info[3].split(".")[0] == "51934":
 			if float(info[5]) > 200:
 				try:
 					genome_data[genome_id].append(info[3].split(".")[0])

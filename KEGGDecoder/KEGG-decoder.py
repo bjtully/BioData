@@ -33,7 +33,7 @@ please see accompanying document "KOALA_definitions.txt"
 
 '''
 import matplotlib
-matplotlib.use('TkAgg')
+matplotlib.use('Agg')
 import argparse
 
 parser = argparse.ArgumentParser(description="Accepts KEGG KOALA\

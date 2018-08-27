@@ -7,7 +7,7 @@ KEGG-expander.py to form a single figure of all functions
 Update Adds parameters to force labels to be printed on heatmap.
 '''
 import matplotlib
-matplotlib.use('TkAgg')
+matplotlib.use('Agg')
 import argparse
 
 parser = argparse.ArgumentParser(description="Accepts HMM search results of expander_dbvX.hmm\
