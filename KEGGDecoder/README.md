@@ -1,5 +1,8 @@
 KEGG-Decoder
 ================================================================
+##V0.8##
+Add elements regarding arsenic reduction
+
 ## V0.7 ##
 Clarifies elements of methane oxidation and adds additional methanol/alcohol dehydrogenase
 to KEGG function search. Adds the serine pathway for formaldehyde assimilation

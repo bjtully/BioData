@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
 '''
-KEGG-decoder.py V.0.7
+KEGG-decoder.py V.0.8
+V.0.8
+Add elements regarding arsenic reduction
 V.0.7
 Clarifies elements of methane oxidation and adds additional methanol/alcohol dehydrogenase
 to KEGG function search. Adds the serine pathway for formaldehyde assimilation
@@ -1191,6 +1193,22 @@ def serine(ko_match):
 			out_data['Serine pathway/formaldehyde assimilation'] += .1
 	return out_data
 
+def arsenic(ko_match):
+	out_data = {'Arsenic reduction':0}
+#arsC
+	if ('K00537' in ko_match) or ('K03741' in ko_match) or ('K18701' in ko_match):
+		out_data['Arsenic reduction'] += 0.25
+#arsB
+	if ('K03325' in ko_match) or ('K03893' in ko_match):
+		out_data['Arsenic reduction'] += 0.25
+#arsR
+	if 'K03892' in ko_match:
+		out_data['Arsenic reduction'] += 0.25
+#arsA
+	if 'K01551' in ko_match:
+		out_data['Arsenic reduction'] += 0.25
+	return out_data
+
 genome_data = {}
 
 for line in open(str(arg_dict['Input']), "r"):
@@ -1265,7 +1283,7 @@ function_order = ['glycolysis', 'gluconeogenesis', 'TCA Cycle',
 'C-P lyase cleavage PhnJ', 'CP-lyase complex', 'CP-lyase operon', 'Type I Secretion',
 'Type III Secretion', 'Type II Secretion', 'Type IV Secretion', 'Type VI Secretion',
 'Sec-SRP', 'Twin Arginine Targeting', 'Type Vabc Secretion',
-'Serine pathway/formaldehyde assimilation']
+'Serine pathway/formaldehyde assimilation', 'Arsenic reduction']
 
 filehandle = str(arg_dict['Output'])
 out_file = open(filehandle, "w")
@@ -1306,6 +1324,7 @@ for k in genome_data:
 	pathway_data.update(cplyase(genome_data[k]))
 	pathway_data.update(secretion(genome_data[k]))
 	pathway_data.update(serine(genome_data[k]))
+	pathway_data.update(arsenic(genome_data[k]))
 #	print k, pathway_data
 
 	out_string = str(k)+"\t"

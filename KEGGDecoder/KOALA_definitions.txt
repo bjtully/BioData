@@ -1,3 +1,5 @@
+V0.8
+Add elements regarding arsenic reduction
 V.0.7
 Clarifies elements of methane oxidation and adds additional methanol/alcohol dehydrogenase
 to KEGG function search. Adds the serine pathway for formaldehyde assimilation
@@ -568,3 +570,11 @@ Serine pathway
 	K08692	mtkB; malate-CoA ligase subunit alpha
 	K14067	mtkA; malate-CoA ligase subunit beta
 	K08692	mtkB; malate-CoA ligase subunit alpha
+
+Dissimilatory arsenic reduction
+	Assess the completion of the ars operon, consists of either arsRBC or arsRDABC
+	arsD does not have a KO value
+	K00537	arsC; arsenate reductase OR K03741 arsC; arsenate reductase OR K18701 arsC; arsenate-mycothiol transferase
+	K03325	arsB; arsenite transporter OR K03893 arsB; arsenical pump membrane protein
+	K03892	arsR; ArsR family transcriptional regulator
+	K01551	arsA; arsenite/tail-anchored protein-transporting ATPase
