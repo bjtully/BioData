@@ -1,6 +1,6 @@
 KEGG-Decoder
 ================================================================
-##V0.8##
+## V0.8 ##
 Add elements regarding arsenic reduction
 
 ## V0.7 ##
