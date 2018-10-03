@@ -42,6 +42,8 @@ cols.insert(nifH_index+2, cols.pop(int(cols.index('Iron-only nitrogenase'))))
 dmsplyase_index = cols.index('DMSP demethylation')
 cols.insert(dmsplyase_index, cols.pop(int(cols.index('DMSP lyase (dddLQPDKW)'))))
 cols.insert(dmsplyase_index+1, cols.pop(int(cols.index('DMSP synthase (dsyB)'))))
+sulfitereductase_index = cols.index('dissimilatory sulfite < > sulfide')
+cols.insert(sulfitereductase_index+1, cols.pop(int(cols.index('DsrD dissimilatory sulfite reductase'))))
 output_df = output_df[cols]
 
 import seaborn as sns

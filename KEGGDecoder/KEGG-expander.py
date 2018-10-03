@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
 '''
-KEGG-expander.py V.0.4
+KEGG-expander.py V.0.5
+V.0.5 Removal of Amphibactin biosynthesis componenets. Additions of dsrD to help distinguish
+oxidative and reductive dsrAB
 V.0.4.1 Adds argument that should allow script to generate figure on most Unix systems
 V.0.4 Adds amphibactin biosynthesis, ferrioxamine biosynthesis
 V.0.3.1 Added parameters to force labels to be printed.
@@ -72,14 +74,14 @@ for line in open(str(arg_dict['Input']), "r"):
 			except KeyError:
 				genome_data[genome_id] = [info[3].split(".")[0]]
 #Sfams for amphibactin biosynthesis requires a more stringent bit score cutoff (>1000)
-		if info[3].split(".")[0] == "1544" or info[3].split(".")[0] == "27549":
-			if float(info[5]) > 1000:
-				try:
-					genome_data[genome_id].append(info[3].split(".")[0])
-				except KeyError:
-					genome_data[genome_id] = [info[3].split(".")[0]]
-			else:
-				continue
+#		if info[3].split(".")[0] == "1544" or info[3].split(".")[0] == "27549":
+#			if float(info[5]) > 1000:
+#				try:
+#					genome_data[genome_id].append(info[3].split(".")[0])
+#				except KeyError:
+#					genome_data[genome_id] = [info[3].split(".")[0]]
+#			else:
+#				continue
 #Sfams for ferrioxamine biosynthesis requires a more stringent bit score cutoff (>200)
 		if info[3].split(".")[0] == "2219" or info[3].split(".")[0] == "2732" or info[3].split(".")[0] == "9429" or info[3].split(".")[0] == "51934":
 			if float(info[5]) > 200:
@@ -176,11 +178,11 @@ def dmspsynthase(hmm_match):
 		out_data['DMSP synthase (dsyB)'] = 1
 	return out_data
 
-def amphibactin(hmm_match):
-	out_data = {'amphibactin ACO2092-3homolog':0}
-	if ('1544' in hmm_match) and ('27549' in hmm_match):
-		out_data['amphibactin ACO2092-3homolog'] = 1
-	return out_data
+#def amphibactin(hmm_match):
+#	out_data = {'amphibactin ACO2092-3homolog':0}
+#	if ('1544' in hmm_match) and ('27549' in hmm_match):
+#		out_data['amphibactin ACO2092-3homolog'] = 1
+#	return out_data
 
 def ferrioxamine(hmm_match):
 	out_data = {'ferrioxamine biosynthesis':0}
@@ -188,6 +190,12 @@ def ferrioxamine(hmm_match):
 	for i in ferrioxamine:
 		if i in hmm_match:
 			out_data['ferrioxamine biosynthesis'] += 0.25
+	return out_data
+
+def dissim_sulfite(hmm_match):
+	out_data = {'DsrD dissimilatory sulfite reductase':0}
+	if 'PF08679' in hmm_match:
+		out_data['DsrD dissimilatory sulfite reductase'] = 1
 	return out_data
 
 function_order = ['beta-carotene 15,15-monooxygenase', 'rhodopsin', 'Peptidase family C25', 
@@ -199,8 +207,8 @@ function_order = ['beta-carotene 15,15-monooxygenase', 'rhodopsin', 'Peptidase f
 'Aminopeptidase N', 'Zinc carboxypeptidase', 'Peptidase S24-like', 'Peptidase S26', 
 'D-aminopeptidase', 'M61 glycyl aminopeptidase', 'Vanadium-only nitrogenase', 
 'Iron-only nitrogenase', 'transporter: ammonia',
-'DMSP lyase (dddLQPDKW)', 'DMSP synthase (dsyB)', 'amphibactin ACO2092-3homolog', 
-'ferrioxamine biosynthesis']
+'DMSP lyase (dddLQPDKW)', 'DMSP synthase (dsyB)', 
+'ferrioxamine biosynthesis', 'DsrD dissimilatory sulfite reductase']
 
 filehandle = str(arg_dict['Output'])
 out_file = open(filehandle, "w")
@@ -214,8 +222,9 @@ for k in genome_data:
 	pathway_data.update(amm_trans(genome_data[k]))
 	pathway_data.update(dmsplyase(genome_data[k]))
 	pathway_data.update(dmspsynthase(genome_data[k]))
-	pathway_data.update(amphibactin(genome_data[k]))
+#	pathway_data.update(amphibactin(genome_data[k]))
 	pathway_data.update(ferrioxamine(genome_data[k]))
+	pathway_data.update(dissim_sulfite(genome_data[k]))
 
 	out_string = str(k)+"\t"
 	out_list = [k]

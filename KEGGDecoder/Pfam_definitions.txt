@@ -48,12 +48,14 @@ DMSP Synthase
 
 Methylphosphonate biosynthesis
 
-
+####REMOVED DUE NON-DISCRIMINATORY MATCHES#####
 Amphibactin biosynthesis
 	Multiple SFAM models have exceptionally high bit score matches to reference sequences (>>1000). Both ABO2092 and ABO2903 have common domains and as such share the highest SFAM models
 	Recorded the best two models for all references and require both to successfully match for identification
 	1544	ABO2902/3 - requires a much more strigent bit score cutoff (recommend >1000)
 	27549	ABO2902/3 - requires a much more strigent bit score cutoff (recommend >1000)
+#####
+
 
 Ferrioxamine biosynthesis
 	Limited references for comparison. Known to occur as operon in Streptomyces. Each gene matched an SFAM model with at least bit score >200, 3 of 4 top hit is over 500 bit score
