@@ -1403,3 +1403,5 @@ if __name__ == "__main__":
 
 	if arg_dict['VizOption'] == 'static':
 		default_viz(genome)
+	if arg_dict['VizOption'] == 'interactive':
+		plotly_viz(genome)
