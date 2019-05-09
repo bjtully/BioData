@@ -8,3 +8,9 @@ author = "Benjamin Tully"
 author-email = "tully.bj@gmail.com"
 home-page = "https://github.com/bjtully/BioData/"
 classifiers = ["License :: OSI Approved :: MIT License"]
+requires = [
+    "matplotlib",
+    "seaborn",
+    "pandas",
+    "numpy",
+]
