@@ -6,11 +6,15 @@ build-backend = "flit.buildapi"
 module = "KEGGDecoder"
 author = "Benjamin Tully"
 author-email = "tully.bj@gmail.com"
-home-page = "https://github.com/bjtully/BioData/"
+home-page = "https://github.com/bjtully/BioData/KEGGDecoder"
 classifiers = ["License :: OSI Approved :: MIT License"]
 requires = [
     "matplotlib",
     "seaborn",
     "pandas",
     "numpy",
+    "plotly"
 ]
+
+[tool.flit.scripts]
+KEGG-decoder = "KEGGDecoder:KEGG_decoder:main"

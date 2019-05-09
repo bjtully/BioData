@@ -1,3 +1,4 @@
 .tox/
 **/__pycache__/
 .coverage
+dist/

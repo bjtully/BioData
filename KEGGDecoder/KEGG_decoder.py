@@ -1233,8 +1233,7 @@ def default_viz(genome_df):
 	fig.savefig("function_heatmap.svg")
 
 
-if __name__ == "__main__":
-	__version__ = 0.8
+def main():
 	import matplotlib
 	matplotlib.use('Agg')
 	import argparse
@@ -1406,3 +1405,6 @@ if __name__ == "__main__":
 		default_viz(genome)
 	if arg_dict['VizOption'] == 'interactive':
 		plotly_viz(genome)
+
+if __name__ == "__main__":
+	main()
