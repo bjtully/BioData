@@ -34,6 +34,7 @@ For extended information about KEGG assignments, genes and pathways,
 please see accompanying document "KOALA_definitions.txt"
 
 '''
+__version__ = 0.8
 import matplotlib
 matplotlib.use('Agg')
 import argparse
@@ -1347,13 +1348,24 @@ out_file.close()
 import matplotlib.pyplot as plt
 
 import pandas as pd
+from scipy.cluster import hierarchy
+from scipy.spatial import distance
 
 file_in = open(filehandle, "r")
 genome = pd.read_table(file_in, index_col=0)
+from scipy.cluster.hierarchy import ward, complete, average, dendrogram, fcluster, linkage
+linkage_matrix = linkage(genome, method='average', metric='braycurtis')
+#linkage_matrix = linkage(df, metric='braycurtis')
+names = genome.index.tolist()
+clust = dendrogram(linkage_matrix, orientation="right", labels=names, get_leaves=True)
+leaves = clust['ivl']
+leave_order = list(leaves)
+genome = genome.reindex(leave_order)
+
 import seaborn as sns
 sns.set(font_scale=1.2)
 sns.set_style({"savefig.dpi": 200})
-ax = sns.heatmap(genome, cmap=plt.cm.YlOrRd, linewidths=2, linecolor='k', square=True, xticklabels=True, yticklabels=True)
+ax = sns.heatmap(genome, cmap=plt.cm.YlOrRd, linewidths=2, linecolor='k', square=True, xticklabels=True, yticklabels=True, cbar=False)
 ax.xaxis.tick_top()
 #ax.set_yticklabels(ax.get_yticklabels(), rotation=90)
 plt.xticks(rotation=90)
@@ -1361,5 +1373,5 @@ plt.yticks(rotation=0)
 # get figure (usually obtained via "fig,ax=plt.subplots()" with matplotlib)
 fig = ax.get_figure()
 # specify dimensions and save
-fig.set_size_inches(35, 35)
+fig.set_size_inches(100, 100)
 fig.savefig("function_heatmap.svg")
