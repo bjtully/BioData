@@ -1194,6 +1194,20 @@ def arsenic(ko_match):
 		out_data['Arsenic reduction'] += 0.25
 	return out_data
 
+def default_viz(genome_df):
+	sns.set(font_scale=1.2)
+	sns.set_style({"savefig.dpi": 200})
+	ax = sns.heatmap(genome_df, cmap=plt.cm.YlOrRd, linewidths=2, linecolor='k', square=True, xticklabels=True, yticklabels=True, cbar=False)
+	ax.xaxis.tick_top()
+	#ax.set_yticklabels(ax.get_yticklabels(), rotation=90)
+	plt.xticks(rotation=90)
+	plt.yticks(rotation=0)
+	# get figure (usually obtained via "fig,ax=plt.subplots()" with matplotlib)
+	fig = ax.get_figure()
+	# specify dimensions and save
+	fig.set_size_inches(100, 100)
+	fig.savefig("function_heatmap.svg")
+
 
 if __name__ == "__main__":
 	__version__ = 0.8
@@ -1213,6 +1227,7 @@ if __name__ == "__main__":
 						for correct format")
 	parser.add_argument('Output', help="List version of the final heat\
 						map figure")
+	parser.add_argument('VizOption', help="Options: static, interactive, tanglegram")
 	args = parser.parse_args()
 	arg_dict = vars(args)
 
@@ -1363,16 +1378,5 @@ if __name__ == "__main__":
 	leave_order = list(leaves)
 	genome = genome.reindex(leave_order)
 
-
-	sns.set(font_scale=1.2)
-	sns.set_style({"savefig.dpi": 200})
-	ax = sns.heatmap(genome, cmap=plt.cm.YlOrRd, linewidths=2, linecolor='k', square=True, xticklabels=True, yticklabels=True, cbar=False)
-	ax.xaxis.tick_top()
-	#ax.set_yticklabels(ax.get_yticklabels(), rotation=90)
-	plt.xticks(rotation=90)
-	plt.yticks(rotation=0)
-	# get figure (usually obtained via "fig,ax=plt.subplots()" with matplotlib)
-	fig = ax.get_figure()
-	# specify dimensions and save
-	fig.set_size_inches(100, 100)
-	fig.savefig("function_heatmap.svg")
+	if arg_dict['VizOption'] == 'static':
+		default_viz(genome)
