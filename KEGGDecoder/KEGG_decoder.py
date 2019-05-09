@@ -1218,6 +1218,7 @@ def plotly_viz(genome_df):
 	# py.iplot(data, filename='pandas.heatmap')
 
 def default_viz(genome_df):
+	import seaborn as sns
 	sns.set(font_scale=1.2)
 	sns.set_style({"savefig.dpi": 200})
 	ax = sns.heatmap(genome_df, cmap=plt.cm.YlOrRd, linewidths=2, linecolor='k', square=True, xticklabels=True, yticklabels=True, cbar=False)
@@ -1241,7 +1242,7 @@ if __name__ == "__main__":
 	import pandas as pd
 	from scipy.cluster import hierarchy
 	from scipy.spatial import distance
-	import seaborn as sns
+
 
 	parser = argparse.ArgumentParser(description="Accepts KEGG KOALA\
 									text file as input. Produces function\
