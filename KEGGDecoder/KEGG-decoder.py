@@ -34,22 +34,6 @@ For extended information about KEGG assignments, genes and pathways,
 please see accompanying document "KOALA_definitions.txt"
 
 '''
-__version__ = 0.8
-import matplotlib
-matplotlib.use('Agg')
-import argparse
-
-parser = argparse.ArgumentParser(description="Accepts KEGG KOALA\
-								text file as input. Produces function\
-								list and heat map figure.")
-parser.add_argument('Input', help="Input KOALA file. See documentation\
-					for correct format")
-parser.add_argument('Output', help="List version of the final heat\
-					map figure")
-args = parser.parse_args()
-arg_dict = vars(args)
-
-
 def nitrogen(ko_match):
 	out_data = {'dissim nitrate reduction': 0, 'nitrite oxidation': 0,
 	'DNRA': 0, 'nitrite reduction': 0, 'nitric oxide reduction' : 0,
@@ -1210,168 +1194,185 @@ def arsenic(ko_match):
 		out_data['Arsenic reduction'] += 0.25
 	return out_data
 
-genome_data = {}
 
-for line in open(str(arg_dict['Input']), "r"):
-	line = line.rstrip()
-	info = line.split()
-	if len(info) > 1:
-		if info[0].split("_")[0] in genome_data.keys():
-			genome_data[info[0].split("_")[0]].append(info[1])
-		else:
-			genome_data[info[0].split("_")[0]] = [info[1]]
+if __name__ == "__main__":
+	__version__ = 0.8
+	import matplotlib
+	matplotlib.use('Agg')
+	import argparse
+	import matplotlib.pyplot as plt
+	import pandas as pd
+	from scipy.cluster import hierarchy
+	from scipy.spatial import distance
+	import seaborn as sns
 
-function_order = ['glycolysis', 'gluconeogenesis', 'TCA Cycle', 
-'NAD(P)H-quinone oxidoreductase', 'NADH-quinone oxidoreductase', 
-'F-type ATPase', 'V-type ATPase', 'Cytochrome c oxidase', 
-'Ubiquinol-cytochrome c reductase', 'Cytochrome o ubiquinol oxidase', 
-'Cytochrome aa3-600 menaquinol oxidase', 
-'Cytochrome c oxidase, cbb3-type', 'Cytochrome bd complex', 'RuBisCo', 
-'CBB Cycle', 'rTCA Cycle', 'Wood-Ljungdahl', 
-'3-Hydroxypropionate Bicycle', '4-Hydroxybutyrate/3-hydroxypropionate', 
-'pectinesterase', 'diacetylchitobiose deacetylase', 'glucoamylase', 
-'D-galacturonate epimerase', 'exo-poly-alpha-galacturonosidase', 
-'oligogalacturonide lyase', 'cellulase', 'exopolygalacturonase', 
-'chitinase', 'basic endochitinase B', 'bifunctional chitinase/lysozyme', 
-'beta-N-acetylhexosaminidase', 'D-galacturonate isomerase', 
-'alpha-amylase', 'beta-glucosidase', 'pullulanase', 
-'ammonia oxidation (amo/pmmo)', 'hydroxylamine oxidation', 'nitrite oxidation', 
-'dissim nitrate reduction', 'DNRA', 'nitrite reduction', 
-'nitric oxide reduction', 'nitrous-oxide reduction', 
-'nitrogen fixation', 'hydrazine dehydrogenase', 'hydrazine synthase',
-'dissimilatory sulfate < > APS', 
-'dissimilatory sulfite < > APS', 'dissimilatory sulfite < > sulfide', 
-'thiosulfate oxidation', 'alt thiosulfate oxidation tsdA', 
-'alt thiosulfate oxidation doxAD', 'sulfur reductase sreABC', 
-'thiosulfate/polysulfide reductase', 'sulfhydrogenase', 
-'sulfur disproportionation', 'sulfur dioxygenase', 
-'sulfite dehydrogenase', 'sulfite dehydrogenase (quinone)',
-'sulfide oxidation', 'sulfur assimilation',
-'DMSP demethylation', 'DMS dehydrogenase', 'DMSO reductase',
-'NiFe hydrogenase', 'ferredoxin hydrogenase', 
-'membrane-bound hydrogenase', 'hydrogen:quinone oxidoreductase', 'NAD-reducing hydrogenase', 
-'NADP-reducing hydrogenase', 'NiFe hydrogenase Hyd-1',
-'thiamin biosynthesis', 
-'riboflavin biosynthesis' ,
-'cobalamin biosynthesis', 'transporter: vitamin B12', 
-'transporter: thiamin', 'transporter: urea', 
-'transporter: phosphonate', 'transporter: phosphate', 
-'Flagellum', 'Chemotaxis', 'Methanogenesis via methanol', 
-'Methanogenesis via acetate', 
-'Methanogenesis via dimethylsulfide, methanethiol, methylpropanoate', 
-'Methanogenesis via methylamine', 'Methanogenesis via trimethylamine', 
-'Methanogenesis via dimethylamine', 'Methanogenesis via CO2', 
-'Coenzyme B/Coenzyme M regeneration', 
-'Coenzyme M reduction to methane', 'Soluble methane monooxygenase',
-'methanol dehydrogenase', 'alcohol oxidase',
-'dimethylamine/trimethylamine dehydrogenase',
-'Photosystem II', 'Photosystem I', 'Cytochrome b6/f complex', 
-'anoxygenic type-II reaction center', 'anoxygenic type-I reaction center',
-'Retinal biosynthesis',
-'Entner-Doudoroff Pathway', 'Mixed acid: Lactate', 'Mixed acid: Formate', 
-'Mixed acid: Formate to CO2 & H2', 'Mixed acid: Acetate',
-'Mixed acid: Ethanol, Acetate to Acetylaldehyde',
-'Mixed acid: Ethanol, Acetyl-CoA to Acetylaldehyde (reversible)',
-'Mixed acid: Ethanol, Acetylaldehyde to Ethanol',
-'Mixed acid: PEP to Succinate via OAA, malate & fumarate',
-'Naphthalene degradation to salicylate',
-'Biofilm PGA Synthesis protein',
-'Colanic acid and Biofilm transcriptional regulator',
-'Biofilm regulator BssS', 'Colanic acid and Biofilm protein A',
-'Curli fimbriae biosynthesis', 'Adhesion', 'Competence-related core components',
-'Competence-related related components', 'Competence factors',
-'Glyoxylate shunt', 'Anaplerotic genes', 'Sulfolipid biosynthesis',
-'C-P lyase cleavage PhnJ', 'CP-lyase complex', 'CP-lyase operon', 'Type I Secretion',
-'Type III Secretion', 'Type II Secretion', 'Type IV Secretion', 'Type VI Secretion',
-'Sec-SRP', 'Twin Arginine Targeting', 'Type Vabc Secretion',
-'Serine pathway/formaldehyde assimilation', 'Arsenic reduction']
+	parser = argparse.ArgumentParser(description="Accepts KEGG KOALA\
+									text file as input. Produces function\
+									list and heat map figure.")
+	parser.add_argument('Input', help="Input KOALA file. See documentation\
+						for correct format")
+	parser.add_argument('Output', help="List version of the final heat\
+						map figure")
+	args = parser.parse_args()
+	arg_dict = vars(args)
 
-filehandle = str(arg_dict['Output'])
-out_file = open(filehandle, "w")
-out_file.write('Function'+"\t"+str("\t".join(function_order))+"\n")
+	genome_data = {}
 
-for k in genome_data:
-	pathway_data = {}
-	pathway_data.update(nitrogen(genome_data[k]))
-	pathway_data.update(glycolysis(genome_data[k]))
-	pathway_data.update(gluconeogenesis(genome_data[k]))
-	pathway_data.update(tca_cycle(genome_data[k]))
-	pathway_data.update(cbb_cycle(genome_data[k]))
-	pathway_data.update(reverse_tca(genome_data[k]))
-	pathway_data.update(wood_ljungdahl(genome_data[k]))
-	pathway_data.update(three_prop(genome_data[k]))
-	pathway_data.update(four_hydrox(genome_data[k]))
-	pathway_data.update(c_degradation(genome_data[k]))
-	pathway_data.update(chemotaxis(genome_data[k]))
-	pathway_data.update(flagellum(genome_data[k]))
-	pathway_data.update(sulfur(genome_data[k]))
-	pathway_data.update(methanogenesis(genome_data[k]))
-	pathway_data.update(methane_ox(genome_data[k]))	
-	pathway_data.update(hydrogen(genome_data[k]))	
-	pathway_data.update(transporters(genome_data[k]))
-	pathway_data.update(riboflavin(genome_data[k]))	
-	pathway_data.update(thiamin(genome_data[k]))
-	pathway_data.update(oxidative_phoshorylation(genome_data[k]))	
-#Addendum 2
-	pathway_data.update(photosynthesis(genome_data[k]))
-	pathway_data.update(entnerdoudoroff(genome_data[k]))
-	pathway_data.update(mixedacid(genome_data[k]))
-	pathway_data.update(naphthalene(genome_data[k]))
-	pathway_data.update(biofilm(genome_data[k]))
-	pathway_data.update(cobalamin(genome_data[k]))
-	pathway_data.update(competence(genome_data[k]))
-	pathway_data.update(anaplerotic(genome_data[k]))
-	pathway_data.update(sulfolipid(genome_data[k]))
-	pathway_data.update(cplyase(genome_data[k]))
-	pathway_data.update(secretion(genome_data[k]))
-	pathway_data.update(serine(genome_data[k]))
-	pathway_data.update(arsenic(genome_data[k]))
-#	print k, pathway_data
+	for line in open(str(arg_dict['Input']), "r"):
+		line = line.rstrip()
+		info = line.split()
+		if len(info) > 1:
+			if info[0].split("_")[0] in genome_data.keys():
+				genome_data[info[0].split("_")[0]].append(info[1])
+			else:
+				genome_data[info[0].split("_")[0]] = [info[1]]
 
-	out_string = str(k)+"\t"
-	out_list = [k]
-	for i in function_order:
-		out_list.append(pathway_data[i])
-	out_string = str(out_list).strip('[]')
-	tab_string = ""
-	for l in out_string:
-		if l == "\'":
-			continue
-		if l == ",":
-			tab_string = tab_string + "\t"
-		else:
-			tab_string = tab_string + l
-	out_file.write(tab_string+"\n")
-out_file.close()
+	function_order = ['glycolysis', 'gluconeogenesis', 'TCA Cycle', 
+	'NAD(P)H-quinone oxidoreductase', 'NADH-quinone oxidoreductase', 
+	'F-type ATPase', 'V-type ATPase', 'Cytochrome c oxidase', 
+	'Ubiquinol-cytochrome c reductase', 'Cytochrome o ubiquinol oxidase', 
+	'Cytochrome aa3-600 menaquinol oxidase', 
+	'Cytochrome c oxidase, cbb3-type', 'Cytochrome bd complex', 'RuBisCo', 
+	'CBB Cycle', 'rTCA Cycle', 'Wood-Ljungdahl', 
+	'3-Hydroxypropionate Bicycle', '4-Hydroxybutyrate/3-hydroxypropionate', 
+	'pectinesterase', 'diacetylchitobiose deacetylase', 'glucoamylase', 
+	'D-galacturonate epimerase', 'exo-poly-alpha-galacturonosidase', 
+	'oligogalacturonide lyase', 'cellulase', 'exopolygalacturonase', 
+	'chitinase', 'basic endochitinase B', 'bifunctional chitinase/lysozyme', 
+	'beta-N-acetylhexosaminidase', 'D-galacturonate isomerase', 
+	'alpha-amylase', 'beta-glucosidase', 'pullulanase', 
+	'ammonia oxidation (amo/pmmo)', 'hydroxylamine oxidation', 'nitrite oxidation', 
+	'dissim nitrate reduction', 'DNRA', 'nitrite reduction', 
+	'nitric oxide reduction', 'nitrous-oxide reduction', 
+	'nitrogen fixation', 'hydrazine dehydrogenase', 'hydrazine synthase',
+	'dissimilatory sulfate < > APS', 
+	'dissimilatory sulfite < > APS', 'dissimilatory sulfite < > sulfide', 
+	'thiosulfate oxidation', 'alt thiosulfate oxidation tsdA', 
+	'alt thiosulfate oxidation doxAD', 'sulfur reductase sreABC', 
+	'thiosulfate/polysulfide reductase', 'sulfhydrogenase', 
+	'sulfur disproportionation', 'sulfur dioxygenase', 
+	'sulfite dehydrogenase', 'sulfite dehydrogenase (quinone)',
+	'sulfide oxidation', 'sulfur assimilation',
+	'DMSP demethylation', 'DMS dehydrogenase', 'DMSO reductase',
+	'NiFe hydrogenase', 'ferredoxin hydrogenase', 
+	'membrane-bound hydrogenase', 'hydrogen:quinone oxidoreductase', 'NAD-reducing hydrogenase', 
+	'NADP-reducing hydrogenase', 'NiFe hydrogenase Hyd-1',
+	'thiamin biosynthesis', 
+	'riboflavin biosynthesis' ,
+	'cobalamin biosynthesis', 'transporter: vitamin B12', 
+	'transporter: thiamin', 'transporter: urea', 
+	'transporter: phosphonate', 'transporter: phosphate', 
+	'Flagellum', 'Chemotaxis', 'Methanogenesis via methanol', 
+	'Methanogenesis via acetate', 
+	'Methanogenesis via dimethylsulfide, methanethiol, methylpropanoate', 
+	'Methanogenesis via methylamine', 'Methanogenesis via trimethylamine', 
+	'Methanogenesis via dimethylamine', 'Methanogenesis via CO2', 
+	'Coenzyme B/Coenzyme M regeneration', 
+	'Coenzyme M reduction to methane', 'Soluble methane monooxygenase',
+	'methanol dehydrogenase', 'alcohol oxidase',
+	'dimethylamine/trimethylamine dehydrogenase',
+	'Photosystem II', 'Photosystem I', 'Cytochrome b6/f complex', 
+	'anoxygenic type-II reaction center', 'anoxygenic type-I reaction center',
+	'Retinal biosynthesis',
+	'Entner-Doudoroff Pathway', 'Mixed acid: Lactate', 'Mixed acid: Formate', 
+	'Mixed acid: Formate to CO2 & H2', 'Mixed acid: Acetate',
+	'Mixed acid: Ethanol, Acetate to Acetylaldehyde',
+	'Mixed acid: Ethanol, Acetyl-CoA to Acetylaldehyde (reversible)',
+	'Mixed acid: Ethanol, Acetylaldehyde to Ethanol',
+	'Mixed acid: PEP to Succinate via OAA, malate & fumarate',
+	'Naphthalene degradation to salicylate',
+	'Biofilm PGA Synthesis protein',
+	'Colanic acid and Biofilm transcriptional regulator',
+	'Biofilm regulator BssS', 'Colanic acid and Biofilm protein A',
+	'Curli fimbriae biosynthesis', 'Adhesion', 'Competence-related core components',
+	'Competence-related related components', 'Competence factors',
+	'Glyoxylate shunt', 'Anaplerotic genes', 'Sulfolipid biosynthesis',
+	'C-P lyase cleavage PhnJ', 'CP-lyase complex', 'CP-lyase operon', 'Type I Secretion',
+	'Type III Secretion', 'Type II Secretion', 'Type IV Secretion', 'Type VI Secretion',
+	'Sec-SRP', 'Twin Arginine Targeting', 'Type Vabc Secretion',
+	'Serine pathway/formaldehyde assimilation', 'Arsenic reduction']
 
-#%matplotlib inline
-import matplotlib.pyplot as plt
+	filehandle = str(arg_dict['Output'])
+	out_file = open(filehandle, "w")
+	out_file.write('Function'+"\t"+str("\t".join(function_order))+"\n")
 
-import pandas as pd
-from scipy.cluster import hierarchy
-from scipy.spatial import distance
+	for k in genome_data:
+		pathway_data = {}
+		pathway_data.update(nitrogen(genome_data[k]))
+		pathway_data.update(glycolysis(genome_data[k]))
+		pathway_data.update(gluconeogenesis(genome_data[k]))
+		pathway_data.update(tca_cycle(genome_data[k]))
+		pathway_data.update(cbb_cycle(genome_data[k]))
+		pathway_data.update(reverse_tca(genome_data[k]))
+		pathway_data.update(wood_ljungdahl(genome_data[k]))
+		pathway_data.update(three_prop(genome_data[k]))
+		pathway_data.update(four_hydrox(genome_data[k]))
+		pathway_data.update(c_degradation(genome_data[k]))
+		pathway_data.update(chemotaxis(genome_data[k]))
+		pathway_data.update(flagellum(genome_data[k]))
+		pathway_data.update(sulfur(genome_data[k]))
+		pathway_data.update(methanogenesis(genome_data[k]))
+		pathway_data.update(methane_ox(genome_data[k]))	
+		pathway_data.update(hydrogen(genome_data[k]))	
+		pathway_data.update(transporters(genome_data[k]))
+		pathway_data.update(riboflavin(genome_data[k]))	
+		pathway_data.update(thiamin(genome_data[k]))
+		pathway_data.update(oxidative_phoshorylation(genome_data[k]))	
+	#Addendum 2
+		pathway_data.update(photosynthesis(genome_data[k]))
+		pathway_data.update(entnerdoudoroff(genome_data[k]))
+		pathway_data.update(mixedacid(genome_data[k]))
+		pathway_data.update(naphthalene(genome_data[k]))
+		pathway_data.update(biofilm(genome_data[k]))
+		pathway_data.update(cobalamin(genome_data[k]))
+		pathway_data.update(competence(genome_data[k]))
+		pathway_data.update(anaplerotic(genome_data[k]))
+		pathway_data.update(sulfolipid(genome_data[k]))
+		pathway_data.update(cplyase(genome_data[k]))
+		pathway_data.update(secretion(genome_data[k]))
+		pathway_data.update(serine(genome_data[k]))
+		pathway_data.update(arsenic(genome_data[k]))
+	#	print k, pathway_data
 
-file_in = open(filehandle, "r")
-genome = pd.read_table(file_in, index_col=0)
-from scipy.cluster.hierarchy import ward, complete, average, dendrogram, fcluster, linkage
-linkage_matrix = linkage(genome, method='average', metric='braycurtis')
-#linkage_matrix = linkage(df, metric='braycurtis')
-names = genome.index.tolist()
-clust = dendrogram(linkage_matrix, orientation="right", labels=names, get_leaves=True)
-leaves = clust['ivl']
-leave_order = list(leaves)
-genome = genome.reindex(leave_order)
+		out_string = str(k)+"\t"
+		out_list = [k]
+		for i in function_order:
+			out_list.append(pathway_data[i])
+		out_string = str(out_list).strip('[]')
+		tab_string = ""
+		for l in out_string:
+			if l == "\'":
+				continue
+			if l == ",":
+				tab_string = tab_string + "\t"
+			else:
+				tab_string = tab_string + l
+		out_file.write(tab_string+"\n")
+	out_file.close()
 
-import seaborn as sns
-sns.set(font_scale=1.2)
-sns.set_style({"savefig.dpi": 200})
-ax = sns.heatmap(genome, cmap=plt.cm.YlOrRd, linewidths=2, linecolor='k', square=True, xticklabels=True, yticklabels=True, cbar=False)
-ax.xaxis.tick_top()
-#ax.set_yticklabels(ax.get_yticklabels(), rotation=90)
-plt.xticks(rotation=90)
-plt.yticks(rotation=0)
-# get figure (usually obtained via "fig,ax=plt.subplots()" with matplotlib)
-fig = ax.get_figure()
-# specify dimensions and save
-fig.set_size_inches(100, 100)
-fig.savefig("function_heatmap.svg")
+
+	file_in = open(filehandle, "r")
+	genome = pd.read_table(file_in, index_col=0)
+	from scipy.cluster.hierarchy import ward, complete, average, dendrogram, fcluster, linkage
+	linkage_matrix = linkage(genome, method='average', metric='euclidean')
+	#linkage_matrix = linkage(df, metric='braycurtis')
+	names = genome.index.tolist()
+	#clust = dendrogram(linkage_matrix, orientation="right", labels=names, get_leaves=True)
+	clust = dendrogram(linkage_matrix, no_plot=True, labels=names, get_leaves=True)
+	leaves = clust['ivl']
+	leave_order = list(leaves)
+	genome = genome.reindex(leave_order)
+
+
+	sns.set(font_scale=1.2)
+	sns.set_style({"savefig.dpi": 200})
+	ax = sns.heatmap(genome, cmap=plt.cm.YlOrRd, linewidths=2, linecolor='k', square=True, xticklabels=True, yticklabels=True, cbar=False)
+	ax.xaxis.tick_top()
+	#ax.set_yticklabels(ax.get_yticklabels(), rotation=90)
+	plt.xticks(rotation=90)
+	plt.yticks(rotation=0)
+	# get figure (usually obtained via "fig,ax=plt.subplots()" with matplotlib)
+	fig = ax.get_figure()
+	# specify dimensions and save
+	fig.set_size_inches(100, 100)
+	fig.savefig("function_heatmap.svg")
