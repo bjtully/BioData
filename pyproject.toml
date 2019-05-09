@@ -1,5 +1,5 @@
 [build-system]
-requires = ["flit"]
+requires = ["flit >= 1.1"]
 build-backend = "flit.buildapi"
 
 [tool.flit.metadata]
@@ -8,4 +8,3 @@ author = "Benjamin Tully"
 author-email = "tully.bj@gmail.com"
 home-page = "https://github.com/bjtully/BioData/"
 classifiers = ["License :: OSI Approved :: MIT License"]
-
