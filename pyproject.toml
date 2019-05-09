@@ -1,0 +1,11 @@
+[build-system]
+requires = ["flit"]
+build-backend = "flit.buildapi"
+
+[tool.flit.metadata]
+module = "KEGGDecoder"
+author = "Benjamin Tully"
+author-email = "tully.bj@gmail.com"
+home-page = "https://github.com/bjtully/BioData/"
+classifiers = ["License :: OSI Approved :: MIT License"]
+
