@@ -1194,6 +1194,28 @@ def arsenic(ko_match):
 		out_data['Arsenic reduction'] += 0.25
 	return out_data
 
+def plotly(df):
+	# build heatmap in plotly.offline
+
+	import plotly.graph_objs as go
+	import plotly.offline as py
+
+	colorscale = [
+					[0, '#f1eef6'],
+					[0.2, '#f1eef6'],
+					[0.2 ,'#bdc9e1'],
+					[0.4 ,'#bdc9e1'],
+					[0.4 ,'#74a9cf'],
+					[0.6 ,'#74a9cf'],
+					[0.6 ,'#2b8cbe'],
+					[0.8 ,'#2b8cbe'],
+					[0.8 ,'#045a8d'],
+					[1 ,'#045a8d']]
+	colorbar = {'tick0': 0, 'dtick': 0.2}
+	data = [go.Heatmap(x=genome.columns.values.tolist(), y=genome.index.tolist(), z=genome.values.tolist(), colorscale=colorscale, colorbar=colorbar, xgap = 1, ygap = 1)]
+
+	py.plot(data, filename='pandas.heatmap.html')
+	# py.iplot(data, filename='pandas.heatmap')
 
 if __name__ == "__main__":
 	__version__ = 0.8
