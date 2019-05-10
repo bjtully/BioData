@@ -1282,7 +1282,7 @@ def main():
 	parser.add_argument('-o', '--output', help="List version of the final heat\
 						map figure")
 	parser.add_argument('-v', '--vizoption', help="Options: static, interactive, tanglegram")
-        parser.add_argument('--newick', help="Required input for tanglegram visualization")
+	parser.add_argument('--newick', help="Required input for tanglegram visualization")
 	args = parser.parse_args()
 	arg_dict = vars(args)
 
