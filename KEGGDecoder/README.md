@@ -7,6 +7,8 @@ Designed to parse through a KEGG-Koala outputs (including blastKOALA, ghostKOALA
 
 * if you are interested in certain pathway and the genes are listed in KEGG it is possible to add it to file (with some Python scripting)
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/rotheconrad/KEGGDecoder-binder/master)
+
 ### Please Cite ###
 If you find that using KEGG Decoder to process your data has been useful, please consider citing this manuscript. If you are using KEGG Decoder to make figures then definitely cite this manuscript!
 
