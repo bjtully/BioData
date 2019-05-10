@@ -1196,6 +1196,7 @@ def arsenic(ko_match):
 
 def default_viz(genome_df):
 	import seaborn as sns
+	import matplotlib.pyplot as plt
 	sns.set(font_scale=1.2)
 	sns.set_style({"savefig.dpi": 200})
 	ax = sns.heatmap(genome_df, cmap=plt.cm.YlOrRd, linewidths=2, linecolor='k', square=True, xticklabels=True, yticklabels=True, cbar=False)
@@ -1214,7 +1215,6 @@ def main():
 	import matplotlib
 	matplotlib.use('Agg')
 	import argparse
-	import matplotlib.pyplot as plt
 	import pandas as pd
 	from scipy.cluster import hierarchy
 	from scipy.spatial import distance
