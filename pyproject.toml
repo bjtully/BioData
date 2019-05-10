@@ -17,4 +17,4 @@ requires = [
 ]
 
 [tool.flit.scripts]
-KEGG-decoder = "KEGGDecoder:KEGG_decoder:main"
+KEGG-decoder = "KEGGDecoder.KEGG_decoder:main"
