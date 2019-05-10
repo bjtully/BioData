@@ -1196,6 +1196,7 @@ def arsenic(ko_match):
 
 def default_viz(genome_df):
 	import seaborn as sns
+	import matplotlib.pyplot as plt
 	sns.set(font_scale=1.2)
 	sns.set_style({"savefig.dpi": 200})
 	ax = sns.heatmap(genome_df, cmap=plt.cm.YlOrRd, linewidths=2, linecolor='k', square=True, xticklabels=True, yticklabels=True, cbar=False)
@@ -1206,15 +1207,15 @@ def default_viz(genome_df):
 	# get figure (usually obtained via "fig,ax=plt.subplots()" with matplotlib)
 	fig = ax.get_figure()
 	# specify dimensions and save
+	#xLen = len(genome_df.columns.values.tolist())*20
+	#yLen = len(genome_df.index.tolist())*20
 	fig.set_size_inches(100, 100)
 	fig.savefig("function_heatmap.svg")
 
 def main():
-	__version__ = 0.8
 	import matplotlib
 	matplotlib.use('Agg')
 	import argparse
-	import matplotlib.pyplot as plt
 	import pandas as pd
 	from scipy.cluster import hierarchy
 	from scipy.spatial import distance
@@ -1223,17 +1224,17 @@ def main():
 	parser = argparse.ArgumentParser(description="Accepts KEGG KOALA\
 									text file as input. Produces function\
 									list and heat map figure.")
-	parser.add_argument('Input', help="Input KOALA file. See documentation\
+	parser.add_argument('-i', '--input', help="Input KOALA file. See documentation\
 						for correct format")
-	parser.add_argument('Output', help="List version of the final heat\
+	parser.add_argument('-o', '--output', help="List version of the final heat\
 						map figure")
-	parser.add_argument('VizOption', help="Options: static, interactive, tanglegram")
+	parser.add_argument('-v', '--vizoption', help="Options: static, interactive, tanglegram")
 	args = parser.parse_args()
 	arg_dict = vars(args)
 
 	genome_data = {}
 
-	for line in open(str(arg_dict['Input']), "r"):
+	for line in open(str(arg_dict['input']), "r"):
 		line = line.rstrip()
 		info = line.split()
 		if len(info) > 1:
@@ -1307,7 +1308,7 @@ def main():
 	'Sec-SRP', 'Twin Arginine Targeting', 'Type Vabc Secretion',
 	'Serine pathway/formaldehyde assimilation', 'Arsenic reduction']
 
-	filehandle = str(arg_dict['Output'])
+	filehandle = str(arg_dict['output'])
 	out_file = open(filehandle, "w")
 	out_file.write('Function'+"\t"+str("\t".join(function_order))+"\n")
 
@@ -1367,14 +1368,14 @@ def main():
 
 
 	file_in = open(filehandle, "r")
-	genome = pd.read_table(file_in, index_col=0)
+	genome = pd.read_csv(file_in, index_col=0, sep='\t')
 
-	if arg_dict['VizOption'] == 'static':
-		from KEGG_clustering import hClust_euclidean
+	if arg_dict['vizoption'] == 'static':
+		from .KEGG_clustering import hClust_euclidean
 		genome = hClust_euclidean(genome)
 		default_viz(genome)
-	if arg_dict['VizOption'] == 'interactive':
-		from Plotly_viz import plotly_viz
+	if arg_dict['vizoption'] == 'interactive':
+		from .Plotly_viz import plotly_viz
 		plotly_viz(genome)
 
 if __name__ == "__main__":
