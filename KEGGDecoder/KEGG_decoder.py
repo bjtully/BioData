@@ -1194,29 +1194,6 @@ def arsenic(ko_match):
 		out_data['Arsenic reduction'] += 0.25
 	return out_data
 
-def plotly_viz(genome_df):
-	# build heatmap in plotly.offline
-
-	import plotly.graph_objs as go
-	import plotly.offline as py
-
-	colorscale = [
-					[0, '#f1eef6'],
-					[0.2, '#f1eef6'],
-					[0.2 ,'#bdc9e1'],
-					[0.4 ,'#bdc9e1'],
-					[0.4 ,'#74a9cf'],
-					[0.6 ,'#74a9cf'],
-					[0.6 ,'#2b8cbe'],
-					[0.8 ,'#2b8cbe'],
-					[0.8 ,'#045a8d'],
-					[1 ,'#045a8d']]
-	colorbar = {'tick0': 0, 'dtick': 0.2}
-	data = [go.Heatmap(x=genome_df.columns.values.tolist(), y=genome_df.index.tolist(), z=genome_df.values.tolist(), colorscale=colorscale, colorbar=colorbar, xgap = 1, ygap = 1)]
-
-	py.plot(data, filename='pandas.heatmap.html')
-	# py.iplot(data, filename='pandas.heatmap')
-
 def default_viz(genome_df):
 	import seaborn as sns
 	sns.set(font_scale=1.2)
@@ -1232,8 +1209,7 @@ def default_viz(genome_df):
 	fig.set_size_inches(100, 100)
 	fig.savefig("function_heatmap.svg")
 
-
-if __name__ == "__main__":
+def main():
 	__version__ = 0.8
 	import matplotlib
 	matplotlib.use('Agg')
@@ -1392,17 +1368,14 @@ if __name__ == "__main__":
 
 	file_in = open(filehandle, "r")
 	genome = pd.read_table(file_in, index_col=0)
-	from scipy.cluster.hierarchy import ward, complete, average, dendrogram, fcluster, linkage
-	linkage_matrix = linkage(genome, method='average', metric='euclidean')
-	#linkage_matrix = linkage(df, metric='braycurtis')
-	names = genome.index.tolist()
-	#clust = dendrogram(linkage_matrix, orientation="right", labels=names, get_leaves=True)
-	clust = dendrogram(linkage_matrix, no_plot=True, labels=names, get_leaves=True)
-	leaves = clust['ivl']
-	leave_order = list(leaves)
-	genome = genome.reindex(leave_order)
 
 	if arg_dict['VizOption'] == 'static':
+		from KEGG_clustering import hClust_euclidean
+		genome = hClust_euclidean(genome)
 		default_viz(genome)
 	if arg_dict['VizOption'] == 'interactive':
+		from Plotly_viz import plotly_viz
 		plotly_viz(genome)
+
+if __name__ == "__main__":
+	main()
