@@ -1,4 +1,9 @@
 language: python
+cache:
+  directories:
+    - "$HOME/.cache/pip"
+    - ".tox"
+
 python:
   - "3.6"
   - "3.5"
