@@ -8,16 +8,16 @@ Added by Roth Conrad : rotheconrad@gatech.edu
 
 def plotly_viz(genome_df):
 	# build heatmap in plotly.offline
-	from KEGG_clustering import hClust_euclidean
+	from .KEGG_clustering import hClust_euclidean
 	Euclidean_genome_df = hClust_euclidean(genome_df)
 
-	from KEGG_clustering import hClust_correlation
+	from .KEGG_clustering import hClust_correlation
 	Correlation_genome_df = hClust_correlation(genome_df)
 
-	from KEGG_clustering import hClust_most_least
+	from .KEGG_clustering import hClust_most_least
 	Most_Least_genome_df = hClust_most_least(genome_df)
 
-	from KEGG_clustering import hClust_least_most
+	from .KEGG_clustering import hClust_least_most
 	Least_Most_genome_df = hClust_least_most(genome_df)
 
 	import plotly.graph_objs as go
@@ -105,7 +105,7 @@ def plotly_viz(genome_df):
 
 
 	fig = go.Figure(data=data, layout=layout)
-	py.plot(fig, filename='pandas.heatmap.html')
+	py.plot(fig, filename='function_heatmap.html')
 	# py.iplot(data, filename='pandas.heatmap')
 
 if __name__ == "__main__":
