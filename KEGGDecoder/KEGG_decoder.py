@@ -1195,6 +1195,7 @@ def arsenic(ko_match):
 	return out_data
 
 def default_viz(genome_df):
+	import seaborn as sns
 	sns.set(font_scale=1.2)
 	sns.set_style({"savefig.dpi": 200})
 	ax = sns.heatmap(genome_df, cmap=plt.cm.YlOrRd, linewidths=2, linecolor='k', square=True, xticklabels=True, yticklabels=True, cbar=False)
@@ -1208,7 +1209,7 @@ def default_viz(genome_df):
 	fig.set_size_inches(100, 100)
 	fig.savefig("function_heatmap.svg")
 
-if __name__ == "__main__":
+def main():
 	__version__ = 0.8
 	import matplotlib
 	matplotlib.use('Agg')
@@ -1217,7 +1218,7 @@ if __name__ == "__main__":
 	import pandas as pd
 	from scipy.cluster import hierarchy
 	from scipy.spatial import distance
-	import seaborn as sns
+
 
 	parser = argparse.ArgumentParser(description="Accepts KEGG KOALA\
 									text file as input. Produces function\
@@ -1376,4 +1377,5 @@ if __name__ == "__main__":
 		from Plotly_viz import plotly_viz
 		plotly_viz(genome)
 
-
+if __name__ == "__main__":
+	main()
