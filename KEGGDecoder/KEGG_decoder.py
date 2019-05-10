@@ -1431,7 +1431,7 @@ def main():
 	if arg_dict['vizoption'] == 'interactive':
 		from .Plotly_viz import plotly_viz
 		plotly_viz(genome)
-        if arg_dict['vizoption'] == 'tangelgram':
+        if arg_dict['vizoption'] == 'tanglegram':
                 make_tanglegram(genome,str(arg_dict['newick']))
 
 if __name__ == "__main__":
