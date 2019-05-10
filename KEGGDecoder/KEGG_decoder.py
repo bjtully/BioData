@@ -1207,13 +1207,12 @@ def default_viz(genome_df):
 	# get figure (usually obtained via "fig,ax=plt.subplots()" with matplotlib)
 	fig = ax.get_figure()
 	# specify dimensions and save
-	xLen = len(genome_df.columns.values.tolist())*20
-	yLen = len(genome_df.index.tolist())*20
-	fig.set_size_inches(xLen, yLen)
+	#xLen = len(genome_df.columns.values.tolist())*20
+	#yLen = len(genome_df.index.tolist())*20
+	fig.set_size_inches(100, 100)
 	fig.savefig("function_heatmap.svg")
 
 def main():
-	__version__ = 0.8
 	import matplotlib
 	matplotlib.use('Agg')
 	import argparse
@@ -1369,7 +1368,7 @@ def main():
 
 
 	file_in = open(filehandle, "r")
-	genome = pd.read_table(file_in, index_col=0)
+	genome = pd.read_csv(file_in, index_col=0, sep='\t')
 
 	if arg_dict['vizoption'] == 'static':
 		from .KEGG_clustering import hClust_euclidean
