@@ -1217,7 +1217,7 @@ def make_tanglegram(genome_df, newick):
     import itertools
     from Bio import Phylo
     import tanglegram as tg
-    from scipy.cluster.hierarchy import ward, complete, average, dendrogram, fcluster, linkage
+    from scipy.spatial.distance import pdist, squareform
     
     # FORMAT KEGGDECODER OUTPUT
     # generate distance matrix for genome_df from pathway values
