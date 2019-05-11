@@ -1281,10 +1281,10 @@ def main():
 						for correct format")
 	parser.add_argument('-o', '--output', help="List version of the final heat\
 						map figure")
-	parser.add_argument('-v', '--vizoption', help="Options: static, interactive, tanglegram")
-	parser.add_argument('--newick', help="Required input for tanglegram visualization")
-	args = parser.parse_args()
-	arg_dict = vars(args)
+        parser.add_argument('-v', '--vizoption', help="Options: static, interactive, tanglegram")
+        parser.add_argument('--newick', help="Required input for tanglegram visualization")
+        args = parser.parse_args()
+        arg_dict = vars(args)
 
 	genome_data = {}
 
@@ -1424,11 +1424,11 @@ def main():
 	file_in = open(filehandle, "r")
 	genome = pd.read_csv(file_in, index_col=0, sep='\t')
 
-	if arg_dict['vizoption'] == 'static':
+        if arg_dict['vizoption'] == 'static':
 		from .KEGG_clustering import hClust_euclidean
 		genome = hClust_euclidean(genome)
 		default_viz(genome)
-	if arg_dict['vizoption'] == 'interactive':
+        if arg_dict['vizoption'] == 'interactive':
 		from .Plotly_viz import plotly_viz
 		plotly_viz(genome)
         if arg_dict['vizoption'] == 'tanglegram':
