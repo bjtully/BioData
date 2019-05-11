@@ -1279,7 +1279,7 @@ def main():
                                     list and heat map figure.")
     parser.add_argument('-i', '--input', help="Input KOALA file. See documentation\
                         for correct format")
-     parser.add_argument('-o', '--output', help="List version of the final heat\
+    parser.add_argument('-o', '--output', help="List version of the final heat\
                         map figure")
     parser.add_argument('-v', '--vizoption', help="Options: static, interactive, tanglegram")
     parser.add_argument('--newick', help="Required input for tanglegram visualization")
