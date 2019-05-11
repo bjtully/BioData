@@ -1266,25 +1266,25 @@ def make_tanglegram(genome_df, newick):
     fig.savefig("function_newick_tanglegram.svg")
 
 def main():
-        import matplotlib
-        matplotlib.use('Agg')
-        import argparse
-        import pandas as pd
-        from scipy.cluster import hierarchy
-        from scipy.spatial import distance
+    import matplotlib
+    matplotlib.use('Agg')
+    import argparse
+    import pandas as pd
+    from scipy.cluster import hierarchy
+    from scipy.spatial import distance
 
 
-        parser = argparse.ArgumentParser(description="Accepts KEGG KOALA\
+    parser = argparse.ArgumentParser(description="Accepts KEGG KOALA\
                                     text file as input. Produces function\
                                     list and heat map figure.")
-        parser.add_argument('-i', '--input', help="Input KOALA file. See documentation\
+    parser.add_argument('-i', '--input', help="Input KOALA file. See documentation\
                         for correct format")
-        parser.add_argument('-o', '--output', help="List version of the final heat\
+     parser.add_argument('-o', '--output', help="List version of the final heat\
                         map figure")
-        parser.add_argument('-v', '--vizoption', help="Options: static, interactive, tanglegram")
-        parser.add_argument('--newick', help="Required input for tanglegram visualization")
-        args = parser.parse_args()
-        arg_dict = vars(args)
+    parser.add_argument('-v', '--vizoption', help="Options: static, interactive, tanglegram")
+    parser.add_argument('--newick', help="Required input for tanglegram visualization")
+    args = parser.parse_args()
+    arg_dict = vars(args)
 
     genome_data = {}
 
