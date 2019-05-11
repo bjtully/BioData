@@ -1424,15 +1424,15 @@ def main():
     file_in = open(filehandle, "r")
     genome = pd.read_csv(file_in, index_col=0, sep='\t')
 
-        if arg_dict['vizoption'] == 'static':
+    if arg_dict['vizoption'] == 'static':
         from .KEGG_clustering import hClust_euclidean
         genome = hClust_euclidean(genome)
         default_viz(genome)
-        if arg_dict['vizoption'] == 'interactive':
+    if arg_dict['vizoption'] == 'interactive':
         from .Plotly_viz import plotly_viz
         plotly_viz(genome)
-        if arg_dict['vizoption'] == 'tanglegram':
-                make_tanglegram(genome,str(arg_dict['newick']))
+    if arg_dict['vizoption'] == 'tanglegram':
+        make_tanglegram(genome, str(arg_dict['newick']))
 
 if __name__ == "__main__":
     main()
