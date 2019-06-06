@@ -1,7 +1,8 @@
 #!/usr/bin/python
 
 '''
-This script is a Heirarchical clustering module for the KEGG-decoder.py V.0.8
+This script is a Heirarchical clustering module for the KEGG-decoder.py
+versions after V.0.8
 Runs scipy clustering with various metrix on the KEGG_Decoder genome DataFrame
 '''
 from scipy.cluster.hierarchy import ward, complete, average, dendrogram, fcluster, linkage

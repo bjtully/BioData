@@ -13,7 +13,10 @@ requires = [
     "seaborn",
     "pandas",
     "numpy",
-    "plotly"
+    "plotly",
+    "tanglegram",
+    "biopython",
+    "scipy"
 ]
 
 [tool.flit.scripts]
