@@ -1,8 +1,9 @@
 #!/usr/bin/python
 
 '''
-This script is a Plotly vizualization module written for KEGG-decoder.py V.0.8
-Builds an interactive heatmap of metabolic pathways specified by KEGG-decoder.py
+This script is a Plotly vizualization module written for KEGG-decoder.py 
+versions after V.0.8 Builds an interactive heatmap of metabolic pathways
+specified by KEGG-decoder.py
 Added by Roth Conrad : rotheconrad@gatech.edu
 '''
 
