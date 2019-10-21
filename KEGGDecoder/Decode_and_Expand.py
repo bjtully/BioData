@@ -25,8 +25,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-koala = pd.read_table(open(str(arg_dict['KOALA LIST']), "r"), index_col=0)
-hmm = pd.read_table(open(str(arg_dict['HMM LIST']), "r"), index_col=0)
+koala = pd.read_csv(open(str(arg_dict['KOALA LIST']), "r"), index_col=0, sep='\t')
+hmm = pd.read_csv(open(str(arg_dict['HMM LIST']), "r"), index_col=0, sep='\t')
 output_df = koala.merge(hmm, left_index=True, right_index=True)
 
 #Reorganize column orientation to put like pathways together
@@ -51,7 +51,6 @@ cols.insert(cbtA_index+1, cols.pop(int(cols.index('Cobalt transporter CbtB'))))
 cols.insert(copper_index+1, cols.pop(int(cols.index('Copper binding HMA protein'))))
 cols.insert(iron_index+1, cols.pop(int(cols.index('Fe-Zn-Mn permease ZupT'))))
 output_df = output_df[cols]
-
 
 import seaborn as sns
 sns.set(font_scale=1.2)
