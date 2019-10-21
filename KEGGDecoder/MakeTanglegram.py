@@ -10,6 +10,7 @@ Added by Taylor Reiter : tereiter@ucdavis.edu
 
 def make_tanglegram(genome_df, newick):
     import matplotlib.pyplot as plt
+    import pandas as pd
     import itertools
     from Bio import Phylo
     import tanglegram as tg
