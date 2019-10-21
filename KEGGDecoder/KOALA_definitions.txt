@@ -578,3 +578,22 @@ Dissimilatory arsenic reduction
 	K03325	arsB; arsenite transporter OR K03893 arsB; arsenical pump membrane protein
 	K03892	arsR; ArsR family transcriptional regulator
 	K01551	arsA; arsenite/tail-anchored protein-transporting ATPase
+
+Na+-transporting NADH:ubiquinone oxidoreductase
+	K00346	Na+-transporting NADH:ubiquinone oxidoreductase subunit A
+	K00347	Na+-transporting NADH:ubiquinone oxidoreductase subunit B
+	K00348	Na+-transporting NADH:ubiquinone oxidoreductase subunit C
+	K00349	Na+-transporting NADH:ubiquinone oxidoreductase subunit D
+	K00350	Na+-transporting NADH:ubiquinone oxidoreductase subunit E
+	K00351	Na+-transporting NADH:ubiquinone oxidoreductase subunit F
+
+Metal Transporters
+	K02007 + K02008	cobalt transport protein CbiMQ
+	K18837	cobalt transport protein CbtA
+	K03284	cobalt transport protein CorA
+	K15584	nickel ABC transporter, substrate-binding NikA
+	K17686	copper P-type transporter CopA
+	K04759	ferrous iron transporter FeoB
+	K02012	ferric iron ABC transporter, substrate-binding AfuA
+	K03322	Fe-Mn transporter protein MntH
+	

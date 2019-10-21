@@ -44,7 +44,14 @@ cols.insert(dmsplyase_index, cols.pop(int(cols.index('DMSP lyase (dddLQPDKW)')))
 cols.insert(dmsplyase_index+1, cols.pop(int(cols.index('DMSP synthase (dsyB)'))))
 sulfitereductase_index = cols.index('dissimilatory sulfite < > sulfide')
 cols.insert(sulfitereductase_index+1, cols.pop(int(cols.index('DsrD dissimilatory sulfite reductase'))))
+cbtA_index = cols.index('Cobalt transporter CbtA')
+copper_index = cols.index('Copper transporter CopA')
+iron_index = cols.index('Fe-Mn transporter MntH')
+cols.insert(cbtA_index+1, cols.pop(int(cols.index('Cobalt transporter CbtB'))))
+cols.insert(copper_index+1, cols.pop(int(cols.index('Copper binding HMA protein'))))
+cols.insert(iron_index+1, cols.pop(int(cols.index('Fe-Zn-Mn permease ZupT'))))
 output_df = output_df[cols]
+
 
 import seaborn as sns
 sns.set(font_scale=1.2)
