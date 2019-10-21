@@ -100,51 +100,51 @@ def rhodopsin(hmm_match):
 		out_data['beta-carotene 15,15-monooxygenase'] = 1
 	return out_data
 
-def peptidases(hmm_match):
-	out_data = {'Peptidase family C25': 0, 'Bacterial pre-peptidase C-terminal domain': 0,
-		'Clostripain family': 0, 'Peptidase family M28': 0, 'Peptidase family M50': 0,
-		'Di- and tripeptidases': 0, 'Leucyl aminopeptidase': 0, 'Xaa-Pro aminopeptidase': 0,
-		'Peptidase propeptide and YPEB domain': 0, 'Oligoendopeptidase F': 0,
-		'Phosphoserine aminotransferase': 0, 'Lipoprotein signal peptidase': 0,
-		'Aminopeptidase N': 0, 'Zinc carboxypeptidase': 0, 'Peptidase S24-like': 0,
-		'Peptidase S26': 0, 'D-aminopeptidase': 0, 'M61 glycyl aminopeptidase': 0}
-	if 'PF01364' in hmm_match:
-		out_data['Peptidase family C25'] = 1
-	if 'PF04151' in hmm_match:
-		out_data['Bacterial pre-peptidase C-terminal domain'] = 1	
-	if 'PF03415' in hmm_match:
-		out_data['Clostripain family'] = 1	
-	if 'PF04389' in hmm_match:
-		out_data['Peptidase family M28'] = 1	
-	if 'PF02163' in hmm_match:
-		out_data['Peptidase family M50'] = 1	
-	if 'PF01546' in hmm_match:
-		out_data['Di- and tripeptidases'] = 1	
-	if 'PF02073' in hmm_match:
-		out_data['Leucyl aminopeptidase'] = 1	
-	if 'PF00557' in hmm_match:
-		out_data['Xaa-Pro aminopeptidase'] = 1	
-	if 'PF03413' in hmm_match:
-		out_data['Peptidase propeptide and YPEB domain'] = 1	
-	if 'PF01432' in hmm_match:
-		out_data['Oligoendopeptidase F'] = 1	
-	if 'PF00266' in hmm_match:
-		out_data['Phosphoserine aminotransferase'] = 1	
-	if 'PF01252' in hmm_match:
-		out_data['Lipoprotein signal peptidase'] = 1
-	if 'PF01433' in hmm_match:
-		out_data['Aminopeptidase N'] = 1
-	if 'PF00246' in hmm_match:
-		out_data['Zinc carboxypeptidase'] = 1
-	if 'PF00717' in hmm_match:
-		out_data['Peptidase S24-like'] = 1
-	if 'PF10502' in hmm_match:
-		out_data['Peptidase S26'] = 1
-	if 'PF04951' in hmm_match:
-		out_data['D-aminopeptidase'] = 1
-	if 'PF05299' in hmm_match:
-		out_data['M61 glycyl aminopeptidase'] = 1
-	return out_data
+#def peptidases(hmm_match):
+#	out_data = {'Peptidase family C25': 0, 'Bacterial pre-peptidase C-terminal domain': 0,
+#		'Clostripain family': 0, 'Peptidase family M28': 0, 'Peptidase family M50': 0,
+#		'Di- and tripeptidases': 0, 'Leucyl aminopeptidase': 0, 'Xaa-Pro aminopeptidase': 0,
+#		'Peptidase propeptide and YPEB domain': 0, 'Oligoendopeptidase F': 0,
+#		'Phosphoserine aminotransferase': 0, 'Lipoprotein signal peptidase': 0,
+#		'Aminopeptidase N': 0, 'Zinc carboxypeptidase': 0, 'Peptidase S24-like': 0,
+#		'Peptidase S26': 0, 'D-aminopeptidase': 0, 'M61 glycyl aminopeptidase': 0}
+#	if 'PF01364' in hmm_match:
+#		out_data['Peptidase family C25'] = 1
+#	if 'PF04151' in hmm_match:
+#		out_data['Bacterial pre-peptidase C-terminal domain'] = 1	
+#	if 'PF03415' in hmm_match:
+#		out_data['Clostripain family'] = 1	
+#	if 'PF04389' in hmm_match:
+#		out_data['Peptidase family M28'] = 1	
+#	if 'PF02163' in hmm_match:
+#		out_data['Peptidase family M50'] = 1	
+#	if 'PF01546' in hmm_match:
+#		out_data['Di- and tripeptidases'] = 1	
+#	if 'PF02073' in hmm_match:
+#		out_data['Leucyl aminopeptidase'] = 1	
+#	if 'PF00557' in hmm_match:
+#		out_data['Xaa-Pro aminopeptidase'] = 1	
+#	if 'PF03413' in hmm_match:
+#		out_data['Peptidase propeptide and YPEB domain'] = 1	
+#	if 'PF01432' in hmm_match:
+#		out_data['Oligoendopeptidase F'] = 1	
+#	if 'PF00266' in hmm_match:
+#		out_data['Phosphoserine aminotransferase'] = 1	
+#	if 'PF01252' in hmm_match:
+#		out_data['Lipoprotein signal peptidase'] = 1
+#	if 'PF01433' in hmm_match:
+#		out_data['Aminopeptidase N'] = 1
+#	if 'PF00246' in hmm_match:
+#		out_data['Zinc carboxypeptidase'] = 1
+#	if 'PF00717' in hmm_match:
+#		out_data['Peptidase S24-like'] = 1
+#	if 'PF10502' in hmm_match:
+#		out_data['Peptidase S26'] = 1
+#	if 'PF04951' in hmm_match:
+#		out_data['D-aminopeptidase'] = 1
+#	if 'PF05299' in hmm_match:
+#		out_data['M61 glycyl aminopeptidase'] = 1
+#	return out_data
 
 def alt_nitrogenase(hmm_match):
 	out_data = {'Vanadium-only nitrogenase': 0, 'Iron-only nitrogenase': 0}
@@ -198,17 +198,24 @@ def dissim_sulfite(hmm_match):
 		out_data['DsrD dissimilatory sulfite reductase'] = 1
 	return out_data
 
-function_order = ['beta-carotene 15,15-monooxygenase', 'rhodopsin', 'Peptidase family C25', 
-'Bacterial pre-peptidase C-terminal domain', 'Clostripain family', 
-'Peptidase family M28', 'Peptidase family M50', 'Di- and tripeptidases', 
-'Leucyl aminopeptidase', 'Xaa-Pro aminopeptidase', 
-'Peptidase propeptide and YPEB domain', 'Oligoendopeptidase F', 
-'Phosphoserine aminotransferase', 'Lipoprotein signal peptidase', 
-'Aminopeptidase N', 'Zinc carboxypeptidase', 'Peptidase S24-like', 'Peptidase S26', 
-'D-aminopeptidase', 'M61 glycyl aminopeptidase', 'Vanadium-only nitrogenase', 
+def metal_transport(hmm_match):
+	out_data = {'Cobalt transporter CbtB':0, 'Copper binding HMA protein':0,
+	'Fe-Zn-Mn permease ZupT':0}
+	if 'TIGR02459' in hmm_match:
+		out_data['Cobalt transporter CbtB'] = 1
+	if 'TIGR00003' in hmm_match:
+		out_data['Copper binding HMA protein'] = 1
+	if 'TIGR00820' in hmm_match:
+		out_data['Fe-Zn-Mn permease ZupT'] = 1
+
+
+	return out_data
+
+function_order = ['beta-carotene 15,15-monooxygenase', 'rhodopsin', 'Vanadium-only nitrogenase', 
 'Iron-only nitrogenase', 'transporter: ammonia',
 'DMSP lyase (dddLQPDKW)', 'DMSP synthase (dsyB)', 
-'ferrioxamine biosynthesis', 'DsrD dissimilatory sulfite reductase']
+'ferrioxamine biosynthesis', 'DsrD dissimilatory sulfite reductase', 'Cobalt transporter CbtB', 
+'Copper binding HMA protein', 'Fe-Zn-Mn permease ZupT']
 
 filehandle = str(arg_dict['Output'])
 out_file = open(filehandle, "w")
@@ -217,7 +224,7 @@ out_file.write('Function'+"\t"+str("\t".join(function_order))+"\n")
 for k in genome_data:
 	pathway_data = {}
 	pathway_data.update(rhodopsin(genome_data[k]))
-	pathway_data.update(peptidases(genome_data[k]))
+#	pathway_data.update(peptidases(genome_data[k]))
 	pathway_data.update(alt_nitrogenase(genome_data[k]))
 	pathway_data.update(amm_trans(genome_data[k]))
 	pathway_data.update(dmsplyase(genome_data[k]))
@@ -225,6 +232,7 @@ for k in genome_data:
 #	pathway_data.update(amphibactin(genome_data[k]))
 	pathway_data.update(ferrioxamine(genome_data[k]))
 	pathway_data.update(dissim_sulfite(genome_data[k]))
+	pathway_data.update(metal_transport(genome_data[k]))
 
 	out_string = str(k)+"\t"
 	out_list = [k]

@@ -787,7 +787,7 @@ def oxidative_phoshorylation(ko_match):
     'NAD(P)H-quinone oxidoreductase':0, 'Cytochrome c oxidase, cbb3-type':0,
     'Cytochrome bd complex':0, 'Cytochrome o ubiquinol oxidase':0,
     'Cytochrome c oxidase':0, 'Cytochrome aa3-600 menaquinol oxidase':0,
-    'Ubiquinol-cytochrome c reductase':0}
+    'Ubiquinol-cytochrome c reductase':0, 'Na-NADH-ubiquinone oxidoreductase': 0}
 #atpFBCHGDAE
     ftype_ko = ['K02111', 'K02112', 'K02115', 'K02113', 
     'K02114', 'K02108', 'K02109', 'K02110']
@@ -848,6 +848,15 @@ def oxidative_phoshorylation(ko_match):
             out_data['Ubiquinol-cytochrome c reductase'] += 0.5
     value = out_data['NADH-quinone oxidoreductase']
     out_data['NADH-quinone oxidoreductase'] = float("%.2f" % (value))
+#nqrABCDEF; Na+-transporting NADH:ubiquinone oxidoreductase
+    na_ubiquinone_ko = ['K00346', 'K00347', 'K00348', 'K00349',
+    'K00350', 'K00351']
+    for i in na_ubiquinone_ko:
+        if i in ko_match:
+            out_data['Na-NADH-ubiquinone oxidoreductase'] += 0.167
+    value = out_data['Na-NADH-ubiquinone oxidoreductase']
+    out_data['Na-NADH-ubiquinone oxidoreductase'] = float("%.2f" % (value))
+
     return out_data
 
 def photosynthesis(ko_match):
@@ -1194,6 +1203,41 @@ def arsenic(ko_match):
         out_data['Arsenic reduction'] += 0.25
     return out_data
 
+def metal_transport(ko_match):
+    out_data = {'Cobalt transporter CbiMQ':0, 'Cobalt transporter CbtA':0,
+    'Cobalt transporter CorA':0, 'Nickel ABC-type substrate-binding NikA':0,
+    'Copper transporter CopA':0, 'Ferrous iron transporter FeoB': 0,
+    'Ferric iron ABC-type substrate-binding AfuA': 0,
+    'Fe-Mn transporter MntH':0}
+#CbiMQ
+    if 'K02007' in ko_match:
+        out_data['Cobalt transporter CbiMQ'] += 0.5
+    if 'K02008' in ko_match:
+        out_data['Cobalt transporter CbiMQ'] += 0.5
+#CbtA
+    if 'K18837' in ko_match:
+        out_data['Cobalt transporter CbtA'] = 1.0
+#CorA
+    if 'K03284' in ko_match:
+        out_data['Cobalt transporter CorA'] = 1.0
+#NikA
+    if 'K15584' in ko_match:
+        out_data['Nickel ABC-type substrate-binding NikA'] = 1.0
+#CopA
+    if 'K17686' in ko_match:
+        out_data['Copper transporter CopA'] = 1.0
+#FeoB
+    if 'K04759' in ko_match:
+        out_data['Ferrous iron transporter FeoB'] = 1.0
+#AfuA
+    if 'K02012' in ko_match:
+        out_data['Ferric iron ABC-type substrate-binding AfuA'] = 1.0
+#MntH
+    if 'K03322' in ko_match:
+        out_data['Fe-Mn transporter MntH'] = 1.0
+    return out_data
+
+
 def default_viz(genome_df):
     import seaborn as sns
     import matplotlib.pyplot as plt
@@ -1247,7 +1291,8 @@ def main():
                 genome_data[info[0].split("_")[0]] = [info[1]]
 
     function_order = ['glycolysis', 'gluconeogenesis', 'TCA Cycle', 
-    'NAD(P)H-quinone oxidoreductase', 'NADH-quinone oxidoreductase', 
+    'NAD(P)H-quinone oxidoreductase', 'NADH-quinone oxidoreductase',
+    'Na-NADH-ubiquinone oxidoreductase', 
     'F-type ATPase', 'V-type ATPase', 'Cytochrome c oxidase', 
     'Ubiquinol-cytochrome c reductase', 'Cytochrome o ubiquinol oxidase', 
     'Cytochrome aa3-600 menaquinol oxidase', 
@@ -1309,7 +1354,12 @@ def main():
     'C-P lyase cleavage PhnJ', 'CP-lyase complex', 'CP-lyase operon', 'Type I Secretion',
     'Type III Secretion', 'Type II Secretion', 'Type IV Secretion', 'Type VI Secretion',
     'Sec-SRP', 'Twin Arginine Targeting', 'Type Vabc Secretion',
-    'Serine pathway/formaldehyde assimilation', 'Arsenic reduction']
+    'Serine pathway/formaldehyde assimilation', 'Arsenic reduction',
+    'Cobalt transporter CbiMQ', 'Cobalt transporter CbtA',
+    'Cobalt transporter CorA' 'Nickel ABC-type substrate-binding NikA',
+    'Copper transporter CopA', 'Ferrous iron transporter FeoB',
+    'Ferric iron ABC-type substrate-binding AfuA',
+    'Fe-Mn transporter MntH']
 
     filehandle = str(arg_dict['output'])
     out_file = open(filehandle, "w")
@@ -1351,6 +1401,7 @@ def main():
         pathway_data.update(secretion(genome_data[k]))
         pathway_data.update(serine(genome_data[k]))
         pathway_data.update(arsenic(genome_data[k]))
+        pathway_data.update(metal_transport(genome_data[k]))
     #    print k, pathway_data
 
         out_string = str(k)+"\t"

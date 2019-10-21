@@ -4,6 +4,7 @@ Phototrophy
 TIGR03753	beta-carotene 15,15'-monooxygenase, Brp/Blh family
 pf01036 rhodopsin
 
+####REMOVED DUE NON-DISCRIMINATORY MATCHES#####
 Peptidase activity
 pf01364	Peptidase family C25
 pf04151	Bacterial pre-peptidase C-terminal domain
@@ -23,6 +24,7 @@ pf00717	Peptidase S24-like
 pf10502	Peptidase S26
 pf04951	D-aminopeptidase
 pf05299	M61 glycyl aminopeptidase
+#####
 
 Alternative nitrogenase
 TIGR01860	nitrogenase vanadium-iron protein, alpha chain vnfD
@@ -64,3 +66,8 @@ Ferrioxamine biosynthesis
 	2732	SCO2783 DesB putative monoxygenase - requires a more strigent bit score cutoff (recommend >200)
 	9429	SCO2784 DesC putative acetyltransferase - requires a more strigent bit score cutoff (recommend >200)
 	51934	SCO2785 DesD putative siderophore biosynthetic protein	- requires a more strigent bit score cutoff (recommend >200)
+
+Metal Transporters
+	TIGR02459	Cobalt transporter CbtB
+	TIGR00003	Copper binding HMA (heavy-metal-associated) protein
+	TIGR00820	Fe, Zn, Mn permease ZupT
