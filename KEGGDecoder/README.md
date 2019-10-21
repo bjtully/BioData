@@ -116,6 +116,7 @@ Removed 'peptidases' from KEGG-expander due to inability to discern intracellula
 identify extracellular peptidases.
 Updated KEGG-expander HMM set to V0.7.
 
+
 ## V1.0 ##
 KEGGDecoder can now be installed via pip install. KEGGDecoder now offers 2 visualization outputs - the classic 'static' version and
 the new 'interactive' version which will open a heatmap where you zoom and interact with the heatmap output 

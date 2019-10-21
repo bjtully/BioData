@@ -71,3 +71,4 @@ Metal Transporters
 	TIGR02459	Cobalt transporter CbtB
 	TIGR00003	Copper binding HMA (heavy-metal-associated) protein
 	TIGR00820	Fe, Zn, Mn permease ZupT
+	

@@ -596,3 +596,4 @@ Metal Transporters
 	K04759	ferrous iron transporter FeoB
 	K02012	ferric iron ABC transporter, substrate-binding AfuA
 	K03322	Fe-Mn transporter protein MntH
+	

@@ -1361,6 +1361,7 @@ def main():
     'Ferric iron ABC-type substrate-binding AfuA',
     'Fe-Mn transporter MntH']
 
+
     filehandle = str(arg_dict['output'])
     out_file = open(filehandle, "w")
     out_file.write('Function'+"\t"+str("\t".join(function_order))+"\n")

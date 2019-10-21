@@ -52,6 +52,7 @@ cols.insert(copper_index+1, cols.pop(int(cols.index('Copper binding HMA protein'
 cols.insert(iron_index+1, cols.pop(int(cols.index('Fe-Zn-Mn permease ZupT'))))
 output_df = output_df[cols]
 
+
 import seaborn as sns
 sns.set(font_scale=1.2)
 sns.set_style({"savefig.dpi": 200})
