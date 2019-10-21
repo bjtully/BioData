@@ -1,6 +1,9 @@
 #!/usr/bin/python
 
 '''
+KEGG-decoder.py V.1.0.2
+V.1.0.2
+Adds Na+-transporting NADH:ubiquinone oxidoreductase and several metal transporters
 KEGG-decoder.py V.0.8
 V.0.8
 Add elements regarding arsenic reduction
@@ -1356,7 +1359,7 @@ def main():
     'Sec-SRP', 'Twin Arginine Targeting', 'Type Vabc Secretion',
     'Serine pathway/formaldehyde assimilation', 'Arsenic reduction',
     'Cobalt transporter CbiMQ', 'Cobalt transporter CbtA',
-    'Cobalt transporter CorA' 'Nickel ABC-type substrate-binding NikA',
+    'Cobalt transporter CorA', 'Nickel ABC-type substrate-binding NikA',
     'Copper transporter CopA', 'Ferrous iron transporter FeoB',
     'Ferric iron ABC-type substrate-binding AfuA',
     'Fe-Mn transporter MntH']
