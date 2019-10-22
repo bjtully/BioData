@@ -257,7 +257,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 file_in = open(filehandle, "r")
-genome = pd.read_table(file_in, index_col=0)
+genome = pd.read_csv(file_in, index_col=0, sep='\t')
 import seaborn as sns
 sns.set(font_scale=1.2)
 sns.set_style({"savefig.dpi": 200})
