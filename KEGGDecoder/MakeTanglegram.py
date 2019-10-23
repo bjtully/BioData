@@ -15,10 +15,10 @@ def make_tanglegram(genome_df, newick):
     from Bio import Phylo
     import tanglegram as tg
     from scipy.spatial.distance import pdist, squareform
-    
+
     # FORMAT KEGGDECODER OUTPUT
     # generate distance matrix for genome_df from pathway values
-    genome_df = pd.read_csv(genome_df, index_col=0, sep='\t')
+    # genome_df = pd.read_csv(genome_df, index_col=0, sep='\t')
     kegg_d = squareform(pdist(genome_df, metric='euclidean'))
     kegg_m = pd.DataFrame(kegg_d)
     kegg_m.columns = genome_df.index.tolist()
