@@ -7,7 +7,7 @@ specified by KEGG-decoder.py
 Added by Roth Conrad : rotheconrad@gatech.edu
 '''
 
-def plotly_viz(genome_df):
+def plotly_viz(genome_df, output_file):
 	# build heatmap in plotly.offline
 	from .KEGG_clustering import hClust_euclidean
 	Euclidean_genome_df = hClust_euclidean(genome_df)
@@ -106,7 +106,7 @@ def plotly_viz(genome_df):
 
 
 	fig = go.Figure(data=data, layout=layout)
-	py.plot(fig, filename='function_heatmap.html')
+	py.plot(fig, filename=output_file)
 	# py.iplot(data, filename='pandas.heatmap')
 
 if __name__ == "__main__":

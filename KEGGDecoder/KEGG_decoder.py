@@ -1241,7 +1241,7 @@ def metal_transport(ko_match):
     return out_data
 
 
-def default_viz(genome_df):
+def default_viz(genome_df, outfile_name):
     import seaborn as sns
     import matplotlib.pyplot as plt
     sns.set(font_scale=1.2)
@@ -1259,9 +1259,10 @@ def default_viz(genome_df):
     #xLen = len(genome_df.columns.values.tolist())*20
     #yLen = len(genome_df.index.tolist())*20
     fig.set_size_inches(100, 100)
-    fig.savefig("function_heatmap.svg")
+    fig.savefig(outfile_name)
 
 def main():
+    import os
     import matplotlib
     matplotlib.use('Agg')
     import argparse
@@ -1275,6 +1276,7 @@ def main():
                                     list and heat map figure.")
     parser.add_argument('-i', '--input', help="Input KOALA file. See documentation\
                         for correct format")
+    parser.add_argument('-t', '--tangleopt', help="Number of tree iterations for minimizing tangles in tanglegram", default=1000)
     parser.add_argument('-o', '--output', help="List version of the final heat\
                         map figure")
     parser.add_argument('-v', '--vizoption', help="Options: static, interactive, tanglegram")
@@ -1432,18 +1434,20 @@ def main():
         from .KEGG_clustering import hClust_euclidean
         if len(genome.index) >= 2:
             genome = hClust_euclidean(genome)
-        default_viz(genome)
+        default_viz(genome, os.path.splitext(filehandle)[0] + ".svg")
     if arg_dict['vizoption'] == 'interactive':
         from .Plotly_viz import plotly_viz
         if len(genome.index) >= 50:
-            plotly_viz(genome)
+            plotly_viz(genome, os.path.splitext(filehandle)[0] + ".html")
         else:
             raise ValueError("Interactive mode requires fifty or more genomes")
     if arg_dict['vizoption'] == 'tanglegram':
         from .MakeTanglegram import make_tanglegram
         if len(genome.index) >= 3:
-            make_tanglegram(genome, str(arg_dict['newick']))
+            make_tanglegram(genome, str(arg_dict['newick']), os.path.splitext(filehandle)[0] + ".tanglegram.svg", int(arg_dict["tangleopt"]))
         else:
             raise ValueError("Tanglegram mode requires three or more genomes")
+
+
 if __name__ == "__main__":
     main()

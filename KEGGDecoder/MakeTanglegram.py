@@ -8,7 +8,7 @@ metabolisms & one phylogenetic newick file provided by the user
 Added by Taylor Reiter : tereiter@ucdavis.edu
 '''
 
-def make_tanglegram(genome_df, newick):
+def make_tanglegram(genome_df, newick, output_file, tanglegram_opt):
     import matplotlib.pyplot as plt
     import pandas as pd
     import itertools
@@ -58,9 +58,9 @@ def make_tanglegram(genome_df, newick):
                         index=tree_labels)
 
     # Plot and try to minimize cross-over
-    fig = tg.gen_tangle(kegg_mat, tree_mat, optimize_order=1000)
+    fig = tg.gen_tangle(kegg_mat, tree_mat, optimize_order=tanglegram_opt)
     fig.set_size_inches(10, 10)
-    fig.savefig("function_newick_tanglegram.svg")
+    fig.savefig(output_file)
 
 if __name__ == "__main__":
     import argparse
