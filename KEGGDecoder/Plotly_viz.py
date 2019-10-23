@@ -25,7 +25,7 @@ def plotly_viz(genome_df, output_file):
 	import plotly.offline as py
 
 	xLen = len(genome_df.columns.values.tolist())*20
-	yLen = len(genome_df.index.tolist())*20
+	yLen = len(genome_df.index.tolist())*20 if len(genome_df.index.tolist()) >= 50 else 50
 
 	colorscale = [
 					[0, '#f1eef6'],
@@ -45,7 +45,8 @@ def plotly_viz(genome_df, output_file):
 						y=Euclidean_genome_df.index.tolist(), 
 						z=Euclidean_genome_df.values.tolist(), 
 						colorscale=colorscale, 
-						colorbar=colorbar, 
+						colorbar=colorbar,
+						hovertemplate='Sample: %{x}<br>Function: %{y}<br>Proportion: %{z}<extra></extra>',
 						xgap = 1, 
 						ygap = 1)
 
@@ -56,6 +57,7 @@ def plotly_viz(genome_df, output_file):
 						colorbar=colorbar, 
 						xgap = 1, 
 						ygap = 1,
+						hovertemplate='Sample: %{y}<br>Function: %{x}<br>Proportion: %{z}<extra></extra>',
 						visible=False)
 
 	Most_Least_clust = go.Heatmap(x=Most_Least_genome_df.columns.values.tolist(), 
@@ -65,6 +67,7 @@ def plotly_viz(genome_df, output_file):
 						colorbar=colorbar, 
 						xgap = 1, 
 						ygap = 1,
+						hovertemplate='Sample: %{y}<br>Function: %{x}<br>Proportion: %{z}<extra></extra>',
 						visible=False)
 
 	Least_Most_clust = go.Heatmap(x=Least_Most_genome_df.columns.values.tolist(), 
@@ -74,6 +77,7 @@ def plotly_viz(genome_df, output_file):
 						colorbar=colorbar, 
 						xgap = 1, 
 						ygap = 1,
+						hovertemplate='Sample: %{y}<br>Function: %{x}<br>Proportion: %{z}<extra></extra>',
 						visible=False)
 
 	data = [Euclidean_clust, Correlation_clust, Most_Least_clust, Least_Most_clust]
