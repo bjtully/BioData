@@ -8,17 +8,17 @@ metabolisms & one phylogenetic newick file provided by the user
 Added by Taylor Reiter : tereiter@ucdavis.edu
 '''
 
-def make_tanglegram(genome_df, newick):
+def make_tanglegram(genome_df, newick, output_file, tanglegram_opt):
     import matplotlib.pyplot as plt
     import pandas as pd
     import itertools
     from Bio import Phylo
     import tanglegram as tg
     from scipy.spatial.distance import pdist, squareform
-    
+
     # FORMAT KEGGDECODER OUTPUT
     # generate distance matrix for genome_df from pathway values
-    genome_df = pd.read_csv(genome_df, index_col=0, sep='\t')
+    # genome_df = pd.read_csv(genome_df, index_col=0, sep='\t')
     kegg_d = squareform(pdist(genome_df, metric='euclidean'))
     kegg_m = pd.DataFrame(kegg_d)
     kegg_m.columns = genome_df.index.tolist()
@@ -58,9 +58,9 @@ def make_tanglegram(genome_df, newick):
                         index=tree_labels)
 
     # Plot and try to minimize cross-over
-    fig = tg.gen_tangle(kegg_mat, tree_mat, optimize_order=1000)
+    fig = tg.gen_tangle(kegg_mat, tree_mat, optimize_order=tanglegram_opt)
     fig.set_size_inches(10, 10)
-    fig.savefig("function_newick_tanglegram.svg")
+    fig.savefig(output_file)
 
 if __name__ == "__main__":
     import argparse
