@@ -19,7 +19,7 @@ def make_tanglegram(genome_df, newick, output_file, tanglegram_opt):
     # FORMAT KEGGDECODER OUTPUT
     # generate distance matrix for genome_df from pathway values
     # genome_df = pd.read_csv(genome_df, index_col=0, sep='\t')
-    kegg_d = squareform(pdist(genome_df, metric='euclidean'))
+    kegg_d = squareform(pdist(genome_df, metric='braycurtis'))
     kegg_m = pd.DataFrame(kegg_d)
     kegg_m.columns = genome_df.index.tolist()
     kegg_m.index = genome_df.index.tolist()
@@ -63,7 +63,7 @@ def make_tanglegram(genome_df, newick, output_file, tanglegram_opt):
         xLen = 10
     else:
         xLen = 10 + len(genome_df.index.tolist()) / 10
-    fig = tg.gen_tangle(kegg_mat, tree_mat, optimize_order=tanglegram_opt)
+    fig = tg.gen_tangle(tree_mat, kegg_mat, optimize_order=tanglegram_opt)
     fig.set_size_inches(xLen, yLen)
     fig.savefig(output_file)
 
