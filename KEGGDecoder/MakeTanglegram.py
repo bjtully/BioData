@@ -58,8 +58,13 @@ def make_tanglegram(genome_df, newick, output_file, tanglegram_opt):
                         index=tree_labels)
 
     # Plot and try to minimize cross-over
+    yLen = len(genome_df.index.tolist()) * 0.4
+    if len(genome_df.index.tolist()) <= 10:
+        xLen = 10
+    else:
+        xLen = 10 + len(genome_df.index.tolist()) / 10
     fig = tg.gen_tangle(kegg_mat, tree_mat, optimize_order=tanglegram_opt)
-    fig.set_size_inches(10, 10)
+    fig.set_size_inches(xLen, yLen)
     fig.savefig(output_file)
 
 if __name__ == "__main__":
