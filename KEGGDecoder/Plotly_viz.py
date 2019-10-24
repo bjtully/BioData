@@ -25,7 +25,7 @@ def plotly_viz(genome_df, output_file):
 	import plotly.offline as py
 
 	xLen = len(genome_df.columns.values.tolist())*20
-	yLen = len(genome_df.index.tolist())*20 if len(genome_df.index.tolist()) >= 50 else 50
+	yLen = len(genome_df.index.tolist())*20 if len(genome_df.index.tolist()) >= 50 else 750
 
 	colorscale = [
 					[0, '#f1eef6'],
@@ -46,7 +46,7 @@ def plotly_viz(genome_df, output_file):
 						z=Euclidean_genome_df.values.tolist(), 
 						colorscale=colorscale, 
 						colorbar=colorbar,
-						hovertemplate='Sample: %{x}<br>Function: %{y}<br>Proportion: %{z}<extra></extra>',
+						hovertemplate='Sample: %{y}<br>Function: %{x}<br>Proportion: %{z}<extra></extra>',
 						xgap = 1, 
 						ygap = 1)
 
