@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
 '''
-KEGG-decoder.py V.1.0.2
+KEGG-decoder.py V.1.0.3
+V.1.0.3
+Quality of life updates for KEGG-decoder, tangelgram option, and interactive plots
 V.1.0.2
 Adds Na+-transporting NADH:ubiquinone oxidoreductase and several metal transporters
 KEGG-decoder.py V.0.8
