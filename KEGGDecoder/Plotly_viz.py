@@ -28,14 +28,19 @@ def plotly_viz(genome_df, output_file):
 	len_genomes = len(genome_df.index.tolist())
 	if len_genomes >= 200:
 		yLen = len_genomes * 40
+		menL = 1.0
 	elif len_genomes >= 100:
 		yLen = len_genomes * 30
+		menL = 1.2
 	elif len_genomes >= 50:
 		yLen = len_genomes * 20
+		menL = 1.5
 	elif len_genomes >= 25:
 		yLen = len_genomes * 10
+		menL = 2.0
 	else:
 		yLen = 750
+		menL = 3.0
 
 	colorscale = [
 					[0, '#f1eef6'],
@@ -104,7 +109,7 @@ def plotly_viz(genome_df, output_file):
 					showactive = True,
 					x = 0.1,
 					xanchor = 'left',
-					y = 1.5,
+					y = menL,
 					yanchor = 'top'
 					)]
 
