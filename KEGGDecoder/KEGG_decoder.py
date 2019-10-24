@@ -1436,7 +1436,7 @@ def main():
 			genome = hClust_euclidean(genome)
 		default_viz(genome, os.path.splitext(filehandle)[0] + ".svg")
 	if arg_dict['vizoption'] == 'interactive':
-		# from .Plotly_viz import plotly_viz
+		from .Plotly_viz import plotly_viz
 		plotly_viz(genome, os.path.splitext(filehandle)[0] + ".html")
 	if arg_dict['vizoption'] == 'tanglegram':
 		from .MakeTanglegram import make_tanglegram
