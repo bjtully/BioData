@@ -19,7 +19,7 @@ def make_tanglegram(genome_df, newick, output_file, tanglegram_opt):
     # FORMAT KEGGDECODER OUTPUT
     # generate distance matrix for genome_df from pathway values
     # genome_df = pd.read_csv(genome_df, index_col=0, sep='\t')
-    kegg_d = squareform(pdist(genome_df, metric='braycurtis'))
+    kegg_d = squareform(pdist(genome_df, metric='euclidean'))
     kegg_m = pd.DataFrame(kegg_d)
     kegg_m.columns = genome_df.index.tolist()
     kegg_m.index = genome_df.index.tolist()
@@ -44,18 +44,6 @@ def make_tanglegram(genome_df, newick, output_file, tanglegram_opt):
     tree_m = pd.DataFrame(tree_d)
     tree_m = tree_m.reindex(sorted(tree_m.columns), axis=1) # reorder column names alphabetically
     tree_m.sort_index(inplace=True) # reorder row names alphabetically
-    
-    # TANGLEGRAM
-    kegg_labels = kegg_m.columns.values.tolist()
-    tree_labels = tree_m.columns.values.tolist()
-
-    kegg_mat = pd.DataFrame(kegg_m,
-                        columns=kegg_labels,
-                        index=kegg_labels)
-
-    tree_mat = pd.DataFrame(tree_m,
-                        columns=tree_labels,
-                        index=tree_labels)
 
     # Plot and try to minimize cross-over
     yLen = len(genome_df.index.tolist()) * 0.4
@@ -63,7 +51,8 @@ def make_tanglegram(genome_df, newick, output_file, tanglegram_opt):
         xLen = 10
     else:
         xLen = 10 + len(genome_df.index.tolist()) / 10
-    fig = tg.gen_tangle(tree_mat, kegg_mat, optimize_order=tanglegram_opt)
+    fig = tg.gen_tangle(kegg_m, tree_m, optimize_order=tanglegram_opt, color_by_diff=True,
+                        link_kwargs={'method': 'complete'})
     fig.set_size_inches(xLen, yLen)
     fig.savefig(output_file)
 
