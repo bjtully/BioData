@@ -25,7 +25,22 @@ def plotly_viz(genome_df, output_file):
 	import plotly.offline as py
 
 	xLen = len(genome_df.columns.values.tolist())*20
-	yLen = len(genome_df.index.tolist())*20 if len(genome_df.index.tolist()) >= 50 else 50
+	len_genomes = len(genome_df.index.tolist())
+	if len_genomes >= 200:
+		yLen = len_genomes * 40
+		menL = 1.0
+	elif len_genomes >= 100:
+		yLen = len_genomes * 30
+		menL = 1.2
+	elif len_genomes >= 50:
+		yLen = len_genomes * 20
+		menL = 1.5
+	elif len_genomes >= 25:
+		yLen = len_genomes * 10
+		menL = 2.0
+	else:
+		yLen = 750
+		menL = 3.0
 
 	colorscale = [
 					[0, '#f1eef6'],
@@ -41,41 +56,41 @@ def plotly_viz(genome_df, output_file):
 
 	colorbar = {'tick0': 0, 'dtick': 0.2, 'lenmode': 'pixels', 'len': 500, 'y': 1}
 
-	Euclidean_clust = go.Heatmap(x=Euclidean_genome_df.columns.values.tolist(), 
-						y=Euclidean_genome_df.index.tolist(), 
-						z=Euclidean_genome_df.values.tolist(), 
-						colorscale=colorscale, 
+	Euclidean_clust = go.Heatmap(x=Euclidean_genome_df.columns.values.tolist(),
+						y=Euclidean_genome_df.index.tolist(),
+						z=Euclidean_genome_df.values.tolist(),
+						colorscale=colorscale,
 						colorbar=colorbar,
-						hovertemplate='Sample: %{x}<br>Function: %{y}<br>Proportion: %{z}<extra></extra>',
-						xgap = 1, 
+						hovertemplate='Sample: %{y}<br>Function: %{x}<br>Proportion: %{z}<extra></extra>',
+						xgap = 1,
 						ygap = 1)
 
-	Correlation_clust = go.Heatmap(x=Correlation_genome_df.columns.values.tolist(), 
-						y=Correlation_genome_df.index.tolist(), 
-						z=Correlation_genome_df.values.tolist(), 
-						colorscale=colorscale, 
-						colorbar=colorbar, 
-						xgap = 1, 
+	Correlation_clust = go.Heatmap(x=Correlation_genome_df.columns.values.tolist(),
+						y=Correlation_genome_df.index.tolist(),
+						z=Correlation_genome_df.values.tolist(),
+						colorscale=colorscale,
+						colorbar=colorbar,
+						xgap = 1,
 						ygap = 1,
 						hovertemplate='Sample: %{y}<br>Function: %{x}<br>Proportion: %{z}<extra></extra>',
 						visible=False)
 
-	Most_Least_clust = go.Heatmap(x=Most_Least_genome_df.columns.values.tolist(), 
-						y=Most_Least_genome_df.index.tolist(), 
-						z=Most_Least_genome_df.values.tolist(), 
-						colorscale=colorscale, 
-						colorbar=colorbar, 
-						xgap = 1, 
+	Most_Least_clust = go.Heatmap(x=Most_Least_genome_df.columns.values.tolist(),
+						y=Most_Least_genome_df.index.tolist(),
+						z=Most_Least_genome_df.values.tolist(),
+						colorscale=colorscale,
+						colorbar=colorbar,
+						xgap = 1,
 						ygap = 1,
 						hovertemplate='Sample: %{y}<br>Function: %{x}<br>Proportion: %{z}<extra></extra>',
 						visible=False)
 
-	Least_Most_clust = go.Heatmap(x=Least_Most_genome_df.columns.values.tolist(), 
-						y=Least_Most_genome_df.index.tolist(), 
-						z=Least_Most_genome_df.values.tolist(), 
-						colorscale=colorscale, 
-						colorbar=colorbar, 
-						xgap = 1, 
+	Least_Most_clust = go.Heatmap(x=Least_Most_genome_df.columns.values.tolist(),
+						y=Least_Most_genome_df.index.tolist(),
+						z=Least_Most_genome_df.values.tolist(),
+						colorscale=colorscale,
+						colorbar=colorbar,
+						xgap = 1,
 						ygap = 1,
 						hovertemplate='Sample: %{y}<br>Function: %{x}<br>Proportion: %{z}<extra></extra>',
 						visible=False)
@@ -88,13 +103,13 @@ def plotly_viz(genome_df, output_file):
 					dict(label =  'Correlation_Clustering', method = 'update', args = [{'visible': [False, True, False, False]}]),
 					dict(label =  'Most_to_Least', method = 'update', args = [{'visible': [False, False, True, False]}]),
 					dict(label =  'Least_to_Most', method = 'update', args = [{'visible': [False, False, False, True]}])
-					], 
+					],
 					direction = 'down',
 					pad = {'r': 10, 't': 10},
 					showactive = True,
 					x = 0.1,
 					xanchor = 'left',
-					y = 1.1,
+					y = menL,
 					yanchor = 'top'
 					)]
 
@@ -112,6 +127,7 @@ def plotly_viz(genome_df, output_file):
 	fig = go.Figure(data=data, layout=layout)
 	py.plot(fig, filename=output_file)
 	# py.iplot(data, filename='pandas.heatmap')
+
 
 if __name__ == "__main__":
 	import argparse
