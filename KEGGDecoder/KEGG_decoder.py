@@ -1274,7 +1274,6 @@ def main():
 	matplotlib.use('Agg')
 	import argparse
 	import pandas as pd
-	from orderedset import OrderedSet
 	from scipy.cluster import hierarchy
 	from scipy.spatial import distance
 
@@ -1439,13 +1438,10 @@ def main():
 	file_in = open(filehandle, "r")
 	genome = pd.read_csv(file_in, index_col=0, sep='\t')
 
-	if arg_dict["myorder"] != 'None' and os.path.exists(arg_dict["myorder"]):
-		# Order genomes based on a simple text file
-		leave_order = OrderedSet([])
-		for line in open(str(arg_dict['myorder']), "r"):
-			line = line.strip()
-			leave_order.add(line)
-		genome = genome.reindex(list(leave_order))
+	# if arg_dict["myorder"] != 'None' and os.path.exists(arg_dict["myorder"]):
+	#
+	#
+	# 	genome = genome.reindex(order)
 
 	if arg_dict['vizoption'] == 'static':
 		from .KEGG_clustering import hClust_euclidean
