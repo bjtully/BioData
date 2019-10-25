@@ -33,13 +33,13 @@ def hClust_correlation(genome_df):
 
 def hClust_most_least(genome_df):
 	sort_dex = genome_df.sum(axis=1).sort_values(ascending=True).index
-	genome_df = genome_df.ix[sort_dex]
+	genome_df = genome_df.loc[sort_dex]
 
 	return genome_df
 
 def hClust_least_most(genome_df):
 	sort_dex = genome_df.sum(axis=1).sort_values(ascending=False).index
-	genome_df = genome_df.ix[sort_dex]
+	genome_df = genome_df.loc[sort_dex]
 
 	return genome_df
 
