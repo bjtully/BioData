@@ -28,7 +28,7 @@ def plotly_viz(genome_df, output_file):
 	len_genomes = len(genome_df.index.tolist())
 	if len_genomes >= 200:
 		yLen = len_genomes * 40
-		menL = 1.0
+		menL = 1.05
 	elif len_genomes >= 100:
 		yLen = len_genomes * 30
 		menL = 1.2
