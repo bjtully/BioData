@@ -1437,15 +1437,18 @@ def main():
 
 	file_in = open(filehandle, "r")
 	genome = pd.read_csv(file_in, index_col=0, sep='\t')
-
-	# if arg_dict["myorder"] != 'None' and os.path.exists(arg_dict["myorder"]):
-	#
-	#
-	# 	genome = genome.reindex(order)
+	rearrange = False
+	if arg_dict["myorder"] != 'None' and os.path.exists(arg_dict["myorder"]):
+		rearrange = True
+		leaf_order = []
+		for line in open(str(arg_dict["myorder"]), "r"):
+			line = line.rstrip("\r\n")
+			leaf_order.append(line)
+		genome = genome.reindex(leaf_order)
 
 	if arg_dict['vizoption'] == 'static':
 		from .KEGG_clustering import hClust_euclidean
-		if len(genome.index) >= 2:
+		if len(genome.index) >= 2 and not rearrange:
 			genome = hClust_euclidean(genome)
 		default_viz(genome, os.path.splitext(filehandle)[0] + ".svg")
 	if arg_dict['vizoption'] == 'interactive':
