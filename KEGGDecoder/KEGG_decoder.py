@@ -1266,7 +1266,7 @@ def default_viz(genome_df, outfile_name):
 	#xLen = len(genome_df.columns.values.tolist())*20
 	#yLen = len(genome_df.index.tolist())*20
 	fig.set_size_inches(100, 100)
-	fig.savefig(outfile_name)
+	fig.savefig(outfile_name, bbox_inches='tight', pad_inches=0.1)
 
 def main():
 	import os
