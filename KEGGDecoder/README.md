@@ -107,6 +107,9 @@ python Decode_and_Expand.py <FUNCTION_OUT.list> <HMM_OUT.list>
 
 Change Log
 ================================================================
+## V1.0.5 ##
+Various upgrades to the tanglegram visualization and enchanced naming efficiency.
+
 ## V1.0.2 ##
 Fixed an issue with tanglegram support that should fix issue with pandas dependency
 V.1.0.2 Adds Na+-transporting NADH:ubiquinone oxidoreductase and several metal transporters. KEGG-Decoder added metal transporters for cobalt (CbiMQ), cobalt (CbtA), cobalt (CorA), nickel ABC-type transporter substrate-binding subunit (NirA), copper (copA), ferrous iron (FeoB),
@@ -115,7 +118,6 @@ through KEGG-expander: Cobalt transporter (CbtB), Copper binding HMA (heavy-meta
 Removed 'peptidases' from KEGG-expander due to inability to discern intracellular from extracellular activity. Recommend using MetaSanity to
 identify extracellular peptidases.
 Updated KEGG-expander HMM set to V0.7.
-
 
 ## V1.0 ##
 KEGGDecoder can now be installed via pip install. KEGGDecoder now offers 2 visualization outputs - the classic 'static' version and

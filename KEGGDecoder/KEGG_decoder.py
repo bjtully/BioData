@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
 '''
-KEGG-decoder.py V.1.0.4
+KEGG-decoder.py V.1.0.5
+V.1.0.5
+Added tanglegram correction for minimizing euclidean distance
 V.1.0.4
 Removed check for small datasets in interactive viz, added autosizing of tanglegram plots,
 switch similarity metric in tanglegram to braycurtis
