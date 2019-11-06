@@ -370,7 +370,7 @@ def four_hydrox(ko_match):
 
 def c_degradation(ko_match):
 	out_data = {'beta-glucosidase' : 0, 'cellulase':0, 'chitinase':0,
-				'bifunctional chitinase/lysozyme':0,
+				'bifunctional chitinase/lyase':0,
 				'basic endochitinase B':0, 'diacetylchitobiose deacetylase':0,
 				'beta-N-acetylhexosaminidase':0, 'pectinesterase':0,
 				'exo-poly-alpha-galacturonosidase':0, 'oligogalacturonide lyase':0,

@@ -125,7 +125,7 @@ def plotly_viz(genome_df, output_file):
 
 
 	fig = go.Figure(data=data, layout=layout)
-	py.plot(fig, filename=output_file)
+	py.plot(fig, filename=output_file, auto_open=False)
 	# py.iplot(data, filename='pandas.heatmap')
 
 
