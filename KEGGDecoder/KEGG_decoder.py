@@ -1,7 +1,14 @@
 #!/usr/bin/python
 
 '''
-KEGG-decoder.py V.1.0.5
+KEGG-decoder.py V.1.0.8.2
+V.1.0.8
+Several recent updates have improved all three outputs for visualization
+expanded further in the ReadMe note. Additionally, a correction to 
+determining the completeness of ubiquinol-cytochrome c reductase. Previously,
+only checked for the presence of K00411 and K00410. K00410 is a fusion of
+K00412 and K00413 only present in a subset of Proteobacteria. Identified
+by Grayson Chadwick
 V.1.0.5
 Added tanglegram correction for minimizing euclidean distance
 V.1.0.4
@@ -818,6 +825,8 @@ def oxidative_phoshorylation(ko_match):
 	for i in nuo_ko:
 		if i in ko_match:
 			out_data['NADH-quinone oxidoreductase'] += 0.07
+	value = out_data['NADH-quinone oxidoreductase']
+	out_data['NADH-quinone oxidoreductase'] = float("%.2f" % (value))
 #ndcABCDEFGHIJKLMN
 	ndc_ko = ['K05574', 'K05582', 'K05581', 'K05579',
 	'K05572', 'K05580', 'K05578', 'K05576',
@@ -852,12 +861,15 @@ def oxidative_phoshorylation(ko_match):
 		if i in ko_match:
 			out_data['Cytochrome aa3-600 menaquinol oxidase'] += 0.25
 #petA,fbcH; ubiquinol-cytochrome c reductase 
-	ubiquinol_ko = ['K00411', 'K00410']
-	for i in ubiquinol_ko:
-		if i in ko_match:
-			out_data['Ubiquinol-cytochrome c reductase'] += 0.5
-	value = out_data['NADH-quinone oxidoreductase']
-	out_data['NADH-quinone oxidoreductase'] = float("%.2f" % (value))
+#petA,petB,petC; ubiquinol-cytochrome c reductase
+	if ('K00411' in ko_match) and ('K00410' in ko_match):
+		out_data['Ubiquinol-cytochrome c reductase'] = 1
+	else:
+		ubiquinol_ko = ['K00411', 'K00412', 'K00413']
+		for i in ubiquinol_ko:
+			if i in ko_match:
+				out_data['Ubiquinol-cytochrome c reductase'] += 0.33
+	
 #nqrABCDEF; Na+-transporting NADH:ubiquinone oxidoreductase
 	na_ubiquinone_ko = ['K00346', 'K00347', 'K00348', 'K00349',
 	'K00350', 'K00351']
@@ -866,7 +878,7 @@ def oxidative_phoshorylation(ko_match):
 			out_data['Na-NADH-ubiquinone oxidoreductase'] += 0.167
 	value = out_data['Na-NADH-ubiquinone oxidoreductase']
 	out_data['Na-NADH-ubiquinone oxidoreductase'] = float("%.2f" % (value))
-
+	
 	return out_data
 
 def photosynthesis(ko_match):
