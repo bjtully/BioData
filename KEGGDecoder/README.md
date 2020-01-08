@@ -115,6 +115,13 @@ python Decode_and_Expand.py <FUNCTION_OUT.list> <HMM_OUT.list>
 
 Change Log
 ================================================================
+## V1.0.6##
+Added the 20 amino acids. In most instances, only the last step in converting precusor to amino acid is assessed (except for valine, isoleucine, leucine, and tryptophan). The following amino acids share detection pathways:
+serine & glycine
+threonine & glycine
+valine & isoleucine
+phenylalanine & tyrosine
+aspartate & glutamate
 
 ## V1.0.6-1.0.8 ##
 Updates made as part of the Speeding Up Science Part 2 hackathon. Updates were made by Chris Neely, Jason Fell, and Marisa Lim.
