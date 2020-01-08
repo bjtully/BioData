@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
 '''
-KEGG-decoder.py V.1.0.6
-V.1.0.6
+KEGG-decoder.py V.1.0.10
+V.1.0.10
 Add the biosynthesis of the 20 amino acids - represented as the last
 step in the pathway
 KEGG-decoder.py V.1.0.8.2

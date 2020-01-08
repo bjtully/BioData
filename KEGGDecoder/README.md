@@ -115,19 +115,19 @@ python Decode_and_Expand.py <FUNCTION_OUT.list> <HMM_OUT.list>
 
 Change Log
 ================================================================
-## V1.0.6##
+## V1.0.10##
 Added the 20 amino acids. In most instances, only the last step in converting precusor to amino acid is assessed (except for valine, isoleucine, leucine, and tryptophan). The following amino acids share detection pathways:
-serine & glycine
-threonine & glycine
-valine & isoleucine
-phenylalanine & tyrosine
-aspartate & glutamate
+* serine & glycine
+* threonine & glycine
+* valine & isoleucine
+* phenylalanine & tyrosine
+* aspartate & glutamate
 
 ## V1.0.6-1.0.8 ##
 Updates made as part of the Speeding Up Science Part 2 hackathon. Updates were made by Chris Neely, Jason Fell, and Marisa Lim.
 Changes include reduction of white space in the `static` output, removal of a minimum requirement for the `interactive` output, and increased functioning of `tanglegram` output. Specifically, `tanglegram` now uses complete-linkage Euclidean distance to determine the clusters on the KEGG-Decoder tree. This provides the best resolution for visualizing possible groups with similar functional capacity.
 In V1.0.8.2, a correction to determining the completeness of ubiquinol-cytochrome c reductase. Previously, only checked for the presence of K00411 and K00410. K00410 is a fusion of K00412 and K00413 only present in a subset of Proteobacteria. Identified by Grayson Chadwick.
-In V1.0.8.1, a mismatch in the terms used to identify `bifunctional chitinase/lysozyme` would result in a `0` not matter if K13381 was present. This has been corrected. Identified Chris Neely.
+In V1.0.8.1, a mismatch in the terms used to identify `bifunctional chitinase/lysozyme` would result in a `0` not matter if K13381 was present. This has been corrected. Identified by Chris Neely.
 
 ## V1.0.5 ##
 Various upgrades to the tanglegram visualization and enchanced naming efficiency.
