@@ -5,6 +5,14 @@ KEGG-decoder.py V.1.0.6
 V.1.0.6
 Add the biosynthesis of the 20 amino acids - represented as the last
 step in the pathway
+KEGG-decoder.py V.1.0.8.2
+V.1.0.8
+Several recent updates have improved all three outputs for visualization
+expanded further in the ReadMe note. Additionally, a correction to 
+determining the completeness of ubiquinol-cytochrome c reductase. Previously,
+only checked for the presence of K00411 and K00410. K00410 is a fusion of
+K00412 and K00413 only present in a subset of Proteobacteria. Identified
+by Grayson Chadwick
 V.1.0.5
 Added tanglegram correction for minimizing euclidean distance
 V.1.0.4
@@ -387,7 +395,7 @@ def c_degradation(ko_match):
 	if ('K01183' in ko_match):
 		out_data['chitinase'] += 1
 	if ('K13381' in ko_match):
-		out_data['bifunctional chitinase/lyase'] += 1
+		out_data['bifunctional chitinase/lysozyme'] += 1
 	if ('K20547' in ko_match):
 		out_data['basic endochitinase B'] += 1
 	if ('K03478' in ko_match or 'K18454' in ko_match):
@@ -821,6 +829,8 @@ def oxidative_phoshorylation(ko_match):
 	for i in nuo_ko:
 		if i in ko_match:
 			out_data['NADH-quinone oxidoreductase'] += 0.07
+	value = out_data['NADH-quinone oxidoreductase']
+	out_data['NADH-quinone oxidoreductase'] = float("%.2f" % (value))
 #ndcABCDEFGHIJKLMN
 	ndc_ko = ['K05574', 'K05582', 'K05581', 'K05579',
 	'K05572', 'K05580', 'K05578', 'K05576',
@@ -855,12 +865,15 @@ def oxidative_phoshorylation(ko_match):
 		if i in ko_match:
 			out_data['Cytochrome aa3-600 menaquinol oxidase'] += 0.25
 #petA,fbcH; ubiquinol-cytochrome c reductase 
-	ubiquinol_ko = ['K00411', 'K00410']
-	for i in ubiquinol_ko:
-		if i in ko_match:
-			out_data['Ubiquinol-cytochrome c reductase'] += 0.5
-	value = out_data['NADH-quinone oxidoreductase']
-	out_data['NADH-quinone oxidoreductase'] = float("%.2f" % (value))
+#petA,petB,petC; ubiquinol-cytochrome c reductase
+	if ('K00411' in ko_match) and ('K00410' in ko_match):
+		out_data['Ubiquinol-cytochrome c reductase'] = 1
+	else:
+		ubiquinol_ko = ['K00411', 'K00412', 'K00413']
+		for i in ubiquinol_ko:
+			if i in ko_match:
+				out_data['Ubiquinol-cytochrome c reductase'] += 0.33
+	
 #nqrABCDEF; Na+-transporting NADH:ubiquinone oxidoreductase
 	na_ubiquinone_ko = ['K00346', 'K00347', 'K00348', 'K00349',
 	'K00350', 'K00351']
@@ -869,7 +882,7 @@ def oxidative_phoshorylation(ko_match):
 			out_data['Na-NADH-ubiquinone oxidoreductase'] += 0.167
 	value = out_data['Na-NADH-ubiquinone oxidoreductase']
 	out_data['Na-NADH-ubiquinone oxidoreductase'] = float("%.2f" % (value))
-
+	
 	return out_data
 
 def photosynthesis(ko_match):
@@ -1348,7 +1361,7 @@ def default_viz(genome_df, outfile_name):
 	#xLen = len(genome_df.columns.values.tolist())*20
 	#yLen = len(genome_df.index.tolist())*20
 	fig.set_size_inches(100, 100)
-	fig.savefig(outfile_name)
+	fig.savefig(outfile_name, bbox_inches='tight', pad_inches=0.1)
 
 def main():
 	import os
@@ -1370,6 +1383,7 @@ def main():
 						map figure")
 	parser.add_argument('-v', '--vizoption', help="Options: static, interactive, tanglegram")
 	parser.add_argument('--newick', help="Required input for tanglegram visualization")
+	parser.add_argument("-m", "--myorder", help ="Orders output as specified by	user.", default="None")
 	args = parser.parse_args()
 	arg_dict = vars(args)
 
@@ -1523,10 +1537,18 @@ def main():
 
 	file_in = open(filehandle, "r")
 	genome = pd.read_csv(file_in, index_col=0, sep='\t')
+	rearrange = False
+	if arg_dict["myorder"] != 'None' and os.path.exists(arg_dict["myorder"]):
+		rearrange = True
+		leaf_order = []
+		for line in open(str(arg_dict["myorder"]), "r"):
+			line = line.rstrip("\r\n")
+			leaf_order.append(line)
+		genome = genome.reindex(leaf_order)
 
 	if arg_dict['vizoption'] == 'static':
 		from .KEGG_clustering import hClust_euclidean
-		if len(genome.index) >= 2:
+		if len(genome.index) >= 2 and not rearrange:
 			genome = hClust_euclidean(genome)
 		default_viz(genome, os.path.splitext(filehandle)[0] + ".svg")
 	if arg_dict['vizoption'] == 'interactive':

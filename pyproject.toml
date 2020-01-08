@@ -9,14 +9,14 @@ author-email = "tully.bj@gmail.com"
 home-page = "https://github.com/bjtully/BioData/KEGGDecoder"
 classifiers = ["License :: OSI Approved :: MIT License"]
 requires = [
-    "matplotlib",
-    "seaborn",
-    "pandas",
-    "numpy",
-    "plotly",
-    "tanglegram",
-    "biopython",
-    "scipy"
+    "matplotlib==3.0.3",
+    "seaborn==0.9.0",
+    "pandas==0.25.2",
+    "numpy==1.17.3",
+    "plotly==4.2.1",
+    "tanglegram==0.1.0",
+    "biopython==1.74",
+    "scipy==1.3.1",
 ]
 
 [tool.flit.scripts]
