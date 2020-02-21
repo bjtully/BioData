@@ -27,6 +27,7 @@ If you find that using KEGG Decoder to process your data has been useful, please
 
 ## Installation ##
 ```
+python3 -m pip install wheel
 python3 -m pip install KEGGDecoder
 ```
 
