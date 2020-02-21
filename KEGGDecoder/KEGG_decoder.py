@@ -1,7 +1,18 @@
 #!/usr/bin/python
 
 '''
-KEGG-decoder.py V.1.0.5
+KEGG-decoder.py V.1.0.10
+V.1.0.10
+Add the biosynthesis of the 20 amino acids - represented as the last
+step in the pathway
+KEGG-decoder.py V.1.0.8.2
+V.1.0.8
+Several recent updates have improved all three outputs for visualization
+expanded further in the ReadMe note. Additionally, a correction to 
+determining the completeness of ubiquinol-cytochrome c reductase. Previously,
+only checked for the presence of K00411 and K00410. K00410 is a fusion of
+K00412 and K00413 only present in a subset of Proteobacteria. Identified
+by Grayson Chadwick
 V.1.0.5
 Added tanglegram correction for minimizing euclidean distance
 V.1.0.4
@@ -818,6 +829,8 @@ def oxidative_phoshorylation(ko_match):
 	for i in nuo_ko:
 		if i in ko_match:
 			out_data['NADH-quinone oxidoreductase'] += 0.07
+	value = out_data['NADH-quinone oxidoreductase']
+	out_data['NADH-quinone oxidoreductase'] = float("%.2f" % (value))
 #ndcABCDEFGHIJKLMN
 	ndc_ko = ['K05574', 'K05582', 'K05581', 'K05579',
 	'K05572', 'K05580', 'K05578', 'K05576',
@@ -852,12 +865,15 @@ def oxidative_phoshorylation(ko_match):
 		if i in ko_match:
 			out_data['Cytochrome aa3-600 menaquinol oxidase'] += 0.25
 #petA,fbcH; ubiquinol-cytochrome c reductase 
-	ubiquinol_ko = ['K00411', 'K00410']
-	for i in ubiquinol_ko:
-		if i in ko_match:
-			out_data['Ubiquinol-cytochrome c reductase'] += 0.5
-	value = out_data['NADH-quinone oxidoreductase']
-	out_data['NADH-quinone oxidoreductase'] = float("%.2f" % (value))
+#petA,petB,petC; ubiquinol-cytochrome c reductase
+	if ('K00411' in ko_match) and ('K00410' in ko_match):
+		out_data['Ubiquinol-cytochrome c reductase'] = 1
+	else:
+		ubiquinol_ko = ['K00411', 'K00412', 'K00413']
+		for i in ubiquinol_ko:
+			if i in ko_match:
+				out_data['Ubiquinol-cytochrome c reductase'] += 0.33
+	
 #nqrABCDEF; Na+-transporting NADH:ubiquinone oxidoreductase
 	na_ubiquinone_ko = ['K00346', 'K00347', 'K00348', 'K00349',
 	'K00350', 'K00351']
@@ -866,7 +882,7 @@ def oxidative_phoshorylation(ko_match):
 			out_data['Na-NADH-ubiquinone oxidoreductase'] += 0.167
 	value = out_data['Na-NADH-ubiquinone oxidoreductase']
 	out_data['Na-NADH-ubiquinone oxidoreductase'] = float("%.2f" % (value))
-
+	
 	return out_data
 
 def photosynthesis(ko_match):
@@ -1247,6 +1263,85 @@ def metal_transport(ko_match):
 		out_data['Fe-Mn transporter MntH'] = 1.0
 	return out_data
 
+def amino_acids(ko_match):
+	out_data = {'histidine':0, 'arginine':0, 'lysine':0, 'serine':0, 
+	'threonine':0, 'asparagine': 0, 'glutamine': 0, 'cysteine':0,
+	'glycine':0, 'proline':0, 'alanine':0, 'valine':0, 
+	'methionine':0, 'phenylalanine': 0, 'isoleucine': 0, 'leucine':0,
+	'tryptophan':0, 'tyrosine': 0, 'aspartate': 0, 'glutamate':0}
+	# histidine
+	if 'K00013' in ko_match:
+		out_data['histidine'] = 1
+	# arginine
+	if ('K01755' in ko_match) or ('K14681' in ko_match):
+		out_data['arginine'] = 1
+	# asparagine
+	if ('K01913' in ko_match) or ('K01953' in ko_match):
+		out_data['asparagine'] = 1
+	# lysine
+	lysine = ['K01586', 'K12526', 'K05831', 'K00290']
+	for i in lysine:
+		if i in ko_match:
+			out_data['lysine'] = 1
+	# serine
+	serine = ['K01079', 'K02203', 'K02205']
+	for i in serine:
+		if i in ko_match:
+			out_data['serine'] = 1
+	if 'K00600' in ko_match:
+		out_data['serine'] = 1
+		out_data['glycine'] = 1
+	# threonine
+	if 'K01733' in ko_match:
+		out_data['threonine'] = 1
+	if 'K01620' in ko_match:
+		out_data['threonine'] = 1
+		out_data['glycine'] = 1
+	# glutamine
+	if 'K01915' in ko_match:
+		out_data['glutamine'] = 1
+	# cysteine
+	cysteine = ['K01758', 'K17217', 'K01738', 'K10150', 'K12339']
+	for i in cysteine:
+		if i in ko_match:
+			out_data['cysteine'] = 1
+	# proline
+	if ('K00286' in ko_match) or ('K01750' in ko_match):
+		out_data['proline'] = 1
+	# alanine
+	if ('K14260' in ko_match) or ('K09758' in ko_match):
+		out_data['alanine'] = 1
+	# valine & isoleucine
+	valine_isoleucine = ['K00826', 'K01687', 'K00053', 'K01652', 'K01653', 'K11258']
+	for i in valine_isoleucine:
+		if i in ko_match:
+			out_data['valine'] += 0.166
+			out_data['isoleucine'] += 0.166
+	# leucine
+	leucine = ['K00826', 'K00052', 'K01703', 'K01649']
+	for i in leucine:
+		if i in ko_match:
+			out_data['leucine'] += 0.25
+	# methionine
+	if ('K00549' in ko_match) or ('K00548' in ko_match):
+		out_data['methionine'] = 1
+	# phenylalanine & tyrosine
+	if ('K00832' in ko_match) or ('K00838' in ko_match):
+		out_data['phenylalanine'] = 1
+		out_data['tyrosine'] = 1
+	# tryptophan
+	if 'K01695' in ko_match:
+		out_data['tryptophan'] += 0.5
+	if ('K01696' in ko_match) or ('K06001' in ko_match):
+		out_data['tryptophan'] += 0.5
+	# aspartate & glutamate
+	aspartate_glutamate = ['K00811', 'K00812', 'K00813', 'K11358', 'K14454', 'K14455']
+	for i in aspartate_glutamate:
+		if i in ko_match:
+			out_data['aspartate'] = 1
+			out_data['glutamate'] = 1
+
+	return out_data
 
 def default_viz(genome_df, outfile_name):
 	import seaborn as sns
@@ -1372,7 +1467,11 @@ def main():
 	'Cobalt transporter CorA', 'Nickel ABC-type substrate-binding NikA',
 	'Copper transporter CopA', 'Ferrous iron transporter FeoB',
 	'Ferric iron ABC-type substrate-binding AfuA',
-	'Fe-Mn transporter MntH']
+	'Fe-Mn transporter MntH', 'histidine', 'arginine', 'lysine', 'serine', 
+	'threonine', 'asparagine', 'glutamine', 'cysteine',
+	'glycine', 'proline', 'alanine', 'valine', 
+	'methionine', 'phenylalanine', 'isoleucine', 'leucine',
+	'tryptophan', 'tyrosine', 'aspartate', 'glutamate']
 
 
 	filehandle = str(arg_dict['output'])
@@ -1416,6 +1515,7 @@ def main():
 		pathway_data.update(serine(genome_data[k]))
 		pathway_data.update(arsenic(genome_data[k]))
 		pathway_data.update(metal_transport(genome_data[k]))
+		pathway_data.update(amino_acids(genome_data[k]))
 	#    print k, pathway_data
 
 		out_string = str(k)+"\t"

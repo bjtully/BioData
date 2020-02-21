@@ -596,4 +596,33 @@ Metal Transporters
 	K04759	ferrous iron transporter FeoB
 	K02012	ferric iron ABC transporter, substrate-binding AfuA
 	K03322	Fe-Mn transporter protein MntH
+
+Amino acid biosynthesis
+	Version.1.0.6. Emphasize only the final processing step - essentially ask the question "Is the final step to convert the
+	last precusor to the final amino acid present?" For multiple subunit proteins, all subunits must be present.
+	K00013	hisD; histidinol dehydrogenase 	histidine - positive charge
+	K01755	argH; argininosuccinate lyase OR K14681 argHA argininosuccinate lyase / amino-acid N-acetyltransferase	arginine - positive charge
+	K01586  lysA; diaminopimelate decarboxylaselysine OR K12526 lysAC; bifunctional diaminopimelate decarboxylase / aspartate kinase OR K05831 lysK [amino group carrier protein]-lysine/ornithine hydrolase OR K00290 LYS1; saccharopine dehydrogenase 	lysine - positive charge
+	K01079	serB; phosphoserine phosphatase OR K02203 thrH; phosphoserine / homoserine phosphotransferase OR psp; K22305 phosphoserine phosphatase OR K00600 glyA; glycine hydroxymethyltransferase	serine - polar uncharged side chain
+	K01733	thrC; threonine synthase OR K01620 ltaE; threonine aldolase	threonine - polar uncharged side chain
+	K01914	asnA; aspartate--ammonia ligase OR K01953 asnB; 	
+asparagine synthase (glutamine-hydrolysing)	asparagine - polar uncharged side chain
+	K01915	glnA; glutamine synthetase	glutamine - polar uncharged side chain
+	K12339	cysM; S-sulfo-L-cysteine synthase OR CTH; K01758 cystathionine gamma-lyase OR CTH; K17217 cystathionine gamma-lyase / homocysteine desulfhydrase OR cysO; K01738 cysteine synthase OR cysO; K10150 cysteine synthase / O-phosphoserine sulfhydrylase / cystathionine beta-synthase	cysteine - special cases
+	K00600	glyA; glycine hydroxymethyltransferase OR K01620 ltaE; threonine aldolase	glycine - special cases
+	K00286	proC; OR K01750 ocd; ornithine cyclodeaminasepyrroline-5-carboxylate reductase	proline - special cases
+	K14260	ala; alanine-synthesizing transaminase OR asdA; K09758 aspartate 4-decarboxylase	alanine - hydrophobic side chain
+	K00826	ilvE; branched-chain amino acid aminotransferase AND K01687 ilvD; dihydroxy-acid dehydratase isoleucine AND K00053; ilvC ketol-acid reductoisomerase AND K01652 ilvB; acetolactate synthase I/II/III large subunit AND K01653 ilvH; acetolactate synthase I/III small subunit AND K11258; ilvM acetolactate synthase II small subunit 	valine - hydrophobic side chain
+	K00549	metE; 5-methyltetrahydropteroyltriglutamate--homocysteine methyltransferase OR K00548 metH; 5-methyltetrahydrofolate--homocysteine methyltransferase	methionine - hydrophobic side chain
+	K00832	tyrB; aromatic-amino-acid transaminase OR K00838 ARO8; aromatic amino acid aminotransferase I / 2-aminoadipate transaminase	phenylalanine - hydrophobic side chain
+	K00826	ilvE; branched-chain amino acid aminotransferase AND K01687 ilvD; dihydroxy-acid dehydratase isoleucine AND K00053; ilvC ketol-acid reductoisomerase AND K01652 ilvB; acetolactate synthase I/II/III large subunit AND K01653 ilvH; acetolactate synthase I/III small subunit AND K11258; ilvM acetolactate synthase II small subunit 	isoleucine - hydrophobic side chain
+	K00826	ilvE; branched-chain amino acid aminotransferase AND K00052 leuB; 3-isopropylmalate dehydrogenase AND K01703 leuC; 3-isopropylmalate/(R)-2-methylmalate dehydratase large subunit AND K01649 leuA; 2-isopropylmalate synthase	leucine - hydrophobic side chain
+	K01695	trpA; tryptophan synthase alpha chain AND K01696 trpB; tryptophan synthase beta chain OR K06001 trpB; tryptophan synthase beta chain	tryptophan - hydrophobic side chain
+	K00832	tyrB; aromatic-amino-acid transaminase OR K00838 ARO8; aromatic amino acid aminotransferase I / 2-aminoadipate transaminase	tyrosine - hydrophobic side chain
+	K00811	ASP5; OR K00812 aspB; K00813 aspC; K11358 yhdR; K14454 GOT1; K14455 GOT2 aspartate aminotransferase	aspartate - negative charge
+	K00811	ASP5; OR K00812 aspB; K00813 aspC; K11358 yhdR; K14454 GOT1; K14455 GOT2 aspartate aminotransferase	glutamate - negative charge
+	
+	
+	
+	
 	
