@@ -1,7 +1,15 @@
 #!/usr/bin/python
 
 '''
-KEGG-decoder.py V.1.0.10
+KEGG-decoder.py V.1.1
+V.1.1
+Correcting typos identified by Chris Neely. Adding more complete
+pathways components for amino acid biosynthesis identified by
+Dr. Eric Webb
+phenylalanine added K01713 pheC; cyclohexadienyl dehydratase OR K05359 ADT; 
+arogenate/prephenate dehydratase OR K04518 pheA2; prephenate dehydratase
+tyrosine added K00220 tyrC; cyclohexadieny/prephenate dehydrogenase OR 
+K24018; cyclohexadieny/prephenate dehydrogenase OR K15226 tyrAa; arogenate dehydrogenase
 V.1.0.10
 Add the biosynthesis of the 20 amino acids - represented as the last
 step in the pathway
@@ -754,7 +762,7 @@ def thiamin(ko_match):
 		total += 1
 #THI20; hydroxymethylpyrimidine/phosphomethylpyrimidine kinase / thiaminase OR 
 #thiD; hydroxymethylpyrimidine/phosphomethylpyrimidine kinase
-	if ('K00877' in ko_match or 'K000941' in ko_match):
+	if ('K00877' in ko_match or 'K00941' in ko_match):
 		total += 1
 #thiE; thiamine-phosphate pyrophosphorylase OR 
 #thiDE; hydroxymethylpyrimidine kinase / phosphomethylpyrimidine kinase / thiamine-phosphate diphosphorylase OR 
@@ -894,7 +902,7 @@ def photosynthesis(ko_match):
 	for i in psII:
 		if i in ko_match:
 			out_data['Photosystem II'] += 0.167
-	psI = ['K02689', 'K02690', 'K026891', 'K02692', 'K02693', 'K02694', 'K02696',
+	psI = ['K02689', 'K02690', 'K02691', 'K02692', 'K02693', 'K02694', 'K02696',
 			'K02697', 'K02698', 'K02699', 'K02700', 'K08905', 'K02695', 'K02701',
 			'K14332', 'K02702']
 #Photosystem I
@@ -1309,7 +1317,7 @@ def amino_acids(ko_match):
 	if ('K00286' in ko_match) or ('K01750' in ko_match):
 		out_data['proline'] = 1
 	# alanine
-	if ('K14260' in ko_match) or ('K09758' in ko_match):
+	if ('K14260' in ko_match) or ('K09758' in ko_match) or ('K00259' in ko_match) or ('K19244' in ko_match):
 		out_data['alanine'] = 1
 	# valine & isoleucine
 	valine_isoleucine = ['K00826', 'K01687', 'K00053', 'K01652', 'K01653', 'K11258']
@@ -1328,6 +1336,12 @@ def amino_acids(ko_match):
 	# phenylalanine & tyrosine
 	if ('K00832' in ko_match) or ('K00838' in ko_match):
 		out_data['phenylalanine'] = 1
+		out_data['tyrosine'] = 1
+	#phenylalanine
+	if ('K04518' in ko_match) or ('K05359' in ko_match) or ('K01713' in ko_match):
+		out_data['phenylalanine'] = 1
+	#tyrosine
+	if ('K15226' in ko_match) or ('K24018' in ko_match) or ('K00220' in ko_match):
 		out_data['tyrosine'] = 1
 	# tryptophan
 	if 'K01695' in ko_match:
