@@ -7,6 +7,14 @@ Designed to parse through a KEGG-Koala outputs (including blastKOALA, ghostKOALA
 
 * if you are interested in certain pathway and the genes are listed in KEGG it is possible to add it to file (with some Python scripting)
 
+### KEGG-Decoder Demonstration and Hands-on tutorial ###
+
+[YouTube video](https://youtu.be/1v4UzjE7K2g?t=962) on how KEGG-Decoder intefaces with KEGG and how the heatmap if organized.
+
+Hands-on tutorial [![Binder](https://mybinder.org/badge_logo.svg)](https://gesis.mybinder.org/binder/v2/gh/biovcnet/bvcn-binder-kegg-koala/master?urlpath=lab)
+
+**Developed as part of the [BVCN](https://biovcnet.github.io/)**
+
 ### Please Cite ###
 If you find that using KEGG Decoder to process your data has been useful, please cite this manuscript. If you are using KEGG Decoder to make figures then definitely cite this manuscript!
 
