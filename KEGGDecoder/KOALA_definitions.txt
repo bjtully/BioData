@@ -1,4 +1,9 @@
 
+V.1.2
+Added several new pathways including PET degradation, carbon storage,
+related to starch/gylcogen & polyhydroxybutyrate, and posphate storage,
+related to the reversible polyphosphate reaction. Part of summer research
+with Sheyla Aviles.
 V.1.1
 Correcting typos identified by Chris Neely. Adding more complete
 pathways components for amino acid biosynthesis identified by
@@ -653,6 +658,35 @@ asparagine synthase (glutamine-hydrolysing)	asparagine - polar uncharged side ch
 	K00811	ASP5; OR K00812 aspB; K00813 aspC; K11358 yhdR; K14454 GOT1; K14455 GOT2 aspartate aminotransferase	glutamate - negative charge
 	
 	
-	
-	
+Polyethylene terephthalate degradation
+	K21104	poly(ethylene terephthalate) hydrolase
+	K21105	mono(ethylene terephthalate) hydrolase
+	K18074	tphA2; terephthalate 1,2-dioxygenase oxygenase component alpha subunit AND K18075 tphA3; terephthalate 1,2-dioxygenase oxygenase component beta subunit OR K18077	tphA1; terephthalate 1,2-dioxygenase reductase component
+	K18076	tphB; 1,2-dihydroxy-3,5-cyclohexadiene-1,4-dicarboxylate dehydrogenase
+
+Storage carbon (starch/glycogen) and phosphorous (polyphosphate)
+	STARCH Synthesis
+	K00703	glgA; starch synthase
+	K00975	glgC; glucose-1-phosphate adenylyltransferase
+	K00700	glgB; 1,4-alpha-glucan branching enzyme OR K16149 1,4-alpha-glucan branching enzyme
+	STARCH Degradation -- any pathway that converts glycogen will be included. Only recording 1 instance of transformation.
+	starch > glucose-6P
+		K00688	glgP; glycogen phosphorylase OR K16153 glycogen phosphorylase/synthase OR K00705 malQ; 4-alpha-glucanotransferase OR K22451 jgt; 4-alpha-glucanotransferase OR K02438 glgX; glycogen debranching enzyme OR K01200 pulA; pullulanase
+	starch > D-glucose
+		K21574	susB; glucan 1,4-alpha-glucosidase
+	starch > cyclodextrin
+		K00701	cgt; cyclomaltodextrin glucanotransferase
+	starch > maltodextrin
+		K01214	treX; isoamylase
+	starch > dextrin
+		K01176	amyA; alpha-amylase OR K07405 alpha-amylase OR K05343 treS; maltose alpha-D-glucosyltransferase / alpha-amylase
+		K01177	beta-amylase
+		K05992	amyM; maltogenic alpha-amylase OR K01208 nplT; cyclomaltodextrinase / maltogenic alpha-amylase / neopullulanase
+	POLYPHOSPHATE bidirectional
+	K00937	ppk; polyphosphate kinase OR K22468 ppk2; polyphosphate kinase
+	K01507	ppa; inorganic pyrophosphatase OR K15986 ppaC; manganese-dependent inorganic pyrophosphatase OR K06019 ppaX; pyrophosphatase PpaX
+	PHA/PHB synthesis/degradation
+	K00023	phbB; acetoacetyl-CoA reductase
+	K00626	phaA; acetyl-CoA C-acetyltransferase AND K03821 phaC; polyhydroxyalkanoate synthase subunit PhaC AND K22881 phaE; polyhydroxyalkanoate synthase subunit PhaE
+
 	

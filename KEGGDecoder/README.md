@@ -123,6 +123,15 @@ python Decode_and_Expand.py <FUNCTION_OUT.list> <HMM_OUT.list>
 
 Change Log
 ================================================================
+## V1.2
+Added several new pathways including:
+
+* PET degradation
+* carbon storage, related to starch/gylcogen & polyhydroxybutyrate
+* posphate storage, related to the reversible polyphosphate reaction. 
+
+Part of summer research with Sheyla Aviles.
+
 ## V1.1
 Correcting typos identified by Chris Neely. Adding more complete
 pathways components for amino acid biosynthesis identified by
@@ -131,7 +140,7 @@ Dr. Eric Webb
 * phenylalanine added K01713 pheC; cyclohexadienyl dehydratase OR K05359 ADT; arogenate/prephenate dehydratase OR K04518 pheA2; prephenate dehydratase
 * tyrosine added K00220 tyrC; cyclohexadieny/prephenate dehydrogenase OR K24018; cyclohexadieny/prephenate dehydrogenase OR K15226 tyrAa; arogenate dehydrogenase
 
-## V1.0.10##
+## V1.0.10 ##
 Added the 20 amino acids. In most instances, only the last step in converting precusor to amino acid is assessed (except for valine, isoleucine, leucine, and tryptophan). The following amino acids share detection pathways:
 
 * serine & glycine

@@ -1,7 +1,12 @@
 #!/usr/bin/python
 
 '''
-KEGG-decoder.py V.1.1
+KEGG-decoder.py V.1.2
+V.1.2
+Added several new pathways including PET degradation, carbon storage,
+related to starch/gylcogen & polyhydroxybutyrate, and posphate storage,
+related to the reversible polyphosphate reaction. Part of summer research
+with Sheyla Aviles.
 V.1.1
 Correcting typos identified by Chris Neely. Adding more complete
 pathways components for amino acid biosynthesis identified by
@@ -1357,6 +1362,78 @@ def amino_acids(ko_match):
 
 	return out_data
 
+def plastic(ko_match):
+	out_data = {"PET degradation": 0}
+	#poly(ethylene terephthalate) hydrolase
+	#mono(ethylene terephthalate) hydrolase
+	#1,2-dihydroxy-3,5-cyclohexadiene-1,4-dicarboxylate dehydrogenase
+	petdeg = ["K21104", "K21105", "K18076"]
+	for i in petdeg:
+		if i in ko_match:
+			out_data["PET degradation"] += 0.25
+	#terephthalate 1,2-dioxygenase oxygenase
+	#two possible versions
+	if ("K18077" in ko_match) or ("K18074" in ko_match and "K18075" in ko_match):
+		out_data["PET degradation"] += 0.25
+
+	return out_data
+
+def carbon_storage(ko_match):
+    out_data = {'starch/glycogen synthesis': 0, 'starch/glycogen degradation': 0, 'polyhydroxybutyrate synthesis': 0}
+    # starch synthesis
+    carbonsto = ["K00703", "K00975"]
+    for i in carbonsto:
+        if i in ko_match:
+            out_data["starch/glycogen synthesis"] += 0.33
+
+    if ('K00700' in ko_match) or ('K16149' in ko_match):
+        out_data['starch/glycogen synthesis'] += 0.33
+    #starch > D-glucose
+		#K21574	susB; glucan 1,4-alpha-glucosidase
+    if ('K21574' in ko_match):
+        out_data['starch/glycogen degradation'] = 1
+    #starch > cyclodextrin
+    #K00701	cgt; cyclomaltodextrin glucanotransferase
+    if ('K00701' in ko_match):
+        out_data['starch/glycogen degradation'] = 1
+    #starch > maltodextrin
+    #K01214	treX; isoamylase
+    if ('K01214' in ko_match):
+        out_data['starch/glycogen degradation'] = 1
+    #starch > glucose-6P
+    if ('K00688' in ko_match) or ('K16153' in ko_match) or ('K00705' in ko_match) or ('K22451' in ko_match) or ('K02438' in ko_match) or ('K01200' in ko_match):
+        out_data['starch/glycogen degradation'] = 1
+    #starch > dextrin
+    #alpha-amlyase
+    if ('K01176' in ko_match) or ('K05343' in ko_match):
+        out_data['starch/glycogen degradation'] = 1
+    #beta-amlyase
+    if 'K01177' in ko_match:
+        out_data['starch/glycogen degradation'] = 1
+    #maltogenic alpha-amylase
+    if ('K05992' in ko_match) or ('K01208' in ko_match):
+        out_data['starch/glycogen degradation'] = 1
+    if ('K00023' in ko_match):
+        out_data['polyhydroxybutyrate synthesis'] += 0.5
+    phb = ['K00626', 'K03821', 'K22881']
+    for i in phb:
+        if i in ko_match:
+            out_data['polyhydroxybutyrate synthesis'] += 0.167
+
+    return out_data
+
+
+def phosphate_storage(ko_match):
+    out_data = {'bidirectional polyphosphate': 0}
+
+    if ('K00937' in ko_match) or ('K22468' in ko_match):
+        out_data['bidirectional polyphosphate'] += 0.5
+    if ('K01507' in ko_match) or ('K15986' in ko_match) or ('K06019' in ko_match):
+        out_data['bidirectional polyphosphate'] += 0.5
+
+    return out_data
+
+
 def default_viz(genome_df, outfile_name):
 	import seaborn as sns
 	import matplotlib.pyplot as plt
@@ -1485,7 +1562,9 @@ def main():
 	'threonine', 'asparagine', 'glutamine', 'cysteine',
 	'glycine', 'proline', 'alanine', 'valine', 
 	'methionine', 'phenylalanine', 'isoleucine', 'leucine',
-	'tryptophan', 'tyrosine', 'aspartate', 'glutamate']
+	'tryptophan', 'tyrosine', 'aspartate', 'glutamate', 'PET degradation',
+	'starch/glycogen synthesis', 'starch/glycogen degradation', 'polyhydroxybutyrate synthesis',
+	'bidirectional polyphosphate']
 
 
 	filehandle = str(arg_dict['output'])
@@ -1530,6 +1609,9 @@ def main():
 		pathway_data.update(arsenic(genome_data[k]))
 		pathway_data.update(metal_transport(genome_data[k]))
 		pathway_data.update(amino_acids(genome_data[k]))
+		pathway_data.update(plastic(genome_data[k]))
+		pathway_data.update(carbon_storage(genome_data[k]))
+		pathway_data.update(phosphate_storage(genome_data[k]))
 	#    print k, pathway_data
 
 		out_string = str(k)+"\t"
@@ -1562,14 +1644,17 @@ def main():
 
 	if arg_dict['vizoption'] == 'static':
 		from .KEGG_clustering import hClust_euclidean
+		#from KEGG_clustering import hClust_euclidean
 		if len(genome.index) >= 2 and not rearrange:
 			genome = hClust_euclidean(genome)
 		default_viz(genome, os.path.splitext(filehandle)[0] + ".svg")
 	if arg_dict['vizoption'] == 'interactive':
 		from .Plotly_viz import plotly_viz
+		#from Plotly_viz import plotly_viz
 		plotly_viz(genome, os.path.splitext(filehandle)[0] + ".html")
 	if arg_dict['vizoption'] == 'tanglegram':
 		from .MakeTanglegram import make_tanglegram
+		#from MakeTanglegram import make_tanglegram
 		if len(genome.index) >= 3:
 			make_tanglegram(genome, str(arg_dict['newick']), os.path.splitext(filehandle)[0] + ".tanglegram.svg", int(arg_dict["tangleopt"]))
 		else:
