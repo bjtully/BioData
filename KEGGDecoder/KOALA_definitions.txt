@@ -107,7 +107,7 @@ Reverse TCA cycle display completeness of TCA cycle, check for essential gene co
 Wood-Ljungdahl pathway requires some essential genes and pathway fraction:
 		Essential:
 		Option 1 (when fused) - acetyl-CoA decarbonylase/synthase complex subunit alpha K00192 AND carbon-monoxide dehydrogenase K00198 + K00196 OR carbon-monoxide dehydrogenase K03520 + K03518 + K03519
-		Option 2 - CO-methylating acetyl-CoA synthase K14138 AND carbon-monoxide dehydrogenase K00198 + K03518 + K03519 + K03520
+		Option 2 - CO-methylating acetyl-CoA synthase K14138 AND carbon-monoxide dehydrogenase K00198 + K00196 OR carbon-monoxide dehydrogenase K03520 + K03518 + K03519
 		Methyl branch:
 		formate dehydrogenase K05299 + K15022
 		formate--tetrahydrofolate ligase K01938
