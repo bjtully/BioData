@@ -1,4 +1,7 @@
 
+V.1.2.1
+Added all-trans-8'-apo-beta-carotenal 15,15'-oxygenase which will cleave
+apo-carotenals to generate retinal. Upstream pathway unknown
 V.1.2
 Added several new pathways including PET degradation, carbon storage,
 related to starch/gylcogen & polyhydroxybutyrate, and posphate storage,
@@ -388,6 +391,8 @@ Photosynthesis
 		K02291 crtB; 15-cis-phytoene/all-trans-phytoene synthase 
 		K10027 crtI; phytoene desaturase 
 		K13789 crtE; geranylgeranyl diphosphate synthase, type II
+	Retinal produced via cleavage from apo-carotenols
+		K00464 diox1; all-trans-8'-apo-beta-carotenal 15,15'-oxygenase 
 
 Entner-Doudoroff Pathway (to generate pyruvate, alt to glycolysis)
 	K00036 G6PD; glucose-6-phosphate 1-dehydrogenase

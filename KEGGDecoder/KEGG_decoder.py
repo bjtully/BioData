@@ -1,7 +1,12 @@
 #!/usr/bin/python
 
 '''
-KEGG-decoder.py V.1.2
+KEGG-decoder.py V.1.2.1
+V.1.2.1
+Fixed typo in determing reverse TCA cycle as identified by KEGG-Decoder
+user Cheng. Added all-trans-8'-apo-beta-carotenal 15,15'-oxygenase 
+which will cleave apo-carotenals to generate retinal. Suggested by Eric Webb.
+Upstream pathway unknown
 V.1.2
 Added several new pathways including PET degradation, carbon storage,
 related to starch/gylcogen & polyhydroxybutyrate, and posphate storage,
@@ -263,7 +268,7 @@ def reverse_tca(ko_match):
 	if ('K15230' in ko_match and 'K15231' in ko_match):
 		out_data['rTCA Cycle'] = 1
 #citryl-CoA synthetase AND citryl-CoA lyase
-	if ('K15232' in ko_match and 'K15232' in ko_match and 'K15234' in ko_match):
+	if ('K15232' in ko_match and 'K15233' in ko_match and 'K15234' in ko_match):
 		out_data['rTCA Cycle'] = 1
 	return out_data
 
@@ -901,7 +906,7 @@ def oxidative_phoshorylation(ko_match):
 def photosynthesis(ko_match):
 	out_data = {'Photosystem II':0, 'Photosystem I':0, 'Cytochrome b6/f complex':0,
 	"anoxygenic type-II reaction center":0, "anoxygenic type-I reaction center":0,
-	'Retinal biosynthesis':0}
+	'Retinal biosynthesis':0, 'Retinal from apo-carotenals': 0}
 	psII = ['K02703', 'K02706', 'K02705', 'K02704', 'K02707', 'K02708']
 #Photosystem II core complex
 	for i in psII:
@@ -935,7 +940,12 @@ def photosynthesis(ko_match):
 	for i in retinal:
 		if i in ko_match:
 			out_data['Retinal biosynthesis'] += 0.25
+#Retinal production from apo-carotenals
+	if ('K00464' in ko_match):
+		out_data['Retinal from apo-carotenals'] = 1
 	return out_data
+
+
 
 
 def entnerdoudoroff(ko_match):
@@ -1536,7 +1546,7 @@ def main():
 	'dimethylamine/trimethylamine dehydrogenase',
 	'Photosystem II', 'Photosystem I', 'Cytochrome b6/f complex',
 	'anoxygenic type-II reaction center', 'anoxygenic type-I reaction center',
-	'Retinal biosynthesis',
+	'Retinal biosynthesis', 'Retinal from apo-carotenals',
 	'Entner-Doudoroff Pathway', 'Mixed acid: Lactate', 'Mixed acid: Formate',
 	'Mixed acid: Formate to CO2 & H2', 'Mixed acid: Acetate',
 	'Mixed acid: Ethanol, Acetate to Acetylaldehyde',

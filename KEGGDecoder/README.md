@@ -123,6 +123,14 @@ python Decode_and_Expand.py <FUNCTION_OUT.list> <HMM_OUT.list>
 
 Change Log
 ================================================================
+## V1.2.1
+Fixed typo in determing reverse TCA cycle as identified by KEGG-Decoder
+user Cheng. Issue #52
+
+Added all-trans-8'-apo-beta-carotenal 15,15'-oxygenase 
+which will cleave apo-carotenals to generate retinal. Suggested by Eric Webb.
+Upstream pathway unknown
+
 ## V1.2
 Added several new pathways including:
 
