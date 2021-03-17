@@ -305,7 +305,7 @@ def wood_ljungdahl(ko_match):
 def three_prop(ko_match):
 	total = 0
 #pyruvate ferredoxin oxidoreductase alpha and beta subunits
-	if ('K00168' in ko_match and 'K00170' in ko_match):
+	if ('K00169' in ko_match and 'K00170' in ko_match):
 		total +=1
 #pyruvate dikinase
 	if ('K01006' in ko_match or 'K01007' in ko_match):
