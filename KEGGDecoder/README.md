@@ -123,6 +123,13 @@ python Decode_and_Expand.py <FUNCTION_OUT.list> <HMM_OUT.list>
 
 Change Log
 ================================================================
+## V1.3
+Added several pathways associated with carotenoid biosynthesis, including
+end-products: astaxanthin, nostoxanthin, zeaxanthin diglucoside, & 
+myxoxanthophylls. Plus, staphyloaxanthin biosynthesis and the two pathways for
+terpenoid building blocks, the mevalonate pathway and the MEP/DOXP pathway.
+
+The pathways were provided by Dr. Tania Kurbessoian
 ## V1.2.1
 Fixed typo in determing reverse TCA cycle as identified by KEGG-Decoder
 user Cheng. Issue #52

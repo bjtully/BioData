@@ -1,7 +1,13 @@
 #!/usr/bin/python
 
 '''
-KEGG-decoder.py V.1.2.1
+KEGG-decoder.py V.1.3
+V.1.3
+Added several pathways associated with carotenoid biosynthesis, including
+end-products: astaxanthin, nostoxanthin, zeaxanthin diglucoside, & 
+myxoxanthophylls. Plus, staphyloaxanthin biosynthesis and the two pathways for
+terpenoid building blocks, the mevalonate pathway and the MEP/DOXP pathway.
+The pathways were provided by Dr. Tania Kurbessoian
 V.1.2.1
 Fixed typo in determing reverse TCA cycle as identified by KEGG-Decoder
 user Cheng. Added all-trans-8'-apo-beta-carotenal 15,15'-oxygenase 
@@ -1443,6 +1449,46 @@ def phosphate_storage(ko_match):
 
     return out_data
 
+def carotenoids(ko_match):
+	out_data = {'carotenoids backbone biosynthesis':0, 'end-product astaxanthin':0,
+	'end-product nostoxanthin':0, 'end-product zeaxanthin diglucoside':0, 
+	'end-product myxoxanthophylls': 0, 'staphyloaxanthin biosynthesis':0,
+	'mevalonate pathway': 0, 'MEP-DOXP pathway':0}
+
+	staphyloaxanthin = ['K10208', 'K10209', 'K10210', 'K00128',
+	'K10211', 'K10212']
+	for i in staphyloaxanthin:
+		if i in ko_match:
+			out_data['staphyloaxanthin biosynthesis'] += 0.167
+	mevalonate = ['K01641', 'K00054', 'K00869','K00938', 'K01597']
+	for i in mevalonate:
+		if i in ko_match:
+			out_data['mevalonate pathway'] += 0.2
+	mepdoxp = ['K01662', 'K00099', 'K00991', 'K00919', 'K01770',
+	'K03526', 'K03527']
+	for i in mepdoxp:
+		if i in ko_match:
+			out_data['MEP-DOXP pathway'] += 0.142
+	backbone = ['K23155', 'K02291', 'K02291', 'K00514']
+	for i in backbone:
+		if i in ko_match:
+			out_data['carotenoids backbone biosynthesis'] += 0.2
+	if ('K06443' in ko_match) or ('K14606' in ko_match):
+		out_data['carotenoids backbone biosynthesis'] += 0.2
+	if ('K02294' in ko_match):
+		out_data['end-product nostoxanthin'] = 1
+	if ('K02294' in ko_match) and ('K14596' in ko_match):
+		out_data['end-product zeaxanthin diglucoside'] = 1
+	if ('K09836' in ko_match) or ('K02292' in ko_match):
+		out_data['end-product astaxanthin'] = 1
+	myxoxanthophylls = ['K08977', 'K02294', 'K00721']
+	for i in myxoxanthophylls:
+		if i in ko_match:
+			out_data['end-product myxoxanthophylls'] += 0.33
+
+	return out_data
+
+
 
 def default_viz(genome_df, outfile_name):
 	import seaborn as sns
@@ -1574,7 +1620,10 @@ def main():
 	'methionine', 'phenylalanine', 'isoleucine', 'leucine',
 	'tryptophan', 'tyrosine', 'aspartate', 'glutamate', 'PET degradation',
 	'starch/glycogen synthesis', 'starch/glycogen degradation', 'polyhydroxybutyrate synthesis',
-	'bidirectional polyphosphate']
+	'bidirectional polyphosphate', 'carotenoids backbone biosynthesis', 
+	'end-product astaxanthin', 'end-product nostoxanthin', 'end-product zeaxanthin diglucoside', 
+	'end-product myxoxanthophylls', 'staphyloaxanthin biosynthesis',
+	'mevalonate pathway', 'MEP-DOXP pathway']
 
 
 	filehandle = str(arg_dict['output'])
@@ -1622,6 +1671,7 @@ def main():
 		pathway_data.update(plastic(genome_data[k]))
 		pathway_data.update(carbon_storage(genome_data[k]))
 		pathway_data.update(phosphate_storage(genome_data[k]))
+		pathway_data.update(carotenoids(genome_data[k]))
 	#    print k, pathway_data
 
 		out_string = str(k)+"\t"

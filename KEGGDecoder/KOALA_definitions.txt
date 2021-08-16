@@ -1,4 +1,10 @@
 
+V.1.3
+Added several pathways associated with carotenoid biosynthesis, including
+end-products: astaxanthin, nostoxanthin, zeaxanthin diglucoside, & 
+myxoxanthophylls. Plus, staphyloaxanthin biosynthesis and the two pathways for
+terpenoid building blocks, the mevalonate pathway and the MEP/DOXP pathway.
+The pathways were provided by Dr. Tania Kurbessoian
 V.1.2.1
 Added all-trans-8'-apo-beta-carotenal 15,15'-oxygenase which will cleave
 apo-carotenals to generate retinal. Upstream pathway unknown
@@ -694,4 +700,45 @@ Storage carbon (starch/glycogen) and phosphorous (polyphosphate)
 	K00023	phbB; acetoacetyl-CoA reductase
 	K00626	phaA; acetyl-CoA C-acetyltransferase AND K03821 phaC; polyhydroxyalkanoate synthase subunit PhaC AND K22881 phaE; polyhydroxyalkanoate synthase subunit PhaE
 
+Carotenoids
+	Terpenoid backbone biosynthesis has two biosynthetic pathways:
+	Mevalonate pathway 
+		K01641	hmgs; HMG-CoA synthase
+		K00054	mvaA; hydroxymethylglutaryl-CoA reductase
+		K00869	mvaK1; mevalonate kinase
+		K00938	mvaK2; phosphomevalonate kinase
+		K01597	mvaD; mevalonate-PP decarboxylase
+	MEP/DOXP pathway
+		K01662	dxs; DOXP synthase
+		K00099	ispC; DOXP reductoisomerase
+		K00991	ispD; CDP-ME synthase
+		K00919	ispE; CDP-ME kinase
+		K01770	ispF; MEcPP synthase
+		K03526	ispG; HMB-PP synthase
+		K03527	ispH; HMB-PP reductase
+	Biosynthesis of staphyloaxanthin (some overlap with the carotenoids below, but with a different backbone)
+		K10208	crtM; 4,4'-diapophytoene synthase
+		K10209	crtN; 4,4'-diapophytoene desaturase 
+		K10210	crtP; diapolycopene oxygenase
+		K00128	AldH; aldehyde dehydrogenase
+		K10211	crtQ; 4,4'-diaponeurosporenoate glycosyltransferase
+		K10212	crtO; glycosyl-4,4'-diaponeurosporenoate acyltransferase
+	Carotenoid biosynthesis = for full functionality requires a complete "Backbone biosynthesis" + at least one of the end-product results
+	Backbone biosynthesis
+		K23155	crtE; GGPP synthase
+		K02291	crtB; phytoene synthase
+		K02291	crtI; phytoene desaturase
+		K00514	crtQ; phytoene desaturase
+		K06443	crtL; lycopene cyclase OR K14606 cruP; lycopene cyclase
+	End-product astaxanthin
+		K09836	crtW; beta-carotense ketolase OR K02292 crtO; beta-carotense ketolase
+	End-product nostoxanthin
+		K02294	crtR; beta-carotene hydroxylase
+	End-product zeaxanthin diglucoside
+		K02294	crtR; beta-carotene hydroxylase
+		K14596	crtX; zeaxanthin glucotransferase
+	End-product myxoxanthophylls (2-hydroxymyxol 2'-methylpentoside)
+		K08977	cruF; carotenoid 1,2-hydratase
+		K02294	crtR; beta-carotene hydroxylase
+		K00721	cruG; dolichol-phosphate mannosyltransferase
 	
