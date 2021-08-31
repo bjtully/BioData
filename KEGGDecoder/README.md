@@ -32,16 +32,18 @@ If you find that using KEGG Decoder to process your data has been useful, please
 * [tanglegram](https://github.com/schlegelp/tanglegram)
 
 ## Installation ##
-<strong>Recommend installing KEGG-Decoder in it virtual environment (conda or python). The current pip install will set the various dependencies (matplotlib, seaborn, pandas, etc.) to versions that actively work with this version of the script. This will likely revert several dependencies on your system to older versions. </strong>
-
-This is partially due to avoid a bug in matplotlib=3.0.4 that would cut the top and bottom line of the `static` image output.
+<strong>Recommend installing KEGG-Decoder in it virtual environment with PYTHON=3.6 (e.g., conda or python).</strong>
 
 ```
+conda create -n keggdecoder python=3.6
+conda activate keggdecoder
 python3 -m pip install KEGGDecoder
 ```
+The current pip install will set the various dependencies (matplotlib, seaborn, pandas, etc.) to versions that actively work with this version of the script. This is partially due to avoid a bug in matplotlib=3.0.4 that would cut the top and bottom line of the `static` image output.
 
 ## Upgrade ##
 ```
+conda activate keggdecoder
 pip install --upgrade KEGGDecoder
 ```
 
