@@ -1540,10 +1540,10 @@ def main():
 		line = line.rstrip()
 		info = line.split()
 		if len(info) > 1:
-			if info[0].split("_")[0] in genome_data.keys():
-				genome_data[info[0].split("_")[0]].append(info[1])
+			if info[0].rpartition("_")[0] in genome_data.keys():
+				genome_data[info[0].rpartition("_")[0]].append(info[1])
 			else:
-				genome_data[info[0].split("_")[0]] = [info[1]]
+				genome_data[info[0].rpartition("_")[0]] = [info[1]]
 
 	function_order = ['glycolysis', 'gluconeogenesis', 'TCA Cycle',
 	'NAD(P)H-quinone oxidoreductase', 'NADH-quinone oxidoreductase',
